@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 function Header() {
   return (
-    <header className="top-bar">
+    <header className="Header">
       <Link exact="true" to="/" className="header-left">
         <img className="logo-img" src={require('../images/logo.png')} alt="Palette pal logo of paint palette" />
         <h1 className="logo-text">Palette Pal</h1>

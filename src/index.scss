@@ -1,5 +1,9 @@
+@import './variables';
 @import './App/App';
+@import './ErrorScreen/ErrorScreen';
 @import './Header/Header';
+@import './SubHeader/SubHeader';
+@import './PickerScreen/PickerScreen';
 
 *,
 *::before,
@@ -10,6 +14,7 @@
 }
   
 body {
+  background: #F8F7F7;
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
@@ -17,4 +22,9 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.main {
+  min-height: calc(100vh - 102px);
+  position: relative;
 }
