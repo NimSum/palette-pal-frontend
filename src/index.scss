@@ -1,5 +1,8 @@
+@import './variables';
 @import './App/App';
+@import './ErrorScreen/ErrorScreen';
 @import './Header/Header';
+@import './SubHeader/SubHeader';
 
 *,
 *::before,
@@ -10,6 +13,7 @@
 }
   
 body {
+  background: #F8F7F7;
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
