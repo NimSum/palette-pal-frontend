@@ -9,7 +9,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <SubHeader />
       <main className="main">
         <Switch>
           <Route exact path="/" component={PickerScreen} />
