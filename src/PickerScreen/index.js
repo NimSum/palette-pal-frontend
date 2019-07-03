@@ -2,27 +2,51 @@ import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 
 class PickerScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      colors: []
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      colors: [
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor(),
+        this.getRandomColor()
+      ]
+    })
+  }
+
+  getRandomColor = () => {
+    return "#" + Math.random().toString(16).slice(2, 8);
+  }
 
   render() {
+    console.log(this.state.colors)
     return (
       <>
-        <SubHeader />
+        <SubHeader title="Pick New Palette"/>
         <section className="PickerScreen">
           <div className="palette-display">
-            <div className="color color1">
+            <div className="color" style={{ backgroundColor: this.state.colors[0] }}>
               <p className="color-value">#214046</p>
               <p className="hold"><i className="far fa-check-square"></i>HOLD</p>
             </div>
-            <div className="color color2">
+            <div className="color" style={{backgroundColor: this.state.colors[1]}}>
 
             </div>
-            <div className="color color3">
+            <div className="color" style={{ backgroundColor: this.state.colors[2] }}>
 
             </div>
-            <div className="color color4">
+            <div className="color" style={{ backgroundColor: this.state.colors[3] }}>
 
             </div>
-            <div className="color color5">
+            <div className="color" style={{ backgroundColor: this.state.colors[4] }}>
 
             </div>
           </div>
