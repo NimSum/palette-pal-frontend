@@ -11,9 +11,8 @@ function App() {
       <Header />
       <SubHeader />
       <main className="main">
-        <PickerScreen />
         <Switch>
-          {/* <Route exact path="/" component={PickerScreen} /> */}
+          <Route exact path="/" component={PickerScreen} />
           {/* <Route exact path="/" component={ProjectScreen} /> */}
           {/* <Route render={ErrorScreen} /> */}
         </Switch>

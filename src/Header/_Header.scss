@@ -31,13 +31,10 @@
   text-decoration: none;
   font-size: 14px;
   margin: 0 20px 0 35px;
-  opacity: .8;
   font-weight: 300;
-  height: 100%;
+  padding: 6px 0;
 
-  .active {
-    opacity: 1;
-    font-weight: 400;
-    border-bottom: 2px solid blue;
+  &:hover {
+    color: $btn-color;
   }
 }
