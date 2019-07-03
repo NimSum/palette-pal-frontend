@@ -1,0 +1,43 @@
+.top-bar {
+  height: 40px;
+  background: #1D1C1C;
+  border-bottom: 2px solid #4B5266;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  opacity: .9;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 32px;
+  margin: 5px;
+}
+
+.logo-text {
+  font-family: 'Pacifico', sans-serif;
+  color: white;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 0 45px;
+  opacity: .8;
+  font-weight: 300;
+  height: 100%;
+
+  .active {
+    opacity: 1;
+    font-weight: 400;
+    border-bottom: 2px solid blue;
+  }
+}
