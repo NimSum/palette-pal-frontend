@@ -12,7 +12,7 @@ class SubHeader extends Component {
       <section className="SubHeader">
         <div className="subheader-left">
           <h2 className="page-title">Pick New Palette</h2>
-          <button className="subheader-btn"><i class="fas fa-play"></i>Generate New Palette</button>
+          <button className="subheader-btn"><i className="fas fa-play" aria-hidden="true"></i>Generate New Palette</button>
         </div>
         <div className="subheader-right">
           <p className="dropdown-label">Values:</p> <select className="dropdown-input" type="text"/>

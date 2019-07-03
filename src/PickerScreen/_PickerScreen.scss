@@ -1,0 +1,94 @@
+.PickerScreen {
+	display: flex;
+	flex-direction: column;
+	min-height: calc(100vh - 230px);
+}
+
+.palette-display {
+	flex: auto;
+	display: flex;
+	width: 100%;
+
+	.color {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		position: relative;
+	}
+
+	.color1 {
+		background: #214046;
+	}
+
+	.color2 {
+		background: #05596a;
+	}
+
+	.color3 {
+		background: #6bcba5;
+	}
+
+	.color4 {
+		background: #9ee6a9;
+	}
+
+	.color5 {
+		background: #cbf3c3;
+	}
+
+	.color-value {
+		font-size: 20px;
+		color: white;
+		opacity: .3;
+	}
+
+	.hold {
+		font-size: 26px;
+    color: white;
+    font-weight: 600;
+		opacity: .4;
+		position: absolute;
+		bottom: 30px;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+.picker-footer {
+	background: white;
+	position: absolute;
+	bottom: 0;
+	height: 130px;
+	width: 100vw;
+	display: flex;
+	padding: 30px;
+	align-items: center;
+	justify-content: space-between;
+
+	.instructions {
+		font-size: 20px;
+		color: $grey-text;
+	}
+
+	.save-btn {
+		background: $btn-color;
+		font-size: 20px;
+		color: white;
+		padding: 10px 40px;
+		border-radius: 5px;
+
+		&:hover {
+			background: $btn-hover;
+			cursor: pointer;
+		}
+	}
+}
+
+.fa,
+.fas,
+.far {
+	margin-right: 8px;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import './_App.scss';
 import Header from '../Header';
 import SubHeader from '../SubHeader';
+import PickerScreen from '../PickerScreen';
 import { Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
     <div className="App">
       <Header />
       <SubHeader />
-      <main>
+      <main className="main">
+        <PickerScreen />
         <Switch>
           {/* <Route exact path="/" component={PickerScreen} /> */}
           {/* <Route exact path="/" component={ProjectScreen} /> */}
