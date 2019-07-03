@@ -11,6 +11,14 @@ class PickerScreen extends Component {
   }
 
   componentDidMount() {
+    this.generatePalette();
+  }
+
+  getRandomColor = () => {
+    return "#" + Math.random().toString(16).slice(2, 8);
+  }
+
+  generatePalette = () => {
     this.setState({
       colors: [
         this.getRandomColor(),
@@ -22,15 +30,10 @@ class PickerScreen extends Component {
     })
   }
 
-  getRandomColor = () => {
-    return "#" + Math.random().toString(16).slice(2, 8);
-  }
-
   render() {
-    console.log(this.state.colors)
     return (
       <>
-        <SubHeader title="Pick New Palette"/>
+        <SubHeader title="Pick New Palette" handleClick={this.generatePalette} />
         <section className="PickerScreen">
           <div className="palette-display">
             <div className="color" style={{ backgroundColor: this.state.colors[0] }}>

@@ -1,7 +1,6 @@
 import React from 'react';
 import './_App.scss';
 import Header from '../Header';
-import SubHeader from '../SubHeader';
 import PickerScreen from '../PickerScreen';
 import { Switch, Route } from 'react-router-dom';
 

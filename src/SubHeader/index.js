@@ -16,7 +16,7 @@ class SubHeader extends Component {
       <section className="SubHeader">
         <div className="subheader-left">
           <h2 className="page-title">{this.props.title}</h2>
-          <button className="subheader-btn"><i className="fas fa-play" aria-hidden="true"></i>Generate New Palette</button>
+          <button className="subheader-btn" onClick={this.props.handleClick}><i className="fas fa-play" aria-hidden="true"></i>Generate New Palette</button>
         </div>
         <div className="subheader-right">
           <p className="dropdown-label">Values:</p> <select className="dropdown-input" type="text"/>
