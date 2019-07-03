@@ -16,6 +16,10 @@ class Dialog extends Component {
   
   handleClick = e => {
     this.props.primaryAction(this.state);
+    this.setState({
+      paletteName: '',
+      project: ''
+    })
   }
 
   render() {
