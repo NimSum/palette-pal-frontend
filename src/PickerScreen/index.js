@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
-import PickerColor from '../PickerColor/PickerColor';
+import PickerColor from '../PickerColor';
 
 class PickerScreen extends Component {
   constructor(props) {
@@ -16,6 +16,11 @@ class PickerScreen extends Component {
 
   componentDidMount() {
     this.generatePalette();
+    window.addEventListener('keydown', this.refreshUnheldColors);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.refreshUnheldColors);
   }
 
   getRandomColor = () => {
@@ -44,9 +49,18 @@ class PickerScreen extends Component {
     this.setState({ held })
   }
 
-  refreshUnheldColors = () => {
-    const colors = Object.entries({ ...this.state.colors });
-    console.log(colors)
+  refreshUnheldColors = e => {
+    if (e.keyCode == 32) {
+    const colors = Object.entries(this.state.colors);
+    let updatedColors = { ...this.state.colors };
+
+    colors.forEach(color => {
+      if (!this.state.held.includes(color[0])) {
+        updatedColors[color[0]] = this.getRandomColor();
+      } 
+    })
+    this.setState({ colors: updatedColors });
+    }
   }
 
   closeDialog = () => {
@@ -88,7 +102,7 @@ class PickerScreen extends Component {
             {colors}
           </div>
           <div className="picker-footer">
-            <p className="instructions"><i className="fas fa-sync-alt" aria-hidden="true"></i>Press <strong>space</strong> to refresh unselected colors</p>
+            <p className="instructions"><i className="fas fa-sync-alt" aria-hidden="true"></i>Press <strong onClick={this.refreshUnheldColors}>space</strong> to refresh unselected colors</p>
             <button className="save-btn" onClick={() => this.setState({showSaveDialog: true})}>
               <i className="far fa-save" aria-hidden="true"></i>Save Palette
             </button>
