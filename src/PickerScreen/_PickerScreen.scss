@@ -17,44 +17,31 @@
 		position: relative;
 	}
 
-	.color1 {
-		background: #214046;
-	}
-
-	.color2 {
-		background: #05596a;
-	}
-
-	.color3 {
-		background: #6bcba5;
-	}
-
-	.color4 {
-		background: #9ee6a9;
-	}
-
-	.color5 {
-		background: #cbf3c3;
-	}
-
 	.color-value {
 		font-size: 20px;
 		color: white;
-		opacity: .3;
+		opacity: .5;
 	}
 
 	.hold {
 		font-size: 26px;
     color: white;
+		opacity: .5;
     font-weight: 600;
-		opacity: .4;
 		position: absolute;
 		bottom: 30px;
 		left: 0;
 		right: 0;
 		margin-left: auto;
 		margin-right: auto;
-	}
+  }
+  
+  // .hold, .color-value {
+  //   color: inherit;
+  //   // mix-blend-mode: difference;
+  //   // opacity: .7;
+  //   filter: brightness(25%);
+  // }
 }
 
 .picker-footer {
@@ -78,7 +65,8 @@
 		font-size: 20px;
 		color: white;
 		padding: 10px 40px;
-		border-radius: 5px;
+    border-radius: 5px;
+    border: none;
 
 		&:hover {
 			background: $btn-hover;

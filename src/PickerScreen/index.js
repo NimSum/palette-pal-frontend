@@ -41,7 +41,7 @@ class PickerScreen extends Component {
   }
 
   saveNewPalette = async details => {
-    const response = await fetch('http://localhost:5555/api/v1/palettes', {
+    const response = await fetch('http://localhost:30001/api/v1/palettes', {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
@@ -64,21 +64,22 @@ class PickerScreen extends Component {
         <SubHeader title="Pick New Palette" handleClick={this.generatePalette} btnTitle="Generate New Palette"/>
         <section className="PickerScreen">
           <div className="palette-display">
-            <div className="color" style={{ backgroundColor: this.state.colors.color_1 }}>
+            <div className="color" style={{ backgroundColor: this.state.colors.color_1, color: this.state.colors.color_1 }}>
               <p className="color-value">#214046</p>
               <p className="hold"><i className="far fa-check-square"></i>HOLD</p>
             </div>
-            <div className="color" style={{backgroundColor: this.state.colors.color_2}}>
+            <div className="color" style={{ backgroundColor: this.state.colors.color_2, color: this.state.colors.color_2}}>
 
             </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_3 }}>
+            <div className="color" style={{ backgroundColor: this.state.colors.color_3, color: this.state.colors.color_3 }}>
 
             </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_4 }}>
+            <div className="color" style={{ backgroundColor: this.state.colors.color_4, color: this.state.colors.color_4 }}>
 
             </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_5 }}>
-
+            <div className="color" style={{ backgroundColor: this.state.colors.color_5, color: this.state.colors.color_5 }}>
+              <p className="color-value">#214046</p>
+              <p className="hold"><i className="far fa-check-square"></i>HOLD</p>
             </div>
           </div>
           <div className="picker-footer">

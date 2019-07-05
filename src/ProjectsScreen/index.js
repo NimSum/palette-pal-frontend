@@ -2,12 +2,32 @@ import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 
 class ProjectsScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      projects: []
+    }
+  }
+
+  componentDidMount() {
+    this.getProjects();
+  }
+
+  getProjects = async () => {
+    const response = await fetch('https://palette-pal-be.herokuapp.com/api/v1/projects')
+
+    const projects = await response.json();
+    
+    this.setState({projects})
+  }
 
   createNewProject = () => {
     console.log('poop')
   }
 
   render() {
+    console.log('projects: ' + this.state.projects)
     return (
       <>
         <SubHeader title="My Projects" handleClick={this.createNewProject} btnTitle="Create New Project"/>
@@ -25,7 +45,7 @@ class ProjectsScreen extends Component {
               <div className="project-palettes">
                 {/* //below can go in ProjectPalette component */}
                 <div className="project-palette">
-                  <div className="color" style={{ backgroundColor: '#214046' }}>
+                  <div className="color" style={{ backgroundColor: '#214046', fontColor: '#214046'}}>
                     <p className="color-hex">#214046</p>
                   </div>
                   <div className="color" style={{ backgroundColor: '#05596A' }}>
