@@ -6,7 +6,7 @@ class Dialog extends Component {
 
     this.state = {
       paletteName: '',
-      project: '',
+      project: 0,
       newProject: ''
     }
   }
@@ -33,27 +33,23 @@ class Dialog extends Component {
     this.props.primaryAction(data);
     this.setState({
       paletteName: '',
-      project: '',
+      project: 0,
       newProject: ''
     })
   }
 
   render() {
-    const colors = Object.values(this.props.colors)
+    const colors = Object.values(this.props.colors);
+    const colorDivs = colors.map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);
 
     return (
       <div className="dialog-overlay">
         <div className="popup">
           <i className="fas fa-times" onClick={this.props.closeDialog}></i>
           <h3>Save New Palette</h3>
-          {/* <label htmlFor="palette-name-input">Palette Name:</label> */}
           <input className="dropdown-input palette-name-input" name="paletteName" placeholder="Enter Palette Name..." onChange={this.handleChange}></input>
           <div className="palette-preview">
-            <div className="preview-color" style={{ backgroundColor: colors[0] }}></div>
-            <div className="preview-color" style={{ backgroundColor: colors[1] }}></div>
-            <div className="preview-color" style={{ backgroundColor: colors[2] }}></div>
-            <div className="preview-color" style={{ backgroundColor: colors[3] }}></div>
-            <div className="preview-color" style={{ backgroundColor: colors[4] }}></div>
+            {colorDivs}
           </div>
           <label htmlFor="project">Choose A Project</label>
           <select className="dropdown-input project-input" name="project" onChange={this.handleChange}></select>
