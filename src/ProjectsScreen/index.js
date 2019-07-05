@@ -15,11 +15,18 @@ class ProjectsScreen extends Component {
   }
 
   getProjects = async () => {
-    const response = await fetch('https://palette-pal-be.herokuapp.com/api/v1/projects')
+    const projectFetch = await fetch('https://palette-pal-be.herokuapp.com/api/v1/projects')
+    let projects = await projectFetch.json();
 
-    const projects = await response.json();
+    const paletteFetch = await fetch('https://palette-pal-be.herokuapp.com/api/v1/palettes')
+    const palettes = await paletteFetch.json();
+
+    projects = projects.map(project => {
+      project.palettes = palettes.filter(pal => pal.project_id === project.id);
+      return project;
+    })
     
-    this.setState({projects})
+    this.setState({projects}, () => console.log(projects))
   }
 
   createNewProject = () => {
@@ -27,7 +34,6 @@ class ProjectsScreen extends Component {
   }
 
   render() {
-    console.log('projects: ' + this.state.projects)
     return (
       <>
         <SubHeader title="My Projects" handleClick={this.createNewProject} btnTitle="Create New Project"/>

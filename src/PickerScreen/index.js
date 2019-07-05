@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
+import PickerColor from '../PickerColor/PickerColor';
 
 class PickerScreen extends Component {
   constructor(props) {
@@ -58,29 +59,15 @@ class PickerScreen extends Component {
   render() {
     const saveDialog = this.state.showSaveDialog ? <Dialog closeDialog={this.closeDialog} primaryAction={this.saveNewPalette} /> : null;
 
+    const colors = Object.keys(this.state.colors).map(color => <PickerColor color={this.state.colors[color]} />);
+
     return (
       <>
         {saveDialog}
         <SubHeader title="Pick New Palette" handleClick={this.generatePalette} btnTitle="Generate New Palette"/>
         <section className="PickerScreen">
           <div className="palette-display">
-            <div className="color" style={{ backgroundColor: this.state.colors.color_1, color: this.state.colors.color_1 }}>
-              <p className="color-value">#214046</p>
-              <p className="hold"><i className="far fa-check-square"></i>HOLD</p>
-            </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_2, color: this.state.colors.color_2}}>
-
-            </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_3, color: this.state.colors.color_3 }}>
-
-            </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_4, color: this.state.colors.color_4 }}>
-
-            </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_5, color: this.state.colors.color_5 }}>
-              <p className="color-value">#214046</p>
-              <p className="hold"><i className="far fa-check-square"></i>HOLD</p>
-            </div>
+            {colors}
           </div>
           <div className="picker-footer">
             <p className="instructions"><i className="fas fa-sync-alt" aria-hidden="true"></i>Press <strong>space</strong> to refresh unselected colors</p>

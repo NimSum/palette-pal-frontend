@@ -8,40 +8,6 @@
 	display: flex;
   width: 100%;
   height: calc(100vh - 232px);
-
-	.color {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		position: relative;
-	}
-
-	.color-value {
-		font-size: 20px;
-		color: white;
-		opacity: .5;
-	}
-
-	.hold {
-		font-size: 26px;
-    color: white;
-		opacity: .5;
-    font-weight: 600;
-		position: absolute;
-		bottom: 30px;
-		left: 0;
-		right: 0;
-		margin-left: auto;
-		margin-right: auto;
-  }
-  
-  // .hold, .color-value {
-  //   color: inherit;
-  //   // mix-blend-mode: difference;
-  //   // opacity: .7;
-  //   filter: brightness(25%);
-  // }
 }
 
 .picker-footer {
