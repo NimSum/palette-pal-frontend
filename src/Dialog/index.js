@@ -6,7 +6,8 @@ class Dialog extends Component {
 
     this.state = {
       paletteName: '',
-      project: ''
+      project: '',
+      newProject: ''
     }
   }
 
@@ -15,10 +16,25 @@ class Dialog extends Component {
   }
   
   handleClick = e => {
-    this.props.primaryAction(this.state);
+    const { paletteName, project, newProject } = this.state;
+    const data = { paletteName, project };
+
+    if (this.state.newProject) {
+      fetch('http://localhost:30001/api/v1/projects', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: newProject
+        })
+      })
+        .then(res => data = { paletteName, project: res.body.id })
+    }
+    
+    this.props.primaryAction(data);
     this.setState({
       paletteName: '',
-      project: ''
+      project: '',
+      newProject: ''
     })
   }
 
@@ -42,8 +58,8 @@ class Dialog extends Component {
           <label htmlFor="project">Choose A Project</label>
           <select className="dropdown-input project-input" name="project" onChange={this.handleChange}></select>
           <div className="dialog-divider"><hr /><p>OR</p><hr /></div>
-          <label htmlFor="new-project">Create New Project</label>
-          <input className="project-input" name="new-project" placeholder="Enter Project Name..." onChange={this.handleChange}></input>
+          <label htmlFor="newProject">Create New Project</label>
+          <input className="project-input" name="newProject" placeholder="Enter Project Name..." onChange={this.handleChange}></input>
           <div className="dialog-btns">
             <button className="dialog-btn cancel-btn" type="button" onClick={this.props.closeDialog} >
               Cancel
