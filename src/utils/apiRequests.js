@@ -1,3 +1,5 @@
+import { send } from "q";
+
 const urls = {
   projWithPaletes: 'https://palette-pal-be.herokuapp.com/api/v1/projects?palettes=included',
   projects: 'https://palette-pal-be.herokuapp.com/api/v1/projects',
@@ -7,7 +9,13 @@ const urls = {
 const requests = {
   getProjects: () => fetchAnything(urls.projects),
   getPalettes: () => fetchAnything(urls.palettes),
-  getDetailedProjects: () => fetchAnything(urls.projWithPaletes)
+  getSingleProject: (id) => fetchAnything(urls.projects + `/${id}`),
+  getSinglePalette: (id) => fetchAnything(urls.palettes + `/${id}`),
+  getDetailedProjects: () => fetchAnything(urls.projWithPaletes),
+  postProject: (project) => sendAnything(urls.projects, project, 'POST'),
+  postPalette: (palette) => sendAnything(urls.palettes, palette, 'POST'),
+  putProject: (project) => sendAnything(urls.projects + `/${project.id}`, project, 'PUT'),
+  putPalette: (palette) => sendAnything(urls.palettes + `/${palette.id}`, palette, 'PUT'),
 }
 
 export async function fetchAnything(url) {
@@ -15,5 +23,16 @@ export async function fetchAnything(url) {
   return response.json();
 }
 
+
+export async function sendAnything(url, payload, method) {
+  const response = await fetch(url, {
+    method,
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  return response.json();
+}
 
 export default requests;
