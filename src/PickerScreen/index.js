@@ -68,22 +68,24 @@ class PickerScreen extends Component {
   }
 
   saveNewPalette = async details => {
-    const response = await fetch('http://localhost:30001/api/v1/palettes', {
+    const body = JSON.stringify({
+      name: details.paletteName,
+      project_id: details.projectID,
+      ...this.state.colors
+    })
+    
+    console.log(body)
+    const response = await fetch('http://localhost:3005/api/v1/palettes', {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        name: details.paletteName,
-        //replace below line with arg when ready
-        project_id: 1,
-        ...this.state.colors
-      })
+      body
     })
 
     this.closeDialog();
   }
 
   render() {
-    const saveDialog = this.state.showSaveDialog ? <Dialog closeDialog={this.closeDialog} primaryAction={this.saveNewPalette} /> : null;
+    const saveDialog = this.state.showSaveDialog ? <Dialog closeDialog={this.closeDialog} refreshUnheldColors={this.refreshUnheldColors} primaryAction={this.saveNewPalette} colors={this.state.colors} /> : null;
 
     const colors = Object.keys(this.state.colors).map(color =>
       <PickerColor
