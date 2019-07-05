@@ -18,11 +18,23 @@ const requests = {
   putPalette: (palette) => sendAnything(urls.palettes + `/${palette.id}`, palette, 'PUT'),
 }
 
+function checkStatus(res) {
+  if (!res.ok) {
+    throw Error('Request failed')
+  }
+}
+
 export async function fetchAnything(url) {
   const response = await fetch(url);
   return response.json();
 }
 
+export async function deleteAnything(url) {
+  const response = await fetch(url, {
+    method: 'DELETE'
+  });
+  return response.json();
+}
 
 export async function sendAnything(url, payload, method) {
   const response = await fetch(url, {
