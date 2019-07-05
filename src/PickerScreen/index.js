@@ -91,6 +91,7 @@ class PickerScreen extends Component {
         key={color}
         id={color}
         toggleHold={this.toggleHold}
+        held={this.state.held.includes(color)}
       />);
 
     return (
