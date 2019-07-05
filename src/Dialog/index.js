@@ -7,24 +7,30 @@ class Dialog extends Component {
     this.state = {
       projects: [],
       paletteName: '',
-      project: 0,
+      projectID: 0,
       newProject: ''
     }
   }
 
   componentDidMount() {
+    window.removeEventListener('keydown', this.props.refreshUnheldColors);
+
     fetch('http://localhost:3005/api/v1/projects')
       .then(res => res.json())
     .then(projects => this.setState({projects}))
+  }
+
+  componentWillUnmount() {
+    window.addEventListener('keydown', this.props.refreshUnheldColors);
   }
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
   }
   
-  handleClick = e => {
-    const { paletteName, project, newProject } = this.state;
-    const data = { paletteName, project };
+  handleClick = () => {
+    const { paletteName, projectID, newProject } = this.state;
+    const data = { paletteName, projectID };
 
     if (this.state.newProject) {
       fetch('http://localhost:30001/api/v1/projects', {
@@ -34,13 +40,13 @@ class Dialog extends Component {
           name: newProject
         })
       })
-        .then(res => data = { paletteName, project: res.body.id })
+        .then(res => data = { paletteName, projectID: res.body.id })
     }
     
     this.props.primaryAction(data);
     this.setState({
       paletteName: '',
-      project: 0,
+      projectID: 0,
       newProject: ''
     })
   }
@@ -61,8 +67,8 @@ class Dialog extends Component {
           <div className="palette-preview">
             {colorDivs}
           </div>
-          <label htmlFor="project">Choose A Project</label>
-          <select className="dropdown-input project-input" name="project" onChange={this.handleChange}>
+          <label htmlFor="projectID">Choose A Project</label>
+          <select className="dropdown-input project-input" name="projectID" onChange={this.handleChange}>
             {projectOptions}
           </select>
           <div className="dialog-divider"><hr /><p>OR</p><hr /></div>

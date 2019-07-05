@@ -74,7 +74,7 @@ class PickerScreen extends Component {
       body: JSON.stringify({
         name: details.paletteName,
         //replace below line with arg when ready
-        project_id: 1,
+        project_id: details.projectID,
         ...this.state.colors
       })
     })
@@ -83,7 +83,7 @@ class PickerScreen extends Component {
   }
 
   render() {
-    const saveDialog = this.state.showSaveDialog ? <Dialog closeDialog={this.closeDialog} primaryAction={this.saveNewPalette} colors={this.state.colors} /> : null;
+    const saveDialog = this.state.showSaveDialog ? <Dialog closeDialog={this.closeDialog} refreshUnheldColors={this.refreshUnheldColors} primaryAction={this.saveNewPalette} colors={this.state.colors} /> : null;
 
     const colors = Object.keys(this.state.colors).map(color =>
       <PickerColor
