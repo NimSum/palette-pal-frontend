@@ -7,7 +7,7 @@ class Dialog extends Component {
     this.state = {
       projects: [],
       paletteName: '',
-      projectID: 0,
+      projectID:'',
       newProject: ''
     }
   }
@@ -15,9 +15,11 @@ class Dialog extends Component {
   componentDidMount() {
     window.removeEventListener('keydown', this.props.refreshUnheldColors);
 
-    fetch('http://localhost:3005/api/v1/projects')
-      .then(res => res.json())
-    .then(projects => this.setState({projects}))
+    if (!this.state.projects.length) {
+      fetch('http://localhost:3005/api/v1/projects')
+        .then(res => res.json())
+        .then(projects => this.setState({ projects }))
+    }
   }
 
   componentWillUnmount() {
@@ -26,37 +28,45 @@ class Dialog extends Component {
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
+
+    if (target.name === 'projectID') {
+      this.setState({newProject: ''})
+    } else if (target.name === 'newProject') {
+      this.setState({projectID: ''})
+    }
   }
   
-  handleClick = () => {
+  handleClick = async () => {
     const { paletteName, projectID, newProject } = this.state;
-    const data = { paletteName, projectID };
+    let data = { paletteName, projectID };
 
     if (this.state.newProject) {
-      fetch('http://localhost:30001/api/v1/projects', {
+      console.log("new project: " + newProject)
+      const response = await fetch('http://localhost:3005/api/v1/projects', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: newProject
         })
       })
-        .then(res => data = { paletteName, projectID: res.body.id })
+      const test = await response.json();
+      data = { paletteName, projectID: test[0] }
     }
     
     this.props.primaryAction(data);
     this.setState({
       paletteName: '',
-      projectID: 0,
+      projectID: '',
       newProject: ''
     })
   }
 
   render() {
     const colors = Object.values(this.props.colors);
+
     const colorDivs = colors.map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);
-    const projectOptions = this.state.projects.map(p => {
-      return <option key={p.id} value={p.id}>{p.name}</option>
-    });
+
+    const projectOptions = this.state.projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>);
 
     return (
       <div className="dialog-overlay">
@@ -68,12 +78,13 @@ class Dialog extends Component {
             {colorDivs}
           </div>
           <label htmlFor="projectID">Choose A Project</label>
-          <select className="dropdown-input project-input" name="projectID" onChange={this.handleChange}>
+          <select className="dropdown-input project-input" value={this.state.projectID} name="projectID" onChange={this.handleChange}>
+            <option key={-1} value=""></option>
             {projectOptions}
           </select>
           <div className="dialog-divider"><hr /><p>OR</p><hr /></div>
           <label htmlFor="newProject">Create New Project</label>
-          <input className="project-input" name="newProject" placeholder="Enter Project Name..." onChange={this.handleChange}></input>
+          <input className="project-input" name="newProject" placeholder="Enter Project Name..." onChange={this.handleChange} value={this.state.newProject}></input>
           <div className="dialog-btns">
             <button className="dialog-btn cancel-btn" type="button" onClick={this.props.closeDialog} >
               Cancel
