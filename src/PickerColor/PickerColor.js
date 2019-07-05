@@ -11,6 +11,7 @@ class PickerColor extends Component {
 
   toggleHold = () => {
     this.setState({ hold: !this.state.hold });
+    this.props.toggleHold(this.props.id);
   }
 
   render() {

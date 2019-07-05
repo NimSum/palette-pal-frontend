@@ -9,6 +9,7 @@ class PickerScreen extends Component {
 
     this.state = {
       colors: {},
+      held: [],
       showSaveDialog: false
     }
   }
@@ -29,13 +30,24 @@ class PickerScreen extends Component {
         color_3: this.getRandomColor(),
         color_4: this.getRandomColor(),
         color_5: this.getRandomColor()
-      }
+      },
+      held: []
     })
   }
 
-  getSaveDialog = () => {
+  toggleHold = color => {
+    let held = [...this.state.held];
 
+    this.state.held.includes(color) ? held.splice(held.indexOf(color), 1)
+    : held.push(color);
+
+    this.setState({ held })
   }
+
+  // refreshUnheldColors = () => {
+  //   const colors = Object.entries({ ...this.state.colors });
+  //   console.log(colors)
+  // }
 
   closeDialog = () => {
     this.setState({showSaveDialog: false})
@@ -59,7 +71,13 @@ class PickerScreen extends Component {
   render() {
     const saveDialog = this.state.showSaveDialog ? <Dialog closeDialog={this.closeDialog} primaryAction={this.saveNewPalette} /> : null;
 
-    const colors = Object.keys(this.state.colors).map(color => <PickerColor color={this.state.colors[color]} key={color} id={color} />);
+    const colors = Object.keys(this.state.colors).map(color =>
+      <PickerColor
+        color={this.state.colors[color]}
+        key={color}
+        id={color}
+        toggleHold={this.toggleHold}
+      />);
 
     return (
       <>
