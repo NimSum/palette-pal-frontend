@@ -57,7 +57,9 @@
     .color-hex {
       font-size: 14px;
       color: white;
-      filter: contrast(10%);
+      mix-blend-mode: difference;
+      opacity: .7;
+      // filter: contrast(10%);
     }
   }
 
@@ -82,6 +84,7 @@
   &:hover {
     color: $btn-hover;
     border-color: $btn-hover;
+    cursor: pointer;
   }
 
   .plus-txt {

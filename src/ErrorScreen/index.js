@@ -4,7 +4,7 @@ import './_ErrorScreen.scss';
 const ErrorScreen = () => {
   return (
     <div id="ErrorScreen">
-      <h1>404 Page Not Found :(</h1>
+      <h2>404 Page Not Found :(</h2>
     </div>
   );
 };

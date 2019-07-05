@@ -2,6 +2,32 @@ import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 
 class ProjectsScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      projects: []
+    }
+  }
+
+  componentDidMount() {
+    this.getProjects();
+  }
+
+  getProjects = async () => {
+    const projectFetch = await fetch('https://palette-pal-be.herokuapp.com/api/v1/projects')
+    let projects = await projectFetch.json();
+
+    const paletteFetch = await fetch('https://palette-pal-be.herokuapp.com/api/v1/palettes')
+    const palettes = await paletteFetch.json();
+
+    projects = projects.map(project => {
+      project.palettes = palettes.filter(pal => pal.project_id === project.id);
+      return project;
+    })
+    
+    this.setState({projects}, () => console.log(projects))
+  }
 
   createNewProject = () => {
     console.log('poop')
@@ -25,7 +51,7 @@ class ProjectsScreen extends Component {
               <div className="project-palettes">
                 {/* //below can go in ProjectPalette component */}
                 <div className="project-palette">
-                  <div className="color" style={{ backgroundColor: '#214046' }}>
+                  <div className="color" style={{ backgroundColor: '#214046', fontColor: '#214046'}}>
                     <p className="color-hex">#214046</p>
                   </div>
                   <div className="color" style={{ backgroundColor: '#05596A' }}>

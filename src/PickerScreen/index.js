@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
+import PickerColor from '../PickerColor';
 
 class PickerScreen extends Component {
   constructor(props) {
@@ -8,12 +9,18 @@ class PickerScreen extends Component {
 
     this.state = {
       colors: {},
+      held: [],
       showSaveDialog: false
     }
   }
 
   componentDidMount() {
     this.generatePalette();
+    window.addEventListener('keydown', this.refreshUnheldColors);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.refreshUnheldColors);
   }
 
   getRandomColor = () => {
@@ -28,12 +35,32 @@ class PickerScreen extends Component {
         color_3: this.getRandomColor(),
         color_4: this.getRandomColor(),
         color_5: this.getRandomColor()
-      }
+      },
+      held: []
     })
   }
 
-  getSaveDialog = () => {
+  toggleHold = color => {
+    let held = [...this.state.held];
 
+    this.state.held.includes(color) ? held.splice(held.indexOf(color), 1)
+    : held.push(color);
+
+    this.setState({ held })
+  }
+
+  refreshUnheldColors = e => {
+    if (e.keyCode == 32) {
+    const colors = Object.entries(this.state.colors);
+    let updatedColors = { ...this.state.colors };
+
+    colors.forEach(color => {
+      if (!this.state.held.includes(color[0])) {
+        updatedColors[color[0]] = this.getRandomColor();
+      } 
+    })
+    this.setState({ colors: updatedColors });
+    }
   }
 
   closeDialog = () => {
@@ -41,7 +68,7 @@ class PickerScreen extends Component {
   }
 
   saveNewPalette = async details => {
-    const response = await fetch('http://localhost:5555/api/v1/palettes', {
+    const response = await fetch('http://localhost:30001/api/v1/palettes', {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
@@ -58,31 +85,25 @@ class PickerScreen extends Component {
   render() {
     const saveDialog = this.state.showSaveDialog ? <Dialog closeDialog={this.closeDialog} primaryAction={this.saveNewPalette} /> : null;
 
+    const colors = Object.keys(this.state.colors).map(color =>
+      <PickerColor
+        color={this.state.colors[color]}
+        key={color}
+        id={color}
+        toggleHold={this.toggleHold}
+        held={this.state.held.includes(color)}
+      />);
+
     return (
       <>
         {saveDialog}
         <SubHeader title="Pick New Palette" handleClick={this.generatePalette} btnTitle="Generate New Palette"/>
         <section className="PickerScreen">
           <div className="palette-display">
-            <div className="color" style={{ backgroundColor: this.state.colors.color_1 }}>
-              <p className="color-value">#214046</p>
-              <p className="hold"><i className="far fa-check-square"></i>HOLD</p>
-            </div>
-            <div className="color" style={{backgroundColor: this.state.colors.color_2}}>
-
-            </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_3 }}>
-
-            </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_4 }}>
-
-            </div>
-            <div className="color" style={{ backgroundColor: this.state.colors.color_5 }}>
-
-            </div>
+            {colors}
           </div>
           <div className="picker-footer">
-            <p className="instructions"><i className="fas fa-sync-alt" aria-hidden="true"></i>Press <strong>space</strong> to refresh unselected colors</p>
+            <p className="instructions"><i className="fas fa-sync-alt" aria-hidden="true"></i>Press <strong onClick={this.refreshUnheldColors}>space</strong> to refresh unselected colors</p>
             <button className="save-btn" onClick={() => this.setState({showSaveDialog: true})}>
               <i className="far fa-save" aria-hidden="true"></i>Save Palette
             </button>

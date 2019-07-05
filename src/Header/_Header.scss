@@ -35,6 +35,7 @@
   padding: 6px 0;
 
   &:hover {
-    color: $btn-color;
+    color: $btn-hover;
+    border-color: $btn-hover;
   }
 }
