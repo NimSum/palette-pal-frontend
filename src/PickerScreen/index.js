@@ -44,10 +44,10 @@ class PickerScreen extends Component {
     this.setState({ held })
   }
 
-  // refreshUnheldColors = () => {
-  //   const colors = Object.entries({ ...this.state.colors });
-  //   console.log(colors)
-  // }
+  refreshUnheldColors = () => {
+    const colors = Object.entries({ ...this.state.colors });
+    console.log(colors)
+  }
 
   closeDialog = () => {
     this.setState({showSaveDialog: false})
