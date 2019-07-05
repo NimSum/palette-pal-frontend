@@ -59,7 +59,7 @@ class PickerScreen extends Component {
   render() {
     const saveDialog = this.state.showSaveDialog ? <Dialog closeDialog={this.closeDialog} primaryAction={this.saveNewPalette} /> : null;
 
-    const colors = Object.keys(this.state.colors).map(color => <PickerColor color={this.state.colors[color]} />);
+    const colors = Object.keys(this.state.colors).map(color => <PickerColor color={this.state.colors[color]} key={color} id={color} />);
 
     return (
       <>
