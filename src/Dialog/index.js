@@ -5,10 +5,17 @@ class Dialog extends Component {
     super(props);
 
     this.state = {
+      projects: [],
       paletteName: '',
       project: 0,
       newProject: ''
     }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3005/api/v1/projects')
+      .then(res => res.json())
+    .then(projects => this.setState({projects}))
   }
 
   handleChange = ({ target }) => {
@@ -41,6 +48,9 @@ class Dialog extends Component {
   render() {
     const colors = Object.values(this.props.colors);
     const colorDivs = colors.map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);
+    const projectOptions = this.state.projects.map(p => {
+      return <option key={p.id} value={p.id}>{p.name}</option>
+    });
 
     return (
       <div className="dialog-overlay">
@@ -52,7 +62,9 @@ class Dialog extends Component {
             {colorDivs}
           </div>
           <label htmlFor="project">Choose A Project</label>
-          <select className="dropdown-input project-input" name="project" onChange={this.handleChange}></select>
+          <select className="dropdown-input project-input" name="project" onChange={this.handleChange}>
+            {projectOptions}
+          </select>
           <div className="dialog-divider"><hr /><p>OR</p><hr /></div>
           <label htmlFor="newProject">Create New Project</label>
           <input className="project-input" name="newProject" placeholder="Enter Project Name..." onChange={this.handleChange}></input>

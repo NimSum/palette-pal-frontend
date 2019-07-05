@@ -68,7 +68,7 @@ class PickerScreen extends Component {
   }
 
   saveNewPalette = details => {
-    fetch('http://localhost:30001/api/v1/palettes', {
+    fetch('http://localhost:3005/api/v1/palettes', {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
