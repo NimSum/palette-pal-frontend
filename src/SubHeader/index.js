@@ -28,7 +28,7 @@ class SubHeader extends Component {
         type="text"
         name="mode"
         value={this.state.mode}
-        onClick={this.handleChange}
+        onChange={this.handleChange}
       >
         <option value='random'>random</option>
       </select>
@@ -60,9 +60,10 @@ class SubHeader extends Component {
             type="text"
             name="format"
             value={this.state.format}
-            onClick={this.handleChange}
+            onChange={this.handleChange}
           >
             <option value='hex'>hex</option>
+            <option value='hsl'>hsl</option>
           </select>
           {filters}
         </div>
