@@ -18,17 +18,11 @@ class ProjectsScreen extends Component {
     this.setState({showDialog: false})
   }
 
-  createNewProject = project => {
-    const response = requests.postProject(project);
-    console.log(response)
-    // this.props.updateProjectData(, 'save')
-  }
-
   render() {
     const dialog = this.state.showDialog ? <Dialog
       title="Create New Project"
       closeDialog={this.closeDialog}
-      primaryAction={this.createNewProject}
+      primaryAction={this.props.updateProjectData}
     /> : null;
 
     const data = !this.state.filter ? this.props.data
@@ -39,7 +33,7 @@ class ProjectsScreen extends Component {
       key={project.id}
       updateProjectData={this.props.updateProjectData}
       updatePaletteData={this.props.updatePaletteData}
-    />);
+    />).reverse();
 
 
     return (

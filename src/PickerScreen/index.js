@@ -85,7 +85,8 @@ class PickerScreen extends Component {
       title="Save New Palette"
       closeDialog={this.closeDialog}
       refreshUnheldColors={this.refreshUnheldColors}
-      primaryAction={this.saveNewPalette}
+      updateProjectData={this.props.updateProjectData}
+      primaryAction={this.props.updatePaletteData}
       colors={this.state.colors}
       data={this.props.data}
     /> : null;
