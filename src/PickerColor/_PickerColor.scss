@@ -15,7 +15,6 @@
   .picker-hold {
     font-size: 26px;
     color: white;
-    // opacity: .5;
     font-weight: 600;
     position: absolute;
     bottom: 30px;
@@ -27,7 +26,7 @@
     opacity: 0;
 
     &.hold {
-      opacity: .6!important;
+      opacity: .5!important;
     }
   }
 
