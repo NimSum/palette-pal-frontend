@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import requests from '../utils/apiRequests';
 
 class Dialog extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      projects: [],
       paletteName: '',
       projectID:'',
       newProject: ''
@@ -14,12 +14,6 @@ class Dialog extends Component {
 
   componentDidMount() {
     window.removeEventListener('keydown', this.props.refreshUnheldColors);
-
-    if (!this.state.projects.length) {
-      fetch('http://localhost:3005/api/v1/projects')
-        .then(res => res.json())
-        .then(projects => this.setState({ projects }))
-    }
   }
 
   componentWillUnmount() {
@@ -41,15 +35,7 @@ class Dialog extends Component {
     let data = { paletteName, projectID };
 
     if (this.state.newProject) {
-      console.log("new project: " + newProject)
-      const response = await fetch('http://localhost:3005/api/v1/projects', {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: newProject
-        })
-      })
-      const test = await response.json();
+      requests.postProject({name: newProject})
       data = { paletteName, projectID: test[0] }
     }
     
@@ -66,7 +52,7 @@ class Dialog extends Component {
 
     const colorDivs = colors.map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);
 
-    const projectOptions = this.state.projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>);
+    const projectOptions = this.props.data.map(i => <option key={i.id} value={i.id}>{i.name}</option>);
 
     return (
       <div className="dialog-overlay">
