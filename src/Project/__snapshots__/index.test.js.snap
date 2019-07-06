@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project shoud match component Project snapshot 1`] = `
+<article
+  className="Project"
+>
+  <div
+    className="project-heading"
+  >
+    <div
+      className="project-heading-left"
+    >
+      <i
+        className="fas fa-folder-open"
+      />
+      <h3
+        className="project-title"
+      >
+        project0
+      </h3>
+    </div>
+    <i
+      className="fas fa-ellipsis-h"
+      onClick={[Function]}
+    />
+  </div>
+  <div
+    className="project-palettes"
+  >
+    <Palette
+      data={
+        Object {
+          "color_1": "#433047",
+          "color_2": "#967578",
+          "color_3": "#333547",
+          "color_4": "#798776",
+          "color_5": "#839967",
+          "id": 2,
+          "name": "palette0",
+        }
+      }
+    />
+    <Palette
+      data={
+        Object {
+          "color_1": "#488047",
+          "color_2": "#925578",
+          "color_3": "#319547",
+          "color_4": "#796876",
+          "color_5": "#834267",
+          "id": 1,
+          "name": "palette0",
+        }
+      }
+    />
+    <NavLink
+      className="Palette add-palette-btn"
+      exact={true}
+      to="/"
+    >
+      <p
+        className="plus-txt"
+      >
+        +
+      </p>
+      <p
+        className="add-palette-txt"
+      >
+        Add New
+        <br />
+        Palette
+      </p>
+    </NavLink>
+  </div>
+</article>
+`;
