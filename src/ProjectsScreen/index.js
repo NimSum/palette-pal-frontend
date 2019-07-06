@@ -30,8 +30,8 @@ class ProjectsScreen extends Component {
     /> : null;
 
     const projects = this.state.filter
-      ? this.props.data.filter(i => i.id === +this.state.filter).map(project => <Project data={project} key={project.id} />)
-      : this.props.data.map(project => <Project data={project} key={project.id} />);
+      ? this.props.data.filter(i => i.id === +this.state.filter).map(project => <Project data={project} key={project.id} deleteProject={this.props.deleteProject} />)
+      : this.props.data.map(project => <Project data={project} key={project.id} deleteProject={this.props.deleteProject} />);
 
 
     return (
