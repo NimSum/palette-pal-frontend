@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PickerColor shoud match component PickerColor snapshot 1`] = `
+<div
+  className="picker-color"
+  style={
+    Object {
+      "backgroundColor": undefined,
+      "color": undefined,
+    }
+  }
+>
+  <p
+    className="picker-color-value"
+  />
+  <p
+    className="picker-hold null"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-square"
+    />
+    HOLD
+  </p>
+</div>
+`;

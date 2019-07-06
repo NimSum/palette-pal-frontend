@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectScreen shoud match component ProjectScreen snapshot 1`] = `
+<Fragment>
+  <SubHeader
+    btnTitle="Create New Project"
+    handleClick={[Function]}
+    title="My Projects"
+  />
+  <section
+    className="project-container"
+  >
+    <Project
+      data={
+        Object {
+          "id": 2,
+          "name": "project0",
+          "palettes": Array [
+            Object {
+              "color_1": "#433047",
+              "color_2": "#967578",
+              "color_3": "#333547",
+              "color_4": "#798776",
+              "color_5": "#839967",
+              "id": 2,
+              "name": "palette0",
+            },
+            Object {
+              "color_1": "#488047",
+              "color_2": "#925578",
+              "color_3": "#319547",
+              "color_4": "#796876",
+              "color_5": "#834267",
+              "id": 1,
+              "name": "palette0",
+            },
+          ],
+        }
+      }
+    />
+  </section>
+</Fragment>
+`;

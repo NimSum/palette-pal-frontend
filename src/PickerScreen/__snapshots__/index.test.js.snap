@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PickerScreen shoud match component PickerScreen snapshot 1`] = `
+<Fragment>
+  <SubHeader
+    btnTitle="Generate New Palette"
+    handleClick={[Function]}
+    title="Pick New Palette"
+  />
+  <section
+    className="PickerScreen"
+  >
+    <div
+      className="palette-display"
+    >
+      <PickerColor
+        color="#000000"
+        held={false}
+        id="color_1"
+        key="color_1"
+        toggleHold={[Function]}
+      />
+      <PickerColor
+        color="#000000"
+        held={false}
+        id="color_2"
+        key="color_2"
+        toggleHold={[Function]}
+      />
+      <PickerColor
+        color="#000000"
+        held={false}
+        id="color_3"
+        key="color_3"
+        toggleHold={[Function]}
+      />
+      <PickerColor
+        color="#000000"
+        held={false}
+        id="color_4"
+        key="color_4"
+        toggleHold={[Function]}
+      />
+      <PickerColor
+        color="#000000"
+        held={false}
+        id="color_5"
+        key="color_5"
+        toggleHold={[Function]}
+      />
+    </div>
+    <div
+      className="picker-footer"
+    >
+      <p
+        className="instructions"
+      >
+        <i
+          aria-hidden="true"
+          className="fas fa-sync-alt"
+        />
+        Press 
+        <strong>
+          space
+        </strong>
+         to refresh unselected colors
+      </p>
+      <button
+        className="save-btn"
+        onClick={[Function]}
+      >
+        <i
+          aria-hidden="true"
+          className="far fa-save"
+        />
+        Save Palette
+      </button>
+    </div>
+  </section>
+</Fragment>
+`;
