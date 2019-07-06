@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
 import PickerColor from '../PickerColor';
+import requests from '../utils/apiRequests';
 
 class PickerScreen extends Component {
   constructor(props) {
@@ -68,24 +69,23 @@ class PickerScreen extends Component {
   }
 
   saveNewPalette = async details => {
-    const body = JSON.stringify({
+    requests.postPalette({
       name: details.paletteName,
       project_id: details.projectID,
       ...this.state.colors
-    })
-    
-    console.log(body)
-    const response = await fetch('http://localhost:3005/api/v1/palettes', {
-      method: 'POST',
-      headers: {"Content-Type": "application/json"},
-      body
     })
 
     this.closeDialog();
   }
 
   render() {
-    const saveDialog = this.state.showSaveDialog ? <Dialog closeDialog={this.closeDialog} refreshUnheldColors={this.refreshUnheldColors} primaryAction={this.saveNewPalette} colors={this.state.colors} /> : null;
+    const saveDialog = this.state.showSaveDialog ? <Dialog
+      closeDialog={this.closeDialog}
+      refreshUnheldColors={this.refreshUnheldColors}
+      primaryAction={this.saveNewPalette}
+      colors={this.state.colors}
+      data={this.props.data}
+    /> : null;
 
     const colors = Object.keys(this.state.colors).map(color =>
       <PickerColor
@@ -105,7 +105,7 @@ class PickerScreen extends Component {
             {colors}
           </div>
           <div className="picker-footer">
-            <p className="instructions"><i className="fas fa-sync-alt" aria-hidden="true"></i>Press <strong onClick={this.refreshUnheldColors}>space</strong> to refresh unselected colors</p>
+            <p className="instructions"><i className="fas fa-sync-alt" aria-hidden="true"></i>Press <strong>space</strong> to refresh unselected colors</p>
             <button className="save-btn" onClick={() => this.setState({showSaveDialog: true})}>
               <i className="far fa-save" aria-hidden="true"></i>Save Palette
             </button>
