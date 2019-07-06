@@ -54,7 +54,7 @@ class App extends Component {
 
   render() {
     const content = this.state.loading ?
-      <img src="https://66.media.tumblr.com/09dc11b8b4b4e1be71dba1c570882308/tumblr_naksdbfjZp1sa11jco1_500.gif" aria-hidden />
+      <div className="loading-screen"><img src="https://66.media.tumblr.com/09dc11b8b4b4e1be71dba1c570882308/tumblr_naksdbfjZp1sa11jco1_500.gif" alt="Loading icon" /></div>
       : (
       <div className="App">
         <Header />
