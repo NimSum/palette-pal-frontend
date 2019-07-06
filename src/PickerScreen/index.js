@@ -24,7 +24,7 @@ class PickerScreen extends Component {
   }
 
   getRandomColor = () => {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+    return "#" + Math.random().toString(16).slice(2, 8);
   }
 
   generatePalette = () => {
