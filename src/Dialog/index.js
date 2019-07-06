@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import requests from '../utils/apiRequests';
 
 class Dialog extends Component {
   constructor(props) {
@@ -6,32 +7,93 @@ class Dialog extends Component {
 
     this.state = {
       paletteName: '',
-      project: ''
+      projectName: '',
+      projectID:'',
+      newProject: ''
     }
+  }
+
+  componentDidMount() {
+    window.removeEventListener('keydown', this.props.refreshUnheldColors);
+  }
+
+  componentWillUnmount() {
+    window.addEventListener('keydown', this.props.refreshUnheldColors);
   }
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
+
+    if (target.name === 'projectID') {
+      this.setState({newProject: ''})
+    } else if (target.name === 'newProject') {
+      this.setState({projectID: ''})
+    }
   }
   
-  handleClick = e => {
-    this.props.primaryAction(this.state);
+  handleClick = async () => {
+    const { paletteName, projectID, newProject, projectName } = this.state;
+    let data;
+
+    if (this.props.title === 'Save New Palette' && this.state.newProject) {
+      requests.postProject({name: newProject})
+      data = { paletteName, projectID: test[0] };
+    } else if (this.props.title === 'Save New Palette') {
+      data = { paletteName, projectID };
+    } else {
+      data = { name: projectName };
+    }
+    
+    this.props.primaryAction(data);
     this.setState({
       paletteName: '',
-      project: ''
+      projectName: '',
+      projectID: '',
+      newProject: ''
     })
   }
 
+  getDialogContent = () => {
+    let content = null; 
+
+    if (this.props.title === 'Save New Palette') {
+      const colors = Object.values(this.props.colors);
+      const colorDivs = colors.map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);
+      const projectOptions = this.props.data.map(i => <option key={i.id} value={i.id}>{i.name}</option>);
+
+      content = (
+        <>
+        <div className="palette-preview">
+          {colorDivs}
+        </div>
+        <label htmlFor="projectID">Choose A Project</label>
+        <select className="dropdown-input project-input" value={this.state.projectID} name="projectID" onChange={this.handleChange}>
+          <option key={-1} value=""></option>
+          {projectOptions}
+        </select>
+        <div className="dialog-divider"><hr /><p>OR</p><hr /></div>
+        <label htmlFor="newProject">Create New Project</label>
+        <input className="project-input" name="newProject" placeholder="Enter Project Name..." onChange={this.handleChange} value={this.state.newProject}></input>
+        </>
+      )
+    }
+    // else if (this.props.title === 'Create New Project') {
+    //   content = (
+
+    //   )
+    // }
+    return content;
+  }
+
   render() {
+    const type = this.props.title === "Save New Palette" ? "palette" : "project";
     return (
       <div className="dialog-overlay">
         <div className="popup">
           <i className="fas fa-times" onClick={this.props.closeDialog}></i>
-          <h3>Save New Palette</h3>
-          <label htmlFor="palette-name-input">Palette Name:</label>
-          <input className="dropdown-input palette-name-input" name="paletteName" onChange={this.handleChange}></input>
-          <label htmlFor="project-input">Project:</label>
-          <select className="dropdown-input project-input" name="project" onChange={this.handleChange}></select>
+          <h3>{this.props.title}</h3>
+          <input className="dropdown-input name-input" name={`${type}Name`} placeholder={`Enter ${type} name...`} onChange={this.handleChange}></input>
+            {this.getDialogContent()}
           <div className="dialog-btns">
             <button className="dialog-btn cancel-btn" type="button" onClick={this.props.closeDialog} >
               Cancel

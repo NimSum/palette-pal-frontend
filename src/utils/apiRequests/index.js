@@ -1,7 +1,13 @@
+// const urls = {
+//   projWithPaletes: 'https://palette-pal-be.herokuapp.com/api/v1/projects?palettes=included',
+//   projects: 'https://palette-pal-be.herokuapp.com/api/v1/projects',
+//   palettes: 'https://palette-pal-be.herokuapp.com/api/v1/palettes'
+// }
+
 const urls = {
-  projWithPaletes: 'https://palette-pal-be.herokuapp.com/api/v1/projects?palettes=included',
-  projects: 'https://palette-pal-be.herokuapp.com/api/v1/projects',
-  palettes: 'https://palette-pal-be.herokuapp.com/api/v1/palettes'
+  projWithPaletes: 'http://localhost:3005/api/v1/projects?palettes=included',
+  projects: 'http://localhost:3005/api/v1/projects',
+  palettes: 'http://localhost:3005/api/v1/palettes'
 }
 
 const requests = {
