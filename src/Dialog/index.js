@@ -77,11 +77,6 @@ class Dialog extends Component {
         </>
       )
     }
-    // else if (this.props.title === 'Create New Project') {
-    //   content = (
-
-    //   )
-    // }
     return content;
   }
 

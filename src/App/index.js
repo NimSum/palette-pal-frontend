@@ -24,10 +24,8 @@ class App extends Component {
 
 	getProjectData = async () => {
     const res = await requests.getDetailedProjects();
-    console.log(res)
 
     const projectData = res.reduce((acc, palette) => {
-      console.log(palette.palette_id === null)
 			const {
 				project_id,
 				project_name,
@@ -56,6 +54,7 @@ class App extends Component {
         acc.push({ id: project_id, name: project_name, palettes: paletteData });
       } else if (project) {
         project.palettes.push(paletteData[0]);
+        project.palettes.sort((a, b) => a.id - b.id);
       }
 
 			return acc;
@@ -79,7 +78,8 @@ class App extends Component {
       } catch (error) {
 				this.setState(error);
 			}
-		} else if (action === 'delete') {
+    } else if (action === 'delete') {
+      //add deleting of all associated palettes in DATA
       try {
 				res = await requests.deleteProject(project.id);
 				projectData = projectData.filter(i => i.id !== project.id);
@@ -101,19 +101,10 @@ class App extends Component {
 
   updatePaletteData = async (palette, action) => {
     let projectData = this.state.projectData;
-    const project = projectData.find(proj => {
-      console.log(proj, palette.project_id)
-      return +proj.id === +palette.project_id
-    });
-    console.log(project)
-    const projIndex = projectData.findIndex(proj => proj.id == project.id);
-    console.log(projIndex)
-
-    
+    const project = projectData.find(proj => +proj.id === +palette.project_id);
+    const projIndex = projectData.findIndex(proj => +proj.id === +project.id);
     let res;
     
-    
-
     if (action === 'add') {
       res = await requests.postPalette(palette);
       projectData[projIndex].palettes.push({
@@ -128,10 +119,13 @@ class App extends Component {
     } else if (action === 'delete') {
       res = await requests.deletePalette(palette.id);
 			projectData[projIndex].palettes = projectData[projIndex].palettes.filter(i => i.id !== palette.id);
-		} else if (action === 'update') {
-			const palIndex = projectData[projIndex].palettes.findIndex(pal => pal.id);
+    } else if (action === 'update') {
+      res = await requests.putPalette(palette);
+      const palIndex = projectData[projIndex].palettes.findIndex(pal => +pal.id === +palette.id);
+      
+      console.log(palIndex)
 
-			projectData[projIndex].palettes[palIndex] = { ...projectData[projIndex].palettes[palIndex], palette };
+			projectData[projIndex].palettes[palIndex] = { ...projectData[projIndex].palettes[palIndex], ...palette };
 		}
 
 		this.setState({ projectData });

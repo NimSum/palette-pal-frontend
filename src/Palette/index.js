@@ -36,7 +36,7 @@ function Palette(props) {
         onBlur={e => props.updatePaletteData({
           palette_name: e.target.textContent,
           id: props.data.id,
-          project_id: props.data.projectID
+          project_id: props.projectID
         }, 'update')}
         onKeyDown={e => {
           if (e.keyCode === 13) {
@@ -44,7 +44,7 @@ function Palette(props) {
             props.updatePaletteData({
               palette_name: e.target.textContent,
               id: props.data.id,
-              project_id: props.data.projectID
+              project_id: props.projectID
             }, 'update')
           }
         }}
