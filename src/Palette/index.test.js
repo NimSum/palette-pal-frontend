@@ -10,6 +10,7 @@ describe('Palette', () => {
   beforeEach(() => {
     wrapper = shallow(< Palette data={ mockPalette }/>);
   })
+  
   it('shoud match component Palette snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
