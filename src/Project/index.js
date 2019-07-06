@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import Palette from '../Palette';
 
 class Project extends Component {
@@ -28,12 +29,12 @@ class Project extends Component {
 				</div>
         <div className="project-palettes">
           {palettes}
-          <div className="Palette add-palette-btn">
+          <NavLink exact to="/" className="Palette add-palette-btn">
             <p className="plus-txt">+</p>
             <p className="add-palette-txt">
               Add New<br />Palette
             </p>
-          </div>
+          </NavLink>
         </div>
 			</article>
 		);
