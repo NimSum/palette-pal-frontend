@@ -13,8 +13,7 @@ function Palette(props) {
   return (
     <div className="Palette" >
       <i className="fas fa-times-circle" onClick={() => {
-        requests.deletePalette(props.data.id);
-        props.deletePaletteData(props.data.id);
+        props.updatePaletteData(props.data, 'delete');
       }}></i>
       <div className="color" style={{ backgroundColor: color_1 }}>
         <p className="color-hex">{color_1}</p>
@@ -35,11 +34,11 @@ function Palette(props) {
         className="palette-title"
         contentEditable
         suppressContentEditableWarning
-        onBlur={e => requests.putPalette({palette_name: e.target.textContent, id: props.data.id})}
+        onBlur={e => props.updatePaletteData({palette_name: e.target.textContent, id: props.data.id}, 'update')}
         onKeyDown={e => {
           if (e.keyCode === 13) {
             e.preventDefault()
-            requests.putPalette({ palette_name: e.target.textContent, id: props.data.id })
+            props.updatePaletteData({ palette_name: e.target.textContent, id: props.data.id }, 'update')
           }
         }}
       >

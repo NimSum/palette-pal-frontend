@@ -37,10 +37,9 @@ class Dialog extends Component {
 
     if (this.props.title === 'Save New Palette' && this.state.newProject) {
       const res = await this.props.updateProjectData({ project_name: newProject }, 'add');
-      console.log(res)
-      data = { palette_name: paletteName, project_id: res[0] };
+      data = { ...this.props.colors, palette_name: paletteName, project_id: res[0] };
     } else if (this.props.title === 'Save New Palette') {
-      data = { palette_name: paletteName, project_id: projectID };
+      data = { ...this.props.colors, palette_name: paletteName, project_id: projectID };
     } else if (this.props.title === 'Create New Project') {
       data = { project_name: projectName };
     }

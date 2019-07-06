@@ -67,7 +67,8 @@ class App extends Component {
 		let projectData = this.state.projectData;
 		let res;
 
-		if (action === 'add') {
+    if (action === 'add') {
+      console.log(project)
 			try {
 				res = await requests.postProject(project);
 				projectData.push({
@@ -98,14 +99,30 @@ class App extends Component {
 		return res;
 	};
 
-	updatePaletteData = async (palette, action) => {
-		let projectData = this.state.projectData;
-		const projIndex = projectData.findIndex(proj => proj.palettes.map(pal => pal.id).includes(palette.id));
-		let res;
+  updatePaletteData = async (palette, action) => {
+    let projectData = this.state.projectData;
+    const project = projectData.find(proj => proj.id == palette.project_id);
+    const projIndex = projectData.findIndex(proj => proj.id == project.id);
+    console.log(projIndex)
 
-		if (action === 'add') {
-			projectData[projIndex].palettes.push(palette);
-		} else if (action === 'delete') {
+    
+    let res;
+    
+    
+
+    if (action === 'add') {
+      res = await requests.postPalette(palette);
+      projectData[projIndex].palettes.push({
+        name: palette.palette_name,
+        id: res[0],
+        color_1: palette.color_1,
+        color_2: palette.color_2,
+        color_3: palette.color_3,
+        color_4: palette.color_4,
+        color_5: palette.color_5
+      });
+    } else if (action === 'delete') {
+      res = await requests.deletePalette(palette.id);
 			projectData[projIndex].palettes = projectData[projIndex].palettes.filter(i => i.id !== palette.id);
 		} else if (action === 'update') {
 			const palIndex = projectData[projIndex].palettes.findIndex(pal => pal.id);
@@ -159,7 +176,7 @@ class App extends Component {
                 <PickerScreen
                   data={this.state.projectData}
                   updateProjectData={this.updateProjectData}
-                  updatePaletteData={this.updateProjectData}
+                  updatePaletteData={this.updatePaletteData}
                 />
 							)}
 						/>
