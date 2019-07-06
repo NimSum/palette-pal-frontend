@@ -75,6 +75,7 @@ class PickerScreen extends Component {
       project_id: details.projectID,
       ...this.state.colors
     })
+    // this.props.savePalette()
 
     this.closeDialog();
   }

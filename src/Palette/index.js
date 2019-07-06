@@ -12,6 +12,10 @@ function Palette(props) {
 
   return (
     <div className="Palette" >
+      <i className="fas fa-times-circle" onClick={() => {
+        requests.deletePalette(props.data.id);
+        props.deletePaletteData(props.data.id);
+      }}></i>
       <div className="color" style={{ backgroundColor: color_1 }}>
         <p className="color-hex">{color_1}</p>
       </div>

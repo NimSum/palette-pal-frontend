@@ -19,7 +19,9 @@ class ProjectsScreen extends Component {
   }
 
   createNewProject = project => {
-    requests.postProject(project);
+    const response = requests.postProject(project);
+    console.log(response)
+    // this.props.updateProjectData(, 'save')
   }
 
   render() {
@@ -32,7 +34,12 @@ class ProjectsScreen extends Component {
     const data = !this.state.filter ? this.props.data
       : this.props.data.filter(i => i.id === +this.state.filter);
     
-    const projects = data.map(project => <Project data={project} key={project.id} deleteProject={this.props.deleteProject} />);
+    const projects = data.map(project => <Project
+      data={project}
+      key={project.id}
+      updateProjectData={this.props.updateProjectData}
+      updatePaletteData={this.props.updatePaletteData}
+    />);
 
 
     return (

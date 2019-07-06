@@ -15,10 +15,14 @@ function Project(props) {
             className="project-title"
             contentEditable
             suppressContentEditableWarning
-            onBlur={e => requests.putProject({
-              project_name: e.target.textContent,
-              id: props.data.id
-            })}
+            onBlur={e => {
+                requests.putProject({
+                  project_name: e.target.textContent,
+                  id: props.data.id
+                })
+                props.updateProjectData(props.data, 'update');
+              }
+            }
             onKeyDown={e => {
               if (e.keyCode === 13) {
                 e.preventDefault();
@@ -26,6 +30,7 @@ function Project(props) {
                   project_name: e.target.textContent,
                   id: props.data.id
                 })
+                props.updateProjectData(props.data, 'update');
               }
             }}>
             {props.data.name}
@@ -33,7 +38,7 @@ function Project(props) {
         </div>
         <i className="fas fa-trash" onClick={() => {
           requests.deleteProject(props.data.id);
-          props.deleteProject(props.data.id);
+          props.updateProjectData(props.data, 'delete');
         }} />
       </div>
       <div className="project-palettes">
