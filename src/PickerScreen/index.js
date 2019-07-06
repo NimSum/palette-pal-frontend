@@ -11,7 +11,8 @@ class PickerScreen extends Component {
     this.state = {
       colors: {},
       held: [],
-      showSaveDialog: false
+      showSaveDialog: false,
+      
     }
   }
 
@@ -100,7 +101,13 @@ class PickerScreen extends Component {
     return (
       <>
         {saveDialog}
-        <SubHeader title="Pick New Palette" handleClick={this.generatePalette} btnTitle="Generate New Palette"/>
+        <SubHeader
+          title="Pick New Palette"
+          handleClick={this.generatePalette}
+          btnTitle="Generate New Palette"
+          data={this.props.data}
+          setOption={option => this.setState({option})}
+        />
         <section className="PickerScreen">
           <div className="palette-display">
             {colors}
