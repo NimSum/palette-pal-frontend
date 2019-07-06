@@ -12,7 +12,7 @@ class PickerScreen extends Component {
       colors: {},
       held: [],
       showSaveDialog: false,
-      
+
     }
   }
 
@@ -52,7 +52,7 @@ class PickerScreen extends Component {
   }
 
   refreshUnheldColors = e => {
-    if (e.keyCode == 32) {
+    if (e.keyCode === 32) {
     const colors = Object.entries(this.state.colors);
     let updatedColors = { ...this.state.colors };
 

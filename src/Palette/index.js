@@ -1,4 +1,5 @@
 import React from 'react';
+import requests from '../utils/apiRequests';
 
 function Palette(props) {
   const {
@@ -26,7 +27,20 @@ function Palette(props) {
       <div className="color" style={{ backgroundColor: color_5 }}>
         <p className="color-hex">{color_5}</p>
       </div>
-      <p className="palette-title">{props.data.name}</p>
+      <p
+        className="palette-title"
+        contentEditable
+        suppressContentEditableWarning
+        onBlur={e => requests.putPalette({palette_name: e.target.textContent, id: props.data.id})}
+        onKeyDown={e => {
+          if (e.keyCode === 13) {
+            e.preventDefault()
+            requests.putPalette({ palette_name: e.target.textContent, id: props.data.id })
+          }
+        }}
+      >
+        {props.data.name}
+      </p>
   </div>
   );
 };
