@@ -23,6 +23,10 @@
   width: 330px;
   position: relative;
 
+  select > option:first-child{
+    display: none;
+  }
+
   .fa-times {
     color: darkred;
     position: absolute;
