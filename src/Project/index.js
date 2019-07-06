@@ -11,6 +11,11 @@ function Project(props) {
       updatePaletteData={props.updatePaletteData}
       getContrastColor={props.getContrastColor}
     />);
+  
+  const trash = props.data.id !== 1 ? <i
+    className="fas fa-trash"
+    onClick={() => props.updateProjectData(props.data, 'delete')}
+  /> : null;
 
   return (
     <article className="Project">
@@ -38,10 +43,7 @@ function Project(props) {
             {props.data.name}
           </h3>
         </div>
-        <i
-          className="fas fa-trash"
-          onClick={() => props.updateProjectData(props.data, 'delete')}
-        />
+        {trash}
       </div>
       <div className="project-palettes">
         {palettes}
