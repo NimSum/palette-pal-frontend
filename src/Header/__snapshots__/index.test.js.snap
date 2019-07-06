@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header shoud match component Header snapshot 1`] = `
+<header
+  className="Header"
+>
+  <Link
+    className="header-left"
+    exact="true"
+    to="/"
+  >
+    <img
+      alt="Palette pal logo of paint palette"
+      className="logo-img"
+      src="logo.png"
+    />
+    <h1
+      className="logo-text"
+    >
+      Palette Pal
+    </h1>
+  </Link>
+  <div
+    className="header-right"
+  >
+    <nav
+      className="header-nav"
+    >
+      <NavLink
+        className="nav-link"
+        exact={true}
+        to="/"
+      >
+        Pick New Palette
+      </NavLink>
+      <NavLink
+        className="nav-link"
+        exact={true}
+        to="/projects"
+      >
+        My Projects
+      </NavLink>
+      <NavLink
+        className="nav-link"
+        exact={true}
+        to="/login"
+      >
+        Log In / Sign Up
+      </NavLink>
+    </nav>
+  </div>
+</header>
+`;

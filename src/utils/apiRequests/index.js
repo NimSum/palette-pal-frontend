@@ -41,7 +41,7 @@ export async function deleteAnything(url) {
     method: 'DELETE'
   });
   checkStatus(response);
-  return await response.json();
+  return await response.status;
 }
 
 export async function sendAnything(url, payload, method) {
@@ -53,7 +53,10 @@ export async function sendAnything(url, payload, method) {
     }
   })
   checkStatus(response);
-  return await response.json();
+
+  return await response.status === 202 
+    ? response.status
+    : response.json();
 }
 
 export default requests;

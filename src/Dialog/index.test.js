@@ -1,13 +1,13 @@
 import React from 'react';
-import App from './index';
+import Dialog from './index';
 import { shallow } from 'enzyme';
 
-describe('App', () => {
+describe('Dialog', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(< App />);
+    wrapper = shallow(< Dialog />);
   })
-  it('shoud match component App snapshot', () => {
+  it('shoud match component Dialog snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 })

@@ -1,13 +1,13 @@
 import React from 'react';
-import App from './index';
+import Header from './index';
 import { shallow } from 'enzyme';
 
-describe('App', () => {
+describe('Header', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(< App />);
+    wrapper = shallow(< Header />);
   })
-  it('shoud match component App snapshot', () => {
+  it('shoud match component Header snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 })
