@@ -76,6 +76,10 @@ exports[`Palette shoud match component Palette snapshot 1`] = `
   </div>
   <p
     className="palette-title"
+    contentEditable={true}
+    onBlur={[Function]}
+    onKeyDown={[Function]}
+    suppressContentEditableWarning={true}
   />
 </div>
 `;

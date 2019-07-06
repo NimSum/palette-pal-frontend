@@ -5,6 +5,7 @@ exports[`PickerScreen shoud match component PickerScreen snapshot 1`] = `
   <SubHeader
     btnTitle="Generate New Palette"
     handleClick={[Function]}
+    setOption={[Function]}
     title="Pick New Palette"
   />
   <section
