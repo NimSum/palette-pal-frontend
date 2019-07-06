@@ -6,7 +6,7 @@ function Palette(props) {
   for (let i = 1; i <= 5; i++) {
     const color = props.data[`color_${i}`]
     colorDivs.push(
-      <div className="color" style={{ backgroundColor: color }}>
+      <div className="color" key={props.data.name + color} style={{ backgroundColor: color }}>
         <p className="color-hex" style={{ color: props.getContrastColor(color) }}>{color}</p>
       </div>
     )
