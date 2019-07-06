@@ -97,6 +97,13 @@ const mockData = {
         name: "palette0"
       }
     ]
+  },
+  justColors: {
+    color_1: '#000000',
+    color_2: '#000000',
+    color_3: '#000000',
+    color_4: '#000000',
+    color_5: '#000000',
   }
 }
 
