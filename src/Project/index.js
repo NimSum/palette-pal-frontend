@@ -17,12 +17,7 @@ class Project extends Component {
 	};
 
   updateProjectName = e => {
-    console.log(e.keyCode === 13)
-    if (e.keyCode === 13) {
-      e.preventDefault();
-    }
-
-		requests.putProject({ project_name: e.target.textContent, id: this.props.data.id });
+    requests.putProject({ project_name: e.target.textContent, id: this.props.data.id });
 	};
 
 	render() {
@@ -34,11 +29,16 @@ class Project extends Component {
 					<div className="project-heading-left">
 						<i className="fas fa-folder-open" />
 						<h3
-							className="project-title"
+              className="project-title"
               contentEditable
               suppressContentEditableWarning
-							onBlur={this.updateProjectName}
-							onKeyDown={this.updateProjectName}>
+              onBlur={this.updateProjectName}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  e.preventDefault();
+                  this.updateProjectName(e);
+                }
+              }}>
 							{this.props.data.name}
 						</h3>
 					</div>
