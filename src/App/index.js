@@ -76,24 +76,20 @@ class App extends Component {
 					palettes: []
 				});
       } catch (error) {
-        console.log(error)
 				this.setState(error);
 			}
 		} else if (action === 'delete') {
       try {
-        console.log(project.id)
 				res = await requests.deleteProject(project.id);
 				projectData = projectData.filter(i => i.id !== project.id);
       } catch (error) {
-        console.log(error)
 				this.setState(error);
 			}
 		} else if (action === 'update') {
 			try {
 				res = await requests.putProject(project);
-				projectData[projectData.findIndex(i => i.id === project.id)].name = project.name;
+				projectData[projectData.findIndex(i => i.id === project.id)].name = project.project_name;
       } catch (error) {
-        console.log(error)
 				this.setState(error);
 			}
 		}
