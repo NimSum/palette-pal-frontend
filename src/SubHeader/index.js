@@ -10,16 +10,33 @@ class SubHeader extends Component {
       filter: ''
     }
   }
+
+  handleChange = ({ target }) => {
+    this.setState({ [target.name]: target.value });
+    this.props.setOption({ [target.name]: target.value });
+  }
     
   render() {
     const btnName = this.props.title === "Pick New Palette" ? "Generate New Palette" : "Create New Project";
 
+    const projectOptions = this.props.data.map(project => <option value={project.id}>{project.name}</option>)
+
     const filters = this.props.title === "Pick New Palette" ?  <>
-        <p className="dropdown-label">Values:</p> <select className="dropdown-input" type="text" />
-        <p className="dropdown-label">Mode:</p> <select className="dropdown-input" type="text" />
+        <p className="dropdown-label">Format:</p><select className="dropdown-input" type="text" name="format"/>
+        <p className="dropdown-label">Mode:</p><select className="dropdown-input" type="text" name="mode"/>
     </>
       : <>
-        <p className="dropdown-label">Filter:</p> <select className="dropdown-input" type="text" />
+        <p className="dropdown-label">Filter:</p>
+        <select
+          className="dropdown-input"
+          type="text"
+          name="filter"
+          value={this.state.filter}
+          onChange={this.handleChange}
+        >
+          <option value=''>All Projects</option>
+          {projectOptions}
+        </select>
     </>
 
     return (

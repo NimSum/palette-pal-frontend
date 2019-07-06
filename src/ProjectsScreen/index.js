@@ -9,7 +9,8 @@ class ProjectsScreen extends Component {
     super(props);
 
     this.state = {
-      showDialog: false
+      showDialog: false,
+      filter: ''
     }
   }
 
@@ -28,12 +29,22 @@ class ProjectsScreen extends Component {
       primaryAction={this.createNewProject}
     /> : null;
 
-    const projects = this.props.data.map(project => <Project data={project} />);
+    console.log(this.state.filter)
+
+    const projects = this.state.filter
+      ? this.props.data.filter(i => i.id === +this.state.filter).map(project => <Project data={project} />)
+      : this.props.data.map(project => <Project data={project} />);
+
 
     return (
       <>
         {dialog}
-        <SubHeader title="My Projects" handleClick={() => this.setState({showDialog: true})} btnTitle="Create New Project"/>
+        <SubHeader
+          title="My Projects"
+          handleClick={() => this.setState({ showDialog: true })} btnTitle="Create New Project"
+          data={this.props.data}
+          setOption={filter => this.setState(filter)}
+        />
         <section className="project-container">
           {projects}
         </section>
