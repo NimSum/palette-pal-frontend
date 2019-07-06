@@ -9,6 +9,7 @@ function Project(props) {
       key={palette.id}
       projectID={props.data.id}
       updatePaletteData={props.updatePaletteData}
+      getContrastColor={props.getContrastColor}
     />);
 
   return (

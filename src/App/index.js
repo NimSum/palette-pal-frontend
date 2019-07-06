@@ -137,7 +137,16 @@ class App extends Component {
       }
 		}
 		this.setState({ projectData });
-	};
+  };
+  
+  getContrastColor(hex) {
+    hex = hex.replace("#", "");
+    var r = parseInt(hex.substr(0, 2), 16);
+    var g = parseInt(hex.substr(2, 2), 16);
+    var b = parseInt(hex.substr(4, 2), 16);
+    var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? 'black' : 'white';
+  }
 
 	render() {
 		const content = this.state.loading ? (
@@ -160,6 +169,7 @@ class App extends Component {
                   data={this.state.projectData}
                   updateProjectData={this.updateProjectData}
                   updatePaletteData={this.updatePaletteData}
+                  getContrastColor={this.getContrastColor}
                 />
 							)}
 						/>
@@ -170,7 +180,8 @@ class App extends Component {
 								<ProjectsScreen
 									data={this.state.projectData}
 									updateProjectData={this.updateProjectData}
-									updatePaletteData={this.updatePaletteData}
+                  updatePaletteData={this.updatePaletteData}
+                  getContrastColor={this.getContrastColor}
 								/>
 							)}
 						/>
