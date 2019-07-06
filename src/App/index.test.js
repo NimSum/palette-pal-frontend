@@ -1,7 +1,13 @@
 import React from 'react';
-import App from '.';
+import App from './index';
+import { shallow } from 'enzyme';
 
 describe('App', () => {
-  it('renders without crashing', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(< App />);
+  })
+  it('shoud match component snapshot', () => {
+    expect(wrapper).toMatchSnapshot();
   });
 })
