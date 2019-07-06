@@ -56,6 +56,7 @@ class App extends Component {
         project.palettes.push(paletteData[0]);
         project.palettes.sort((a, b) => a.id - b.id);
       }
+      
 			return acc;
 		}, []);
 		this.setState({ projectData, loading: false });
@@ -66,7 +67,6 @@ class App extends Component {
 		let res;
 
     if (action === 'add') {
-      console.log(project)
 			try {
 				res = await requests.postProject(project);
 				projectData.push({
@@ -75,25 +75,23 @@ class App extends Component {
 					palettes: []
 				});
       } catch (error) {
-				this.setState(error);
+				this.setState({error});
 			}
     } else if (action === 'delete') {
-      //add deleting of all associated palettes in DATA
       try {
 				res = await requests.deleteProject(project.id);
 				projectData = projectData.filter(i => i.id !== project.id);
       } catch (error) {
-				this.setState(error);
+				this.setState({error});
 			}
 		} else if (action === 'update') {
 			try {
 				res = await requests.putProject(project);
 				projectData[projectData.findIndex(i => i.id === project.id)].name = project.project_name;
       } catch (error) {
-				this.setState(error);
+				this.setState({error});
 			}
 		}
-
 		this.setState({ projectData });
 		return res;
 	};
@@ -105,53 +103,43 @@ class App extends Component {
     let res;
     
     if (action === 'add') {
-      res = await requests.postPalette(palette);
-      projectData[projIndex].palettes.push({
-        name: palette.palette_name,
-        id: res[0],
-        color_1: palette.color_1,
-        color_2: palette.color_2,
-        color_3: palette.color_3,
-        color_4: palette.color_4,
-        color_5: palette.color_5
-      });
+      try {
+        res = await requests.postPalette(palette);
+        projectData[projIndex].palettes.push({
+          name: palette.palette_name,
+          id: res[0],
+          color_1: palette.color_1,
+          color_2: palette.color_2,
+          color_3: palette.color_3,
+          color_4: palette.color_4,
+          color_5: palette.color_5
+        });
+      } catch (error) {
+        this.setState({ error });
+      }
     } else if (action === 'delete') {
-      res = await requests.deletePalette(palette.id);
-			projectData[projIndex].palettes = projectData[projIndex].palettes.filter(i => i.id !== palette.id);
-    } else if (action === 'update') {
-      res = await requests.putPalette(palette);
-      const palIndex = projectData[projIndex].palettes.findIndex(pal => +pal.id === +palette.id);
-
-			projectData[projIndex].palettes[palIndex] = { ...projectData[projIndex].palettes[palIndex], ...palette, name: palette.palette_name };
+      try {
+        res = await requests.deletePalette(palette.id);
+        
+        projectData[projIndex].palettes = projectData[projIndex].palettes.filter(i => i.id !== palette.id);
+      } catch (error) {
+        this.setState({ error });
+      }
+      } else if (action === 'update') {
+        try {
+          res = await requests.putPalette(palette);
+          
+          const palIndex = projectData[projIndex].palettes.findIndex(pal => +pal.id === +palette.id);
+        
+          projectData[projIndex].palettes[palIndex] = { ...projectData[projIndex].palettes[palIndex], ...palette, name: palette.palette_name };
+      } catch (error) {
+        this.setState({error});
+      }
 		}
-
 		this.setState({ projectData });
 	};
 
-	// deleteProjectData = id => {
-	//   this.setState({projectData: this.state.projectData.filter(project => project.id !== id)})
-	// }
-
-	// saveProjectData = project => {
-	//   this.setState({projectData: this.state.projectData.push(project)})
-	// }
-
-	// deletePaletteData = id => {
-	//   const project = this.state.projectData.find(project => {
-	//     return project.palettes.map(pal => pal.id).includes(id);
-	//   })
-
-	//   project.palettes = project.palettes.filter(pal => pal.id !== id);
-
-	//   this.setState({ projectData: [...this.state.projectData, project] })
-	// }
-
-	// savePaletteData = project => {
-	//   this.setState({ projectData: this.state.projectData.push(project) })
-	// }
-
 	render() {
-		console.log(this.state.projectData);
 		const content = this.state.loading ? (
 			<div className="loading-screen">
 				<img

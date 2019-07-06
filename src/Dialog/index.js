@@ -53,15 +53,15 @@ class Dialog extends Component {
     })
   }
 
-  getDialogContent = () => {
-    let content = null; 
+  getPaletteFields = () => {
+    let paletteFields = null; 
 
     if (this.props.title === 'Save New Palette') {
       const colors = Object.values(this.props.colors);
       const colorDivs = colors.map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);
       const projectOptions = this.props.data.map(i => <option key={i.id} value={i.id}>{i.name}</option>);
 
-      content = (
+      paletteFields = (
         <>
         <div className="palette-preview">
           {colorDivs}
@@ -77,7 +77,7 @@ class Dialog extends Component {
         </>
       )
     }
-    return content;
+    return paletteFields;
   }
 
   render() {
@@ -88,7 +88,7 @@ class Dialog extends Component {
           <i className="fas fa-times" onClick={this.props.closeDialog}></i>
           <h3>{this.props.title}</h3>
           <input className="dropdown-input name-input" name={`${type}Name`} placeholder={`Enter ${type} name...`} onChange={this.handleChange}></input>
-            {this.getDialogContent()}
+            {this.getPaletteFields()}
           <div className="dialog-btns">
             <button className="dialog-btn cancel-btn" type="button" onClick={this.props.closeDialog} >
               Cancel
