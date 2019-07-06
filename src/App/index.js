@@ -80,9 +80,10 @@ class App extends Component {
 				this.setState(error);
 			}
 		} else if (action === 'delete') {
-			try {
+      try {
+        console.log(project.id)
 				res = await requests.deleteProject(project.id);
-				projectData.filter(i => i.id !== project.id);
+				projectData = projectData.filter(i => i.id !== project.id);
       } catch (error) {
         console.log(error)
 				this.setState(error);
