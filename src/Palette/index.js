@@ -28,7 +28,7 @@ function Palette(props) {
           project_id: props.projectID
         }, 'update')}
         onKeyDown={e => {
-          if (e.keyCode === 13 || e.target.textContent.length >= 15) {
+          if (e.keyCode === 13 || (e.target.textContent.length >= 15 && e.keyCode !== 8)) {
             e.preventDefault()
             props.updatePaletteData({
               palette_name: e.target.textContent,

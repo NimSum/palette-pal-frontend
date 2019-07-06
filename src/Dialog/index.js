@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import requests from '../utils/apiRequests';
 
 class Dialog extends Component {
   constructor(props) {
