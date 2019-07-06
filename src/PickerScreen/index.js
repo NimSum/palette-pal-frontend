@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
 import PickerColor from '../PickerColor';
-import requests from '../utils/apiRequests';
 
 class PickerScreen extends Component {
   constructor(props) {
@@ -12,7 +11,6 @@ class PickerScreen extends Component {
       colors: {},
       held: [],
       showSaveDialog: false,
-
     }
   }
 
@@ -67,17 +65,6 @@ class PickerScreen extends Component {
 
   closeDialog = () => {
     this.setState({showSaveDialog: false})
-  }
-
-  saveNewPalette = async details => {
-    requests.postPalette({
-      name: details.paletteName,
-      project_id: details.projectID,
-      ...this.state.colors
-    })
-    // this.props.savePalette()
-
-    this.closeDialog();
   }
 
   render() {

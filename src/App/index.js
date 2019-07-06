@@ -56,7 +56,6 @@ class App extends Component {
         project.palettes.push(paletteData[0]);
         project.palettes.sort((a, b) => a.id - b.id);
       }
-
 			return acc;
 		}, []);
 		this.setState({ projectData, loading: false });
@@ -122,10 +121,8 @@ class App extends Component {
     } else if (action === 'update') {
       res = await requests.putPalette(palette);
       const palIndex = projectData[projIndex].palettes.findIndex(pal => +pal.id === +palette.id);
-      
-      console.log(palIndex)
 
-			projectData[projIndex].palettes[palIndex] = { ...projectData[projIndex].palettes[palIndex], ...palette };
+			projectData[projIndex].palettes[palIndex] = { ...projectData[projIndex].palettes[palIndex], ...palette, name: palette.palette_name };
 		}
 
 		this.setState({ projectData });
