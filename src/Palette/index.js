@@ -1,5 +1,4 @@
 import React from 'react';
-import requests from '../utils/apiRequests';
 
 function Palette(props) {
   const {
@@ -12,6 +11,9 @@ function Palette(props) {
 
   return (
     <div className="Palette" >
+      <i className="fas fa-times-circle" onClick={() => {
+        props.updatePaletteData({ ...props.data, project_id: props.projectID }, 'delete');
+      }}></i>
       <div className="color" style={{ backgroundColor: color_1 }}>
         <p className="color-hex">{color_1}</p>
       </div>
@@ -31,11 +33,19 @@ function Palette(props) {
         className="palette-title"
         contentEditable
         suppressContentEditableWarning
-        onBlur={e => requests.putPalette({palette_name: e.target.textContent, id: props.data.id})}
+        onBlur={e => props.updatePaletteData({
+          palette_name: e.target.textContent,
+          id: props.data.id,
+          project_id: props.projectID
+        }, 'update')}
         onKeyDown={e => {
           if (e.keyCode === 13) {
             e.preventDefault()
-            requests.putPalette({ palette_name: e.target.textContent, id: props.data.id })
+            props.updatePaletteData({
+              palette_name: e.target.textContent,
+              id: props.data.id,
+              project_id: props.projectID
+            }, 'update')
           }
         }}
       >

@@ -18,20 +18,22 @@ class ProjectsScreen extends Component {
     this.setState({showDialog: false})
   }
 
-  createNewProject = project => {
-    requests.postProject(project);
-  }
-
   render() {
     const dialog = this.state.showDialog ? <Dialog
       title="Create New Project"
       closeDialog={this.closeDialog}
-      primaryAction={this.createNewProject}
+      primaryAction={this.props.updateProjectData}
     /> : null;
 
-    const projects = this.state.filter
-      ? this.props.data.filter(i => i.id === +this.state.filter).map(project => <Project data={project} key={project.id} deleteProject={this.props.deleteProject} />)
-      : this.props.data.map(project => <Project data={project} key={project.id} deleteProject={this.props.deleteProject} />);
+    const data = !this.state.filter ? this.props.data
+      : this.props.data.filter(i => i.id === +this.state.filter);
+    
+    const projects = data.map(project => <Project
+      data={project}
+      key={project.id}
+      updateProjectData={this.props.updateProjectData}
+      updatePaletteData={this.props.updatePaletteData}
+    />).reverse();
 
 
     return (

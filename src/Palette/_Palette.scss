@@ -5,6 +5,29 @@
   margin: 15px 20px;   
   width: 16%;
   text-decoration: none;
+  position: relative;
+
+  .fa-times-circle {
+    display: none;
+  }
+
+  &:hover {
+    .fa-times-circle {
+      display: block;
+      position: absolute;
+      top: -5px;
+      right: -15px;
+      font-size: 20px;
+      color: $btn-color;
+      background: white;
+      border-radius: 100%;
+      
+      &:hover {
+        color: darkred;
+        cursor: pointer;
+      }
+    }
+  }
 
   .color {
     width: 100%;

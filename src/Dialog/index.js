@@ -36,15 +36,15 @@ class Dialog extends Component {
     let data;
 
     if (this.props.title === 'Save New Palette' && this.state.newProject) {
-      requests.postProject({name: newProject})
-      data = { paletteName, projectID: test[0] };
+      const res = await this.props.updateProjectData({ project_name: newProject }, 'add');
+      data = { ...this.props.colors, palette_name: paletteName, project_id: res[0] };
     } else if (this.props.title === 'Save New Palette') {
-      data = { paletteName, projectID };
-    } else {
-      data = { name: projectName };
+      data = { ...this.props.colors, palette_name: paletteName, project_id: projectID };
+    } else if (this.props.title === 'Create New Project') {
+      data = { project_name: projectName };
     }
     
-    this.props.primaryAction(data);
+    this.props.primaryAction(data, 'add');
     this.setState({
       paletteName: '',
       projectName: '',
@@ -53,15 +53,15 @@ class Dialog extends Component {
     })
   }
 
-  getDialogContent = () => {
-    let content = null; 
+  getPaletteFields = () => {
+    let paletteFields = null; 
 
     if (this.props.title === 'Save New Palette') {
       const colors = Object.values(this.props.colors);
       const colorDivs = colors.map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);
       const projectOptions = this.props.data.map(i => <option key={i.id} value={i.id}>{i.name}</option>);
 
-      content = (
+      paletteFields = (
         <>
         <div className="palette-preview">
           {colorDivs}
@@ -77,12 +77,7 @@ class Dialog extends Component {
         </>
       )
     }
-    // else if (this.props.title === 'Create New Project') {
-    //   content = (
-
-    //   )
-    // }
-    return content;
+    return paletteFields;
   }
 
   render() {
@@ -93,7 +88,7 @@ class Dialog extends Component {
           <i className="fas fa-times" onClick={this.props.closeDialog}></i>
           <h3>{this.props.title}</h3>
           <input className="dropdown-input name-input" name={`${type}Name`} placeholder={`Enter ${type} name...`} onChange={this.handleChange}></input>
-            {this.getDialogContent()}
+            {this.getPaletteFields()}
           <div className="dialog-btns">
             <button className="dialog-btn cancel-btn" type="button" onClick={this.props.closeDialog} >
               Cancel

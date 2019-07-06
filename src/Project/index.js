@@ -1,10 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Palette from '../Palette';
-import requests from '../utils/apiRequests';
 
 function Project(props) {
-  const palettes = props.data.palettes.map(palette => <Palette data={palette} key={palette.id} />);
+  const palettes = props.data.palettes.map(palette =>
+    <Palette
+      data={palette}
+      key={palette.id}
+      projectID={props.data.id}
+      updatePaletteData={props.updatePaletteData}
+    />);
 
   return (
     <article className="Project">
@@ -15,26 +20,27 @@ function Project(props) {
             className="project-title"
             contentEditable
             suppressContentEditableWarning
-            onBlur={e => requests.putProject({
+            onBlur={e => props.updateProjectData({
               project_name: e.target.textContent,
               id: props.data.id
-            })}
+            }, 'update')
+            }
             onKeyDown={e => {
               if (e.keyCode === 13) {
                 e.preventDefault();
-                requests.putProject({
+                props.updateProjectData({
                   project_name: e.target.textContent,
                   id: props.data.id
-                })
+                }, 'update');
               }
             }}>
             {props.data.name}
           </h3>
         </div>
-        <i className="fas fa-trash" onClick={() => {
-          requests.deleteProject(props.data.id);
-          props.deleteProject(props.data.id);
-        }} />
+        <i
+          className="fas fa-trash"
+          onClick={() => props.updateProjectData(props.data, 'delete')}
+        />
       </div>
       <div className="project-palettes">
         {palettes}
