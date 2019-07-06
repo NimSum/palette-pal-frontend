@@ -22,16 +22,6 @@ class SubHeader extends Component {
     const projectOptions = this.props.data.map(project => <option value={project.id} key={project.id} >{project.name}</option>)
 
     const filters = this.props.title === "Pick New Palette" ?  <>
-      <p className="dropdown-label">Format:</p>
-      <select
-        className="dropdown-input"
-        type="text"
-        name="format"
-        value={this.state.format}
-        onClick={this.handleChange}
-      >
-        <option value='hex'>hex</option>
-      </select>
       <p className="dropdown-label">Mode:</p>
       <select
         className="dropdown-input"
@@ -64,6 +54,16 @@ class SubHeader extends Component {
           <button className="subheader-btn" onClick={this.props.handleClick}><i className="fas fa-play" aria-hidden="true"></i>{btnName}</button>
         </div>
         <div className="subheader-right">
+          <p className="dropdown-label">Format:</p>
+          <select
+            className="dropdown-input"
+            type="text"
+            name="format"
+            value={this.state.format}
+            onClick={this.handleChange}
+          >
+            <option value='hex'>hex</option>
+          </select>
           {filters}
         </div>
       </section>
