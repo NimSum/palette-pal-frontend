@@ -52,6 +52,10 @@ class App extends Component {
     this.setState({ projectData, loading: false });
   }
 
+  deleteProject = id => {
+    this.setState({projectData: this.state.projectData.filter(project => project.id !== id)})
+  }
+
   render() {
     const content = this.state.loading ?
       <div className="loading-screen"><img src="https://66.media.tumblr.com/09dc11b8b4b4e1be71dba1c570882308/tumblr_naksdbfjZp1sa11jco1_500.gif" alt="Loading icon" /></div>
@@ -61,7 +65,7 @@ class App extends Component {
         <main className="main">
           <Switch>
               <Route exact path="/" component={() => <PickerScreen data={this.state.projectData}/>} />
-              <Route exact path="/projects" component={() => <ProjectsScreen data={this.state.projectData}/>} />
+              <Route exact path="/projects" component={() => <ProjectsScreen data={this.state.projectData} deleteProject={this.deleteProject} />} />
             <Route render={ErrorScreen} />
           </Switch>
         </main>

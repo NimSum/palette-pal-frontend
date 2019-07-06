@@ -31,7 +31,10 @@ function Project(props) {
             {props.data.name}
           </h3>
         </div>
-        <i className="fas fa-trash" onClick={() => requests.deleteProject(props.data.id)} />
+        <i className="fas fa-trash" onClick={() => {
+          requests.deleteProject(props.data.id);
+          props.deleteProject(props.data.id);
+        }} />
       </div>
       <div className="project-palettes">
         {palettes}
