@@ -85,6 +85,7 @@ class PickerScreen extends Component {
         id={color}
         toggleHold={this.toggleHold}
         held={this.state.held.includes(color)}
+        getContrastColor={this.props.getContrastColor}
       />);
 
     return (

@@ -33,6 +33,7 @@ class ProjectsScreen extends Component {
       key={project.id}
       updateProjectData={this.props.updateProjectData}
       updatePaletteData={this.props.updatePaletteData}
+      getContrastColor={this.props.getContrastColor}
     />).reverse();
 
 
