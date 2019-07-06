@@ -155,6 +155,7 @@ class App extends Component {
 					src="https://66.media.tumblr.com/09dc11b8b4b4e1be71dba1c570882308/tumblr_naksdbfjZp1sa11jco1_500.gif"
 					alt="Loading icon"
 				/>
+        <h2>Loading...</h2>
 			</div>
 		) : (
 			<div className="App">
