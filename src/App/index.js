@@ -101,7 +101,11 @@ class App extends Component {
 
   updatePaletteData = async (palette, action) => {
     let projectData = this.state.projectData;
-    const project = projectData.find(proj => proj.id == palette.project_id);
+    const project = projectData.find(proj => {
+      console.log(proj, palette.project_id)
+      return +proj.id === +palette.project_id
+    });
+    console.log(project)
     const projIndex = projectData.findIndex(proj => proj.id == project.id);
     console.log(projIndex)
 

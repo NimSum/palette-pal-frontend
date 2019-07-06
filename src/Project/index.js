@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import Palette from '../Palette';
 
 function Project(props) {
-  const palettes = props.data.palettes.map(palette => <Palette data={palette} key={palette.id} updatePaletteData={props.updatePaletteData} />);
+  console.log(props.data.palettes)
+  const palettes = props.data.palettes.map(palette => <Palette data={palette} key={palette.id} projectID={props.data.id} updatePaletteData={props.updatePaletteData} />);
 
   return (
     <article className="Project">
