@@ -64,6 +64,7 @@ class SubHeader extends Component {
           >
             <option value='hex'>hex</option>
             <option value='hsl'>hsl</option>
+            <option value='rgb'>rgb</option>
           </select>
           {filters}
         </div>
