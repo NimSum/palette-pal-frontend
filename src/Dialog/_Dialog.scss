@@ -45,6 +45,8 @@
 
   ::placeholder {
     font-style: italic;
+    font-size: 13px;
+    color: rgb(176, 176, 176);
   }
 
   .dialog-divider {
@@ -85,6 +87,7 @@
     height: 28px;
     width: 100%;
     border-radius: 5px;
+    font-size: 14px;
   }
 
   label {

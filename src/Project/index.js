@@ -26,7 +26,7 @@ function Project(props) {
             }, 'update')
             }
             onKeyDown={e => {
-              if (e.keyCode === 13) {
+              if (e.keyCode === 13 || e.target.textContent.length >= 15) {
                 e.preventDefault();
                 props.updateProjectData({
                   project_name: e.target.textContent,

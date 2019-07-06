@@ -73,7 +73,7 @@ class Dialog extends Component {
         </select>
         <div className="dialog-divider"><hr /><p>OR</p><hr /></div>
         <label htmlFor="newProject">Create New Project</label>
-        <input className="project-input" name="newProject" placeholder="Enter Project Name..." onChange={this.handleChange} value={this.state.newProject}></input>
+          <input className="project-input" name="newProject" placeholder="Enter Project Name..." maxLength="15" onChange={this.handleChange} value={this.state.newProject}></input>
         </>
       )
     }
@@ -87,7 +87,7 @@ class Dialog extends Component {
         <div className="popup">
           <i className="fas fa-times" onClick={this.props.closeDialog}></i>
           <h3>{this.props.title}</h3>
-          <input className="dropdown-input name-input" name={`${type}Name`} placeholder={`Enter ${type} name...`} onChange={this.handleChange}></input>
+          <input maxLength="15" className="dropdown-input name-input" name={`${type}Name`} placeholder={`Enter ${type} name...`} onChange={this.handleChange}></input>
             {this.getPaletteFields()}
           <div className="dialog-btns">
             <button className="dialog-btn cancel-btn" type="button" onClick={this.props.closeDialog} >
