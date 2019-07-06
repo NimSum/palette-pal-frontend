@@ -16,7 +16,7 @@ class Project extends Component {
 	};
 
 	render() {
-		const palettes = this.props.data.palettes.map(palette => <Palette data={palette} />);
+    const palettes = this.props.data.palettes.map(palette => <Palette data={palette} key={palette.id}/>);
 
 		return (
 			<article className="Project">

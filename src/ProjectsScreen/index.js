@@ -29,11 +29,9 @@ class ProjectsScreen extends Component {
       primaryAction={this.createNewProject}
     /> : null;
 
-    console.log(this.state.filter)
-
     const projects = this.state.filter
-      ? this.props.data.filter(i => i.id === +this.state.filter).map(project => <Project data={project} />)
-      : this.props.data.map(project => <Project data={project} />);
+      ? this.props.data.filter(i => i.id === +this.state.filter).map(project => <Project data={project} key={project.id} />)
+      : this.props.data.map(project => <Project data={project} key={project.id} />);
 
 
     return (

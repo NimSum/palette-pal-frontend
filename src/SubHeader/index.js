@@ -19,7 +19,7 @@ class SubHeader extends Component {
   render() {
     const btnName = this.props.title === "Pick New Palette" ? "Generate New Palette" : "Create New Project";
 
-    const projectOptions = this.props.data.map(project => <option value={project.id}>{project.name}</option>)
+    const projectOptions = this.props.data.map(project => <option value={project.id} key={project.id} >{project.name}</option>)
 
     const filters = this.props.title === "Pick New Palette" ?  <>
         <p className="dropdown-label">Format:</p><select className="dropdown-input" type="text" name="format"/>
