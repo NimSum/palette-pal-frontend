@@ -72,10 +72,9 @@ class PickerScreen extends Component {
     this.setState({showSaveDialog: false})
   }
 
-  setOption = option => {
+  setPickerOption = option => {
     this.setState({ option });
   }
-
 
   updateColor = (color, id) => {
     const colors = this.state.colors;
@@ -113,7 +112,7 @@ class PickerScreen extends Component {
           handleClick={this.generatePalette}
           btnTitle="Generate New Palette"
           data={this.props.data}
-          setOption={this.setOption}
+          setOption={this.setPickerOption}
         />
         <section className="PickerScreen">
           <div className="palette-display">
