@@ -119,6 +119,7 @@ class PickerScreen extends Component {
 
   setPickerOption = option => {
     this.setState(option);
+    this.generateNewPalette();
   }
 
   updateColor = (color, id) => {
