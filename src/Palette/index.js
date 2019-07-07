@@ -4,8 +4,6 @@ import colorContraster from '../utils/colorContraster';
 
 function Palette(props) {
   const colorDivs = [];
-
-  // const formatted = colorFormatter(props.data, props.format)
   
   for (let i = 1; i <= 5; i++) {
     const color = props.data[`color_${i}`]
