@@ -38,21 +38,16 @@ class PickerScreen extends Component {
   }
 
   getComplementaryPalette = () => {   
-    alert('poop')
     const colors = this.state.colors;
-    console.log(colors)
     colors.color_1 = this.getRandomColor();
     colors.color_5 = color(colors.color_1).negate();
     colors.color_3 = color(colors.color_1).mix(colors.color_5);
     colors.color_2 = color(colors.color_1).mix(colors.color_3);
     colors.color_4 = color(colors.color_3).mix(colors.color_5);
-    console.log(colors)
 
-    for (var color in colors) {
-      colors[color] = colorFormatter(color, 'hex')
+    for (var c in colors) {
+      colors[c] = colorFormatter(colors[c], 'hex')
     }
-    console.log(colors)
-
     return colors;
   }
 
@@ -64,17 +59,14 @@ class PickerScreen extends Component {
     colors.color_4 = color(colors.color_3).rotate(30);
     colors.color_5 = color(colors.color_4).rotate(30);
 
-    for (var color in colors) {
-      colors[color] = colorFormatter(color, 'hex')
+    for (var c in colors) {
+      colors[c] = colorFormatter(colors[c], 'hex')
     }
-    console.log(colors)
-
     return colors;
   }
 
   getRandomPalette = () => {
     const colors = this.state.colors;
-
     colors.color_1 = this.getRandomColor();
     colors.color_2 = this.getRandomColor();
     colors.color_3 = this.getRandomColor();
@@ -86,7 +78,7 @@ class PickerScreen extends Component {
 
   generateNewPalette = () => {
     const { mode } = this.state;
-    let colors;
+    let colors = {};
 
     if (mode === 'random') {
       colors = this.getRandomPalette();
@@ -136,7 +128,6 @@ class PickerScreen extends Component {
   }
 
   render() {
-    console.log(this.state)
     const saveDialog = this.state.showSaveDialog ? <Dialog
       title="Save New Palette"
       closeDialog={this.closeDialog}
