@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
 import PickerColor from '../PickerColor';
-import { SketchPicker } from 'react-color';
 import colorFormatter from '../utils/colorFormatter';
 
 class PickerScreen extends Component {
@@ -82,6 +81,14 @@ class PickerScreen extends Component {
     }
   }
 
+  updateColor = (color, id) => {
+    console.log(this.state.colors)
+    const colors = this.state.colors;
+    colors[id] = color;
+    console.log(colors)
+    this.setState({ colors });
+  }
+
   render() {
     const saveDialog = this.state.showSaveDialog ? <Dialog
       title="Save New Palette"
@@ -100,6 +107,7 @@ class PickerScreen extends Component {
         id={color}
         toggleHold={this.toggleHold}
         held={this.state.held.includes(color)}
+        updateColor={this.updateColor}
       />);
 
     return (

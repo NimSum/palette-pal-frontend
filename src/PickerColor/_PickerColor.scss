@@ -1,14 +1,60 @@
-.picker-color {
+.PickerColor {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
+
+  .picker-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .PhotoshopPicker {
+    width: 100%!important;
+    z-index: 500;
+    margin-bottom: 30px;
+
+    span, input, div {
+      font-size: 11px!important;
+    }
+
+    div.flexbox-fix {
+      height: 262px;
+
+      div:first-child,
+      div:nth-child(2) {
+        max-height: 230px;
+      }
+      div {
+        max-height: 250px;
+
+        div {
+          max-height: 200px;
+        }
+      }
+    }
+  }
   
   .picker-color-value {
-    font-size: 20px;
-    opacity: .5;
+    font-size: 18px;
+    opacity: .4;
     text-transform: uppercase;
+  }
+
+  .fa-pencil-alt {
+    font-size: 22px;
+    font-weight: 600;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    opacity: 0;
   }
   
   .picker-hold {
@@ -23,15 +69,19 @@
     cursor: pointer;
     opacity: 0;
 
+    .fa-square, 
+    .fa-check-square {
+      font-size: 22px;
+    }
+
     &.hold {
       opacity: .5!important;
     }
   }
 
   &:hover {
-    .picker-hold {
+    .picker-hold, .fa-pencil-alt {
       opacity: .6;
     }
-    
   }
 }
