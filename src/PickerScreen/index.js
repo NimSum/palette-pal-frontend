@@ -3,6 +3,7 @@ import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
 import PickerColor from '../PickerColor';
 import color from 'color';
+import colorFormatter from '../utils/colorFormatter';
 
 class PickerScreen extends Component {
   constructor(props) {
@@ -70,18 +71,8 @@ class PickerScreen extends Component {
   }
 
   changeFormat(type) {
-    const colors = {...this.state.colors};
-    for (let hue in colors ) {
-      if (type === 'hsl') {
-        colors[hue] = (color(colors[hue]).hsl().round().string());
-      } else if (type === 'rgb') {
-        colors[hue] = (color(colors[hue]).rgb().string());
-      } else if (type === 'hex') {
-        colors[hue] = (color(colors[hue]).hex());
-      }
-    }
+    const colors = colorFormatter(this.state.colors, type)
     this.setState({ colors });
-    console.log(colors);
   }
 
   setOption = (option) => {
