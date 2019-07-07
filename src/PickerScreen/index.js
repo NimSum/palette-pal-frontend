@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
 import PickerColor from '../PickerColor';
-import color from 'color';
 import colorFormatter from '../utils/colorFormatter';
 
 class PickerScreen extends Component {
@@ -13,7 +12,10 @@ class PickerScreen extends Component {
       colors: {},
       held: [],
       showSaveDialog: false,
-      option: ''
+      option: {
+        format: 'hex',
+        mode: 'random'
+      }
     }
   }
 
@@ -70,16 +72,14 @@ class PickerScreen extends Component {
     this.setState({showSaveDialog: false})
   }
 
-  changeFormat(type) {
-    const colors = colorFormatter(this.state.colors, type)
-    this.setState({ colors });
+  setPickerOption = option => {
+    this.setState({ option });
   }
 
-  setOption = (option) => {
-    this.setState({ option });
-    if (option.format) {
-      this.changeFormat(option.format)
-    }
+  updateColor = (color, id) => {
+    const colors = this.state.colors;
+    colors[id] = color;
+    this.setState({ colors });
   }
 
   render() {
@@ -100,7 +100,8 @@ class PickerScreen extends Component {
         id={color}
         toggleHold={this.toggleHold}
         held={this.state.held.includes(color)}
-        getContrastColor={this.props.getContrastColor}
+        updateColor={this.updateColor}
+        format={this.state.option.format}
       />);
 
     return (
@@ -111,16 +112,19 @@ class PickerScreen extends Component {
           handleClick={this.generatePalette}
           btnTitle="Generate New Palette"
           data={this.props.data}
-          setOption={this.setOption}
+          setOption={this.setPickerOption}
         />
         <section className="PickerScreen">
           <div className="palette-display">
             {colors}
           </div>
           <div className="picker-footer">
-            <p className="instructions"><i className="fas fa-sync-alt" aria-hidden="true"></i>Press <strong>space</strong> to refresh unselected colors</p>
+            <p className="instructions">
+              <i className="fas fa-sync-alt" aria-hidden="true" />
+              Press <strong>space</strong> to refresh unselected colors
+            </p>
             <button className="save-btn" onClick={() => this.setState({showSaveDialog: true})}>
-              <i className="far fa-save" aria-hidden="true"></i>Save Palette
+              <i className="far fa-save" aria-hidden="true"/>Save Palette
             </button>
           </div>
         </section>

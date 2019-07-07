@@ -7,7 +7,7 @@ class SubHeader extends Component {
     this.state = {
       format: 'hex',
       mode: 'random',
-      filter: ''
+      project: ''
     }
   }
 
@@ -21,7 +21,7 @@ class SubHeader extends Component {
 
     const projectOptions = this.props.data.map(project => <option value={project.id} key={project.id} >{project.name}</option>)
 
-    const filters = this.props.title === "Pick New Palette" ?  <>
+    const options = this.props.title === "Pick New Palette" ?  <>
       <p className="dropdown-label">Mode:</p>
       <select
         className="dropdown-input"
@@ -34,11 +34,11 @@ class SubHeader extends Component {
       </select>
     </>
       : <>
-        <p className="dropdown-label">Filter:</p>
+        <p className="dropdown-label">Project:</p>
         <select
           className="dropdown-input"
           type="text"
-          name="filter"
+          name="project"
           value={this.state.filter}
           onChange={this.handleChange}
         >
@@ -66,7 +66,7 @@ class SubHeader extends Component {
             <option value='hsl'>hsl</option>
             <option value='rgb'>rgb</option>
           </select>
-          {filters}
+          {options}
         </div>
       </section>
     );

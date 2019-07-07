@@ -7,7 +7,7 @@ class Dialog extends Component {
     this.state = {
       paletteName: '',
       projectName: '',
-      projectID:'',
+      projectID: 1,
       newProject: ''
     }
   }
@@ -58,7 +58,7 @@ class Dialog extends Component {
     if (this.props.title === 'Save New Palette') {
       const colors = Object.values(this.props.colors);
       const colorDivs = colors.map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);
-      const projectOptions = this.props.data.map(i => <option key={i.id} value={i.id}>{i.name}</option>);
+      const projectOptions = this.props.data.map(i => <option key={i.id} id={i.id} value={i.id}>{i.name}</option>);
 
       paletteFields = (
         <>
@@ -66,8 +66,9 @@ class Dialog extends Component {
           {colorDivs}
         </div>
         <label htmlFor="projectID">Choose A Project</label>
-        <select className="dropdown-input project-input" value={this.state.projectID} name="projectID" onChange={this.handleChange}>
-          <option key={-1} value=""></option>
+          <select className="dropdown-input project-input" value={this.state.projectID} name="projectID" onChange={this.handleChange}>
+            {/* <option selected disabled hidden style='display: none' value=''></option> */}
+            <option key={projectOptions[0].id} value={projectOptions[0].id}>{projectOptions[0].name}</option>
           {projectOptions}
         </select>
         <div className="dialog-divider"><hr /><p>OR</p><hr /></div>

@@ -11,12 +11,19 @@ class ProjectsScreen extends Component {
     this.state = {
       showDialog: false,
       filter: '',
-      format: ''
+      option: {
+        format: 'hex',
+        project: 'Uncategorized'
+      }
     }
   }
 
   closeDialog = () => {
     this.setState({showDialog: false})
+  }
+
+  setProjectOption = option => {
+    this.setState({ option });
   }
 
   render() {
@@ -32,10 +39,9 @@ class ProjectsScreen extends Component {
     const projects = data.map(project => <Project
       data={project}
       key={project.id}
-      format={this.state.format}
+      format={this.state.option.format}
       updateProjectData={this.props.updateProjectData}
       updatePaletteData={this.props.updatePaletteData}
-      getContrastColor={this.props.getContrastColor}
     />).reverse();
 
     
@@ -46,7 +52,7 @@ class ProjectsScreen extends Component {
           title="My Projects"
           handleClick={() => this.setState({ showDialog: true })} btnTitle="Create New Project"
           data={this.props.data}
-          setOption={filter => this.setState(filter)}
+          setOption={this.setProjectOption}
         />
         <section className="project-container">
           {projects}
