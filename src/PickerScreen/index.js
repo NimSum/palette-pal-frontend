@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
 import PickerColor from '../PickerColor';
+import { SketchPicker } from 'react-color';
 
 class PickerScreen extends Component {
   constructor(props) {
