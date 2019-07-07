@@ -7,14 +7,12 @@
   
   .picker-color-value {
     font-size: 20px;
-    color: white;
     opacity: .5;
     text-transform: uppercase;
   }
   
   .picker-hold {
     font-size: 26px;
-    color: white;
     font-weight: 600;
     position: absolute;
     bottom: 30px;
@@ -37,12 +35,3 @@
     
   }
 }
-  
-
-
-// .hold, .color-value {
-//   color: inherit;
-//   // mix-blend-mode: difference;
-//   // opacity: .7;
-//   filter: brightness(25%);
-// }
