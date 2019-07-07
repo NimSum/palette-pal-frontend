@@ -35,7 +35,6 @@ class ProjectsScreen extends Component {
       format={this.state.format}
       updateProjectData={this.props.updateProjectData}
       updatePaletteData={this.props.updatePaletteData}
-      getContrastColor={this.props.getContrastColor}
     />).reverse();
 
     

@@ -3,7 +3,6 @@ import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
 import PickerColor from '../PickerColor';
 import { SketchPicker } from 'react-color';
-import color from 'color';
 import colorFormatter from '../utils/colorFormatter';
 
 class PickerScreen extends Component {
@@ -101,7 +100,6 @@ class PickerScreen extends Component {
         id={color}
         toggleHold={this.toggleHold}
         held={this.state.held.includes(color)}
-        getContrastColor={this.props.getContrastColor}
       />);
 
     return (

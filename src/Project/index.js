@@ -10,7 +10,6 @@ function Project(props) {
       format={props.format}
       projectID={props.data.id}
       updatePaletteData={props.updatePaletteData}
-      getContrastColor={props.getContrastColor}
     />);
   
   const trash = props.data.id !== 1 ? <i

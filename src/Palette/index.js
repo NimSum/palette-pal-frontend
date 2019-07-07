@@ -1,5 +1,6 @@
 import React from 'react';
 import colorFormatter from '../utils/colorFormatter';
+import colorContraster from '../utils/colorContraster';
 
 function Palette(props) {
   const colorDivs = [];
@@ -10,7 +11,7 @@ function Palette(props) {
     const color = formatted[`color_${i}`]
     colorDivs.push(
       <div className="color" key={props.data.name + color} style={{ backgroundColor: color }}>
-        <p className="color-hex" style={{ color: props.getContrastColor(color) }}>{color}</p>
+        <p className="color-hex" style={{ color: colorContraster(color) }}>{color}</p>
       </div>
     )
   }
