@@ -72,16 +72,8 @@ class PickerScreen extends Component {
     this.setState({showSaveDialog: false})
   }
 
-  // changeFormat(type) {
-  //   const colors = colorFormatter(this.state.colors, type)
-  //   this.setState({ colors });
-  // }
-
   setOption = option => {
     this.setState({ option });
-    // if (option.format) {
-    //   this.changeFormat(option.format)
-    // }
   }
 
 
@@ -128,9 +120,12 @@ class PickerScreen extends Component {
             {colors}
           </div>
           <div className="picker-footer">
-            <p className="instructions"><i className="fas fa-sync-alt" aria-hidden="true"></i>Press <strong>space</strong> to refresh unselected colors</p>
+            <p className="instructions">
+              <i className="fas fa-sync-alt" aria-hidden="true" />
+              Press <strong>space</strong> to refresh unselected colors
+            </p>
             <button className="save-btn" onClick={() => this.setState({showSaveDialog: true})}>
-              <i className="far fa-save" aria-hidden="true"></i>Save Palette
+              <i className="far fa-save" aria-hidden="true"/>Save Palette
             </button>
           </div>
         </section>
