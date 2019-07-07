@@ -7,6 +7,7 @@ function Project(props) {
     <Palette
       data={palette}
       key={palette.id}
+      format={props.format}
       projectID={props.data.id}
       updatePaletteData={props.updatePaletteData}
       getContrastColor={props.getContrastColor}

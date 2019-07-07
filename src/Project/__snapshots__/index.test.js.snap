@@ -15,12 +15,16 @@ exports[`Project shoud match component Project snapshot 1`] = `
       />
       <h3
         className="project-title"
+        contentEditable={true}
+        onBlur={[Function]}
+        onKeyDown={[Function]}
+        suppressContentEditableWarning={true}
       >
         project0
       </h3>
     </div>
     <i
-      className="fas fa-ellipsis-h"
+      className="fas fa-trash"
       onClick={[Function]}
     />
   </div>
@@ -39,6 +43,7 @@ exports[`Project shoud match component Project snapshot 1`] = `
           "name": "palette0",
         }
       }
+      key="2"
     />
     <Palette
       data={
@@ -52,6 +57,7 @@ exports[`Project shoud match component Project snapshot 1`] = `
           "name": "palette0",
         }
       }
+      key="1"
     />
     <NavLink
       className="Palette add-palette-btn"

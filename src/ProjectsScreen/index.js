@@ -10,7 +10,8 @@ class ProjectsScreen extends Component {
 
     this.state = {
       showDialog: false,
-      filter: ''
+      filter: '',
+      format: ''
     }
   }
 
@@ -31,12 +32,13 @@ class ProjectsScreen extends Component {
     const projects = data.map(project => <Project
       data={project}
       key={project.id}
+      format={this.state.format}
       updateProjectData={this.props.updateProjectData}
       updatePaletteData={this.props.updatePaletteData}
       getContrastColor={this.props.getContrastColor}
     />).reverse();
 
-
+    
     return (
       <>
         {dialog}

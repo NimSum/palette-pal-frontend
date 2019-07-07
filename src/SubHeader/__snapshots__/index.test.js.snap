@@ -28,11 +28,25 @@ exports[`SubHeader shoud match component SubHeader snapshot 1`] = `
     >
       Filter:
     </p>
-     
     <select
       className="dropdown-input"
+      name="filter"
+      onChange={[Function]}
       type="text"
-    />
+      value=""
+    >
+      <option
+        value=""
+      >
+        All Projects
+      </option>
+      <option
+        key="2"
+        value={2}
+      >
+        project0
+      </option>
+    </select>
   </div>
 </section>
 `;
