@@ -13,7 +13,7 @@ class ProjectsScreen extends Component {
       filter: '',
       option: {
         format: 'hex',
-        project: 'Uncategorized'
+        project: ''
       }
     }
   }
@@ -33,8 +33,8 @@ class ProjectsScreen extends Component {
       primaryAction={this.props.updateProjectData}
     /> : null;
 
-    const data = !this.state.filter ? this.props.data
-      : this.props.data.filter(i => i.id === +this.state.filter);
+    const data = !this.state.option.project ? this.props.data
+      : this.props.data.filter(i => i.id === +this.state.option.project);
     
     const projects = data.map(project => <Project
       data={project}
