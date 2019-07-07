@@ -12,7 +12,10 @@ class PickerScreen extends Component {
       colors: {},
       held: [],
       showSaveDialog: false,
-      option: ''
+      option: {
+        format: 'hex',
+        mode: 'random'
+      }
     }
   }
 
@@ -69,23 +72,22 @@ class PickerScreen extends Component {
     this.setState({showSaveDialog: false})
   }
 
-  changeFormat(type) {
-    const colors = colorFormatter(this.state.colors, type)
-    this.setState({ colors });
+  // changeFormat(type) {
+  //   const colors = colorFormatter(this.state.colors, type)
+  //   this.setState({ colors });
+  // }
+
+  setOption = option => {
+    this.setState({ option });
+    // if (option.format) {
+    //   this.changeFormat(option.format)
+    // }
   }
 
-  setOption = (option) => {
-    this.setState({ option });
-    if (option.format) {
-      this.changeFormat(option.format)
-    }
-  }
 
   updateColor = (color, id) => {
-    console.log(this.state.colors)
     const colors = this.state.colors;
     colors[id] = color;
-    console.log(colors)
     this.setState({ colors });
   }
 
@@ -108,6 +110,7 @@ class PickerScreen extends Component {
         toggleHold={this.toggleHold}
         held={this.state.held.includes(color)}
         updateColor={this.updateColor}
+        format={this.state.option.format}
       />);
 
     return (

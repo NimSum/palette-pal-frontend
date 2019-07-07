@@ -14,11 +14,11 @@ const hsl2rgb = hslStr => {
 } 
 
 const colorContraster = color => {
-  if (color.includes('rgb')) {
-    color = rgbStr2Hex(color);
-  } else if (color.includes('hsl')) {
-    color = rgb2hex(...hsl2rgb(color))
-  }
+  // if (color.includes('rgb')) {
+  //   color = rgbStr2Hex(color);
+  // } else if (color.includes('hsl')) {
+  //   color = rgb2hex(...hsl2rgb(color))
+  // }
 
   color = color.replace("#", "");
   var r = parseInt(color.substr(0, 2), 16);

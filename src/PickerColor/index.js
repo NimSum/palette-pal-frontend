@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import colorContraster from '../utils/colorContraster';
+import colorFormatter from '../utils/colorFormatter';
 import { PhotoshopPicker } from 'react-color';
 
 class PickerColor extends Component {
@@ -38,16 +39,32 @@ class PickerColor extends Component {
     ) : null;
 
     return (
-      <div className="PickerColor" style={{ backgroundColor: this.props.color }}>
-        <i className="fas fa-pencil-alt" style={{ color: colorContraster(this.props.color) }} onClick={() => this.setState({showPicker: !this.state.showPicker})}></i>
+      <div
+        className="PickerColor"
+        style={{ backgroundColor: this.props.color }}
+      >
+        <i
+          className="fas fa-pencil-alt"
+          style={{ color: colorContraster(this.props.color) }}
+          onClick={() => this.setState({ showPicker: !this.state.showPicker })}
+        />
         {picker}
-        <p className="picker-color-value" style={{ color: colorContraster(this.props.color) }}>{this.props.color}</p>
-        <p className={`picker-hold ${holdClass}`} style={{ color: colorContraster(this.props.color) }} onClick={() => this.props.toggleHold(this.props.id)}>
-				<i className={checkbox} />HOLD
-			</p>
-		</div>
-	);
-}
+        <p
+          className="picker-color-value"
+          style={{ color: colorContraster(this.props.color) }}
+        >
+          {colorFormatter(this.props.color, this.props.format)}
+        </p>
+        <p
+          className={`picker-hold ${holdClass}`}
+          style={{ color: colorContraster(this.props.color) }}
+          onClick={() => this.props.toggleHold(this.props.id)}
+        >
+				  <i className={checkbox} />HOLD
+			  </p>
+		  </div>
+	  );
+  }
 }
 
 export default PickerColor;
