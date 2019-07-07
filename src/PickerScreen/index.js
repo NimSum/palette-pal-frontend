@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
 import PickerColor from '../PickerColor';
+import color from 'color';
+import colorFormatter from '../utils/colorFormatter';
 
 class PickerScreen extends Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class PickerScreen extends Component {
       colors: {},
       held: [],
       showSaveDialog: false,
+      option: ''
     }
   }
 
@@ -67,6 +70,18 @@ class PickerScreen extends Component {
     this.setState({showSaveDialog: false})
   }
 
+  changeFormat(type) {
+    const colors = colorFormatter(this.state.colors, type)
+    this.setState({ colors });
+  }
+
+  setOption = (option) => {
+    this.setState({ option });
+    if (option.format) {
+      this.changeFormat(option.format)
+    }
+  }
+
   render() {
     const saveDialog = this.state.showSaveDialog ? <Dialog
       title="Save New Palette"
@@ -96,7 +111,7 @@ class PickerScreen extends Component {
           handleClick={this.generatePalette}
           btnTitle="Generate New Palette"
           data={this.props.data}
-          setOption={option => this.setState({option})}
+          setOption={this.setOption}
         />
         <section className="PickerScreen">
           <div className="palette-display">
