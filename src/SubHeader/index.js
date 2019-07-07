@@ -12,7 +12,8 @@ class SubHeader extends Component {
   }
 
   handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value });
+    this.setState({ [target.name]: target.value }, () => console.log(this.state));
+    
     this.props.setOption({ [target.name]: target.value });
   }
     
@@ -31,6 +32,8 @@ class SubHeader extends Component {
         onChange={this.handleChange}
       >
         <option value='random'>random</option>
+        <option value='complimentary'>complimentary</option>
+        <option value='gradient'>gradient</option>
       </select>
     </>
       : <>

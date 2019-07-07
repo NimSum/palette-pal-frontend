@@ -11,10 +11,8 @@ class ProjectsScreen extends Component {
     this.state = {
       showDialog: false,
       filter: '',
-      option: {
-        format: 'hex',
-        project: ''
-      }
+      format: 'hex',
+      project: ''
     }
   }
 
@@ -23,8 +21,9 @@ class ProjectsScreen extends Component {
   }
 
   setProjectOption = option => {
-    this.setState({ option });
+    this.setState(option);
   }
+
 
   render() {
     const dialog = this.state.showDialog ? <Dialog
@@ -33,13 +32,13 @@ class ProjectsScreen extends Component {
       primaryAction={this.props.updateProjectData}
     /> : null;
 
-    const data = !this.state.option.project ? this.props.data
-      : this.props.data.filter(i => i.id === +this.state.option.project);
+    const data = !this.state.project ? this.props.data
+      : this.props.data.filter(i => i.id === +this.state.project);
     
     const projects = data.map(project => <Project
       data={project}
       key={project.id}
-      format={this.state.option.format}
+      format={this.state.format}
       updateProjectData={this.props.updateProjectData}
       updatePaletteData={this.props.updatePaletteData}
     />).reverse();
