@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App shoud match component App snapshot 1`] = `
+exports[`App should match component App snapshot 1`] = `
 <div
   className="loading-screen"
 >
@@ -8,5 +8,8 @@ exports[`App shoud match component App snapshot 1`] = `
     alt="Loading icon"
     src="https://66.media.tumblr.com/09dc11b8b4b4e1be71dba1c570882308/tumblr_naksdbfjZp1sa11jco1_500.gif"
   />
+  <h2>
+    Loading...
+  </h2>
 </div>
 `;
