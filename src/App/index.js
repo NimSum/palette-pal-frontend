@@ -14,7 +14,7 @@ class App extends Component {
 		this.state = {
 			projectData: [],
 			loading: true,
-			error: ''
+			err: ''
 		};
 	}
 
@@ -26,28 +26,16 @@ class App extends Component {
     const res = await requests.getDetailedProjects();
 
     const projectData = res.reduce((acc, palette) => {
-			const {
-				project_id,
-				project_name,
-				palette_id,
-				palette_name,
-				color_1,
-				color_2,
-				color_3,
-				color_4,
-				color_5
-			} = palette;
-
+			const { project_id, project_name, palette_id, palette_name } = palette;
       const project = acc.find(proj => proj.id === project_id) || null;
-      
       const paletteData = palette_id ? [{
         id: palette_id,
         name: palette_name,
-        color_1,
-        color_2,
-        color_3,
-        color_4,
-        color_5
+        color_1: palette.color_1,
+        color_2: palette.color_2,
+        color_3: palette.color_3,
+        color_4: palette.color_4,
+        color_5: palette.color_5
       }] : [];
 
       if (!project) {
@@ -62,79 +50,61 @@ class App extends Component {
 		this.setState({ projectData, loading: false });
 	};
 
-	updateProjectData = async (project, action) => {
-		let projectData = this.state.projectData;
+	updateProjectData = async (proj, action) => {
+    let projectData = this.state.projectData;
+    const { id, project_name } = proj;
 		let res;
 
     if (action === 'add') {
-			try {
-				res = await requests.postProject(project);
-				projectData.push({
-					name: project.project_name,
-					id: res[0],
-					palettes: []
-				});
-      } catch (error) {
-				this.setState({error});
-			}
+      res = await requests.postProject(proj).catch(err => this.setState({err}));
+			projectData.push({ name: project_name, id: res[0], palettes: [] });
     } else if (action === 'delete') {
-      try {
-				res = await requests.deleteProject(project.id);
-				projectData = projectData.filter(i => i.id !== project.id);
-      } catch (error) {
-				this.setState({error});
-			}
+      res = await requests.deleteProject(id).catch(err => this.setState({err}));
+      projectData = projectData.filter(i => i.id !== id);
 		} else if (action === 'update') {
-			try {
-				res = await requests.putProject(project);
-				projectData[projectData.findIndex(i => i.id === project.id)].name = project.project_name;
-      } catch (error) {
-				this.setState({error});
-			}
+      res = await requests.putProject(proj).catch(err => this.setState({err}));
+			projectData[projectData.findIndex(i => i.id === id)].name = project_name;
 		}
 		this.setState({ projectData });
 		return res;
 	};
 
   updatePaletteData = async (palette, action) => {
-    let projectData = this.state.projectData;
-    const project = projectData.find(proj => +proj.id === +palette.project_id);
+    const projectData = this.state.projectData;
+    const { id, palette_name, project_id } = palette;
+    const project = projectData.find(proj => +proj.id === +project_id);
     const projIndex = projectData.findIndex(proj => +proj.id === +project.id);
     let res;
     
     if (action === 'add') {
-      try {
-        res = await requests.postPalette(palette);
-        projectData[projIndex].palettes.push({
-          name: palette.palette_name,
-          id: res[0],
-          color_1: palette.color_1,
-          color_2: palette.color_2,
-          color_3: palette.color_3,
-          color_4: palette.color_4,
-          color_5: palette.color_5
-        });
-      } catch (error) {
-        this.setState({ error });
-      }
+      res = await requests.postPalette(palette).catch(err => this.setState({ err }));
+      projectData[projIndex].palettes.push({
+        name: palette_name,
+        id: res[0],
+        color_1: palette.color_1,
+        color_2: palette.color_2,
+        color_3: palette.color_3,
+        color_4: palette.color_4,
+        color_5: palette.color_5
+      });
     } else if (action === 'delete') {
-      try {
-        res = await requests.deletePalette(palette.id);
-        
-        projectData[projIndex].palettes = projectData[projIndex].palettes.filter(i => i.id !== palette.id);
-      } catch (error) {
-        this.setState({ error });
-      }
-      } else if (action === 'update') {
-        try {
-          res = await requests.putPalette(palette);
-          
-          const palIndex = projectData[projIndex].palettes.findIndex(pal => +pal.id === +palette.id);
-        
-          projectData[projIndex].palettes[palIndex] = { ...projectData[projIndex].palettes[palIndex], ...palette, name: palette.palette_name };
-      } catch (error) {
-        this.setState({error});
-      }
+      res = await requests.deletePalette(id)
+        .catch(err => this.setState({ err }));
+      
+      projectData[projIndex].palettes = projectData[projIndex].palettes
+        .filter(i => i.id !== id);
+    } else if (action === 'update') {
+      res = await requests.putPalette(palette)
+        .catch(err => this.setState({ err }));
+      
+      const palIndex = projectData[projIndex].palettes
+        .findIndex(pal => +pal.id === +id);
+      
+      projectData[projIndex].palettes[palIndex] = {
+        ...projectData[projIndex].palettes[palIndex],
+        ...palette,
+        name: palette_name
+      };
 		}
 		this.setState({ projectData });
   };
