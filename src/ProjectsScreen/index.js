@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
-import Project from '../Project';
+import Project from './Project';
 import Dialog from '../Dialog';
-import requests from '../utils/apiRequests';
 
 class ProjectsScreen extends Component {
   constructor(props) {

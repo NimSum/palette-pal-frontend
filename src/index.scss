@@ -3,12 +3,13 @@
 @import './ErrorScreen/ErrorScreen';
 @import './Header/Header';
 @import './SubHeader/SubHeader';
-@import './PickerScreen/PickerScreen';
-@import './ProjectsScreen/ProjectsScreen';
 @import './Dialog/Dialog';
-@import './PickerColor/PickerColor';
-@import './Palette/Palette';
-@import './Project/Project';
+@import './PickerScreen/PickerScreen';
+@import './PickerScreen/PickerColor/PickerColor';
+@import './ProjectsScreen/ProjectsScreen';
+@import './ProjectsScreen/Project/Project';
+@import './ProjectsScreen/Project/Palette/Palette';
+@import './ProjectsScreen/Project/Palette/PaletteColor/PaletteColor';
 
 *,
 *::before,

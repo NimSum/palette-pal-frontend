@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Palette from '../Palette';
+import Palette from './Palette';
 
 function Project(props) {
   const palettes = props.data.palettes.map(palette =>
