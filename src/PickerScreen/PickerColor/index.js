@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import colorContraster from '../utils/colorContraster';
-import colorFormatter from '../utils/colorFormatter';
+import colorContraster from '../../utils/colorContraster';
+import colorFormatter from '../../utils/colorFormatter';
 import { PhotoshopPicker } from 'react-color';
 
 class PickerColor extends Component {

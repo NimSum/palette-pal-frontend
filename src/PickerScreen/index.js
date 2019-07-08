@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
-import PickerColor from '../PickerColor';
+import PickerColor from './PickerColor';
 import colorFormatter from '../utils/colorFormatter';
 import color from 'color';
 
