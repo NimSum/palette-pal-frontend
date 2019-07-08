@@ -35,7 +35,14 @@ export function checkStatus(res) {
 }
 
 export async function fetchAnything(url, token) {
-  const response = await fetch(url);
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  };
+
+  const response = token ? await fetch(url, options) : await fetch(url);
   checkStatus(response);
   return await response.json();
 }
@@ -52,12 +59,13 @@ export async function deleteAnything(url, token) {
   return await response.status;
 }
 
-export async function sendAnything(url, payload, method) {
+export async function sendAnything(url, payload, method, token) {
   const response = await fetch(url, {
     method,
     body: JSON.stringify(payload),
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     }
   })
   checkStatus(response);
