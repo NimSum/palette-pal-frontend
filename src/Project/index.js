@@ -17,6 +17,8 @@ function Project(props) {
     onClick={() => props.updateProjectData(props.data, 'delete')}
   /> : null;
 
+  const editable = props.data.id !== 1;
+
   return (
     <article className="Project">
       <div className="project-heading">
@@ -24,7 +26,7 @@ function Project(props) {
           <i className="fas fa-folder-open" />
           <h3
             className="project-title"
-            contentEditable
+            contentEditable={editable}
             suppressContentEditableWarning
             onBlur={e => props.updateProjectData({
               project_name: e.target.textContent,

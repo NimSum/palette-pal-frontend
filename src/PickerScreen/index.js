@@ -3,24 +3,29 @@ import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
 import PickerColor from '../PickerColor';
 import colorFormatter from '../utils/colorFormatter';
+import color from 'color';
 
 class PickerScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      colors: {},
+      colors: {
+        color_1: '#fff',
+        color_2: '#fff',
+        color_3: '#fff',
+        color_4: '#fff',
+        color_5: '#fff'
+      },
       held: [],
       showSaveDialog: false,
-      option: {
-        format: 'hex',
-        mode: 'random'
-      }
+      format: 'hex',
+      mode: 'random'
     }
   }
 
   componentDidMount() {
-    this.generatePalette();
+    this.generateNewPalette();
     window.addEventListener('keydown', this.refreshUnheldColors);
   }
 
@@ -32,17 +37,57 @@ class PickerScreen extends Component {
     return "#" + Math.random().toString(16).slice(2, 8);
   }
 
-  generatePalette = () => {
-    this.setState({
-      colors: {
-        color_1: this.getRandomColor(),
-        color_2: this.getRandomColor(),
-        color_3: this.getRandomColor(),
-        color_4: this.getRandomColor(),
-        color_5: this.getRandomColor()
-      },
-      held: []
-    })
+  getComplementaryPalette = () => {   
+    const colors = this.state.colors;
+    colors.color_1 = this.getRandomColor();
+    colors.color_5 = color(colors.color_1).negate();
+    colors.color_3 = color(colors.color_1).mix(colors.color_5);
+    colors.color_2 = color(colors.color_1).mix(colors.color_3);
+    colors.color_4 = color(colors.color_3).mix(colors.color_5);
+
+    for (var c in colors) {
+      colors[c] = colorFormatter(colors[c], 'hex')
+    }
+    return colors;
+  }
+
+  getGradientPalette = () => {
+    const colors = this.state.colors;
+    colors.color_1 = this.getRandomColor();
+    colors.color_2 = color(colors.color_1).rotate(30);
+    colors.color_3 = color(colors.color_2).rotate(30);
+    colors.color_4 = color(colors.color_3).rotate(30);
+    colors.color_5 = color(colors.color_4).rotate(30);
+
+    for (var c in colors) {
+      colors[c] = colorFormatter(colors[c], 'hex')
+    }
+    return colors;
+  }
+
+  getRandomPalette = () => {
+    const colors = this.state.colors;
+    colors.color_1 = this.getRandomColor();
+    colors.color_2 = this.getRandomColor();
+    colors.color_3 = this.getRandomColor();
+    colors.color_4 = this.getRandomColor();
+    colors.color_5 = this.getRandomColor();
+    
+    return colors;
+  }
+
+  generateNewPalette = () => {
+    const { mode } = this.state;
+    let colors = {};
+
+    if (mode === 'random') {
+      colors = this.getRandomPalette();
+    } else if (mode === 'complementary') {
+      colors = this.getComplementaryPalette();
+    } else if (mode === 'gradient') {
+      colors = this.getGradientPalette();
+    }
+    this.setState({ colors, held: [] });
   }
 
   toggleHold = color => {
@@ -73,7 +118,8 @@ class PickerScreen extends Component {
   }
 
   setPickerOption = option => {
-    this.setState({ option });
+    this.setState(option);
+    this.generateNewPalette();
   }
 
   updateColor = (color, id) => {
@@ -101,7 +147,7 @@ class PickerScreen extends Component {
         toggleHold={this.toggleHold}
         held={this.state.held.includes(color)}
         updateColor={this.updateColor}
-        format={this.state.option.format}
+        format={this.state.format}
       />);
 
     return (
@@ -109,7 +155,7 @@ class PickerScreen extends Component {
         {saveDialog}
         <SubHeader
           title="Pick New Palette"
-          handleClick={this.generatePalette}
+          handleClick={this.generateNewPalette}
           btnTitle="Generate New Palette"
           data={this.props.data}
           setOption={this.setPickerOption}

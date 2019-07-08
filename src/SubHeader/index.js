@@ -31,6 +31,8 @@ class SubHeader extends Component {
         onChange={this.handleChange}
       >
         <option value='random'>random</option>
+        <option value='complementary'>complementary</option>
+        <option value='gradient'>gradient</option>
       </select>
     </>
       : <>
