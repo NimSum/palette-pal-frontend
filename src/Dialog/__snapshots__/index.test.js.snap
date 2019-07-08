@@ -1,39 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dialog shoud match component Dialog snapshot 1`] = `
-<div
-  className="dialog-overlay"
->
-  <div
-    className="popup"
-  >
-    <i
-      className="fas fa-times"
-    />
-    <h3 />
-    <input
-      className="dropdown-input name-input"
-      name="projectName"
-      onChange={[Function]}
-      placeholder="Enter project name..."
-    />
-    <div
-      className="dialog-btns"
-    >
-      <button
-        className="dialog-btn cancel-btn"
-        type="button"
-      >
-        Cancel
-      </button>
-      <button
-        className="dialog-btn"
-        onClick={[Function]}
-        type="button"
-      >
-        Save
-      </button>
-    </div>
-  </div>
-</div>
-`;
+exports[`Dialog should match component Dialog snapshot when the dialog is for saving a new palette 1`] = `ShallowWrapper {}`;
+
+exports[`Dialog should match component Dialog snapshot when the dialog is for saving a new project 1`] = `ShallowWrapper {}`;
