@@ -66,14 +66,13 @@ class Dialog extends Component {
           {colorDivs}
         </div>
         <label htmlFor="projectID">Choose A Project</label>
-          <select className="dropdown-input project-input" value={this.state.projectID} name="projectID" onChange={this.handleChange}>
-            {/* <option selected disabled hidden style='display: none' value=''></option> */}
+          <select className="dropdown-input project-input existing-project" value={this.state.projectID} name="projectID" onChange={this.handleChange}>
             <option key={projectOptions[0].id} value={projectOptions[0].id}>{projectOptions[0].name}</option>
           {projectOptions}
         </select>
         <div className="dialog-divider"><hr /><p>OR</p><hr /></div>
         <label htmlFor="newProject">Create New Project</label>
-          <input className="project-input" name="newProject" placeholder="Enter Project Name..." maxLength="15" onChange={this.handleChange} value={this.state.newProject}></input>
+          <input className="project-input new-project-name" name="newProject" placeholder="Enter Project Name..." maxLength="15" onChange={this.handleChange} value={this.state.newProject}></input>
         </>
       )
     }
@@ -93,7 +92,7 @@ class Dialog extends Component {
             <button className="dialog-btn cancel-btn" type="button" onClick={this.props.closeDialog} >
               Cancel
             </button>
-            <button className="dialog-btn" type="button" onClick={this.handleClick}>
+            <button className="dialog-btn save-btn" type="button" onClick={this.handleClick}>
               Save
             </button>
           </div>

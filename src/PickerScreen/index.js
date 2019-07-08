@@ -119,7 +119,9 @@ class PickerScreen extends Component {
 
   setPickerOption = option => {
     this.setState(option);
-    this.generateNewPalette();
+    if (Object.keys(option)[0] === 'mode') {
+      this.generateNewPalette();
+    }
   }
 
   updateColor = (color, id) => {
