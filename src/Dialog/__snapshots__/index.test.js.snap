@@ -1,5 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Dialog should match component Dialog snapshot when the dialog is for logging a user in 1`] = `ShallowWrapper {}`;
+
 exports[`Dialog should match component Dialog snapshot when the dialog is for saving a new palette 1`] = `ShallowWrapper {}`;
 
 exports[`Dialog should match component Dialog snapshot when the dialog is for saving a new project 1`] = `ShallowWrapper {}`;
+
+exports[`Dialog should match component Dialog snapshot when the dialog is for signing a user in 1`] = `ShallowWrapper {}`;

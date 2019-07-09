@@ -60,6 +60,29 @@ describe('Dialog', () => {
   it('should match component Dialog snapshot when the dialog is for saving a new project', () => {
     wrapper = shallow(<Dialog
       title="Create New Project"
+      type="newProject"
+      closeDialog={mockCloseDialog}
+      primaryAction={mockPrimaryAction}
+    />, { disableLifecycleMethods: true });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should match component Dialog snapshot when the dialog is for logging a user in', () => {
+    wrapper = shallow(<Dialog
+      title="Login"
+      type="login"
+      closeDialog={mockCloseDialog}
+      primaryAction={mockPrimaryAction}
+    />, { disableLifecycleMethods: true });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should match component Dialog snapshot when the dialog is for signing a user in', () => {
+    wrapper = shallow(<Dialog
+      title="Sign In"
+      type="signin"
       closeDialog={mockCloseDialog}
       primaryAction={mockPrimaryAction}
     />, { disableLifecycleMethods: true });
