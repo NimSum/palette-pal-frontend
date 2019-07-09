@@ -74,8 +74,8 @@ class App extends Component {
 		let res;
 
     if (action === 'add') {
-      res = await requests.postProject(proj).catch(err => this.setState({err}));
-			userData.push({ name: project_name, id: res[0], palettes: [] });
+      res = await requests.postProject(proj).catch(err => this.setState({ err }));
+			userData.push({ name: project_name, id: res, palettes: [] });
     } else if (action === 'delete') {
       res = await requests.deleteProject(id).catch(err => this.setState({err}));
       userData = userData.filter(i => i.id !== id);

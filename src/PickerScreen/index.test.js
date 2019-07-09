@@ -31,8 +31,7 @@ describe('PickerScreen', () => {
     jest.spyOn(instance, 'updateColor');
   })
   
-  it('shoud match component PickerScreen snapshot', () => {
-    console.log(colorFormatter())
+  it('should match component PickerScreen snapshot', () => {
     wrapper.setState({ colors: mockData.justColors })
     expect(wrapper).toMatchSnapshot();
   });

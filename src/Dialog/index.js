@@ -7,7 +7,7 @@ class Dialog extends Component {
     this.state = {
       palette_name: '',
       project_name: '',
-      project_id: '',
+      project_id: this.props.data[0].id,
       user_name: '',
       password: '',
       email: '',
