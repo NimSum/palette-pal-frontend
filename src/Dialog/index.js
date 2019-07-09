@@ -82,8 +82,6 @@ class Dialog extends Component {
     )
   }
   
-  
-  
   getPaletteFields = () => {
     const { colors, data } = this.props;
     const colorDivs = Object.values(colors).map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);

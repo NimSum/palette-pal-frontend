@@ -95,7 +95,7 @@ describe('Dialog', () => {
       palette_name: '',
       project_name: '',
       project_id: '',
-      username: '',
+      user_name: '',
       password: '',
       email: ''
     })
