@@ -17,7 +17,7 @@ class PickerColor extends Component {
     this.setState({update: color.hex})
   }
 
-  updateColor = () => {
+  updatePickerColor = () => {
     this.props.updateColor(this.state.update, this.props.id);
     this.setState({update: '', showPicker: false})
   }
@@ -32,7 +32,7 @@ class PickerColor extends Component {
           className="PhotoshopPicker"
           color={this.state.update || this.props.color}
           onChangeComplete={this.handleChangeComplete}
-          onAccept={this.updateColor}
+          onAccept={this.updatePickerColor}
           onCancel={() => this.setState({ showPicker: !this.state.showPicker, update: '' })}
         />
       </div>
