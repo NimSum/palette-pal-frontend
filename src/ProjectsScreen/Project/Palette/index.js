@@ -10,6 +10,7 @@ function Palette(props) {
     paletteColors.push(<PaletteColor
       color={color}
       palette_id={props.data.id}
+      palette_name={props.data.name}
       id={`color_${i}`}
       key={`color_${i}`}
       project_id={props.projectID}
