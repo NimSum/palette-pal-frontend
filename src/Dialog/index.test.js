@@ -37,6 +37,7 @@ describe('Dialog', () => {
   beforeEach(() => {
     wrapper = shallow(<Dialog
       title="Save New Palette"
+      type="newPalette"
       closeDialog={mockCloseDialog}
       refreshUnheldColors={mockRefreshUnheldColors}
       updateProjectData={mockUpdateProjectData}
@@ -59,6 +60,29 @@ describe('Dialog', () => {
   it('should match component Dialog snapshot when the dialog is for saving a new project', () => {
     wrapper = shallow(<Dialog
       title="Create New Project"
+      type="newProject"
+      closeDialog={mockCloseDialog}
+      primaryAction={mockPrimaryAction}
+    />, { disableLifecycleMethods: true });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should match component Dialog snapshot when the dialog is for logging a user in', () => {
+    wrapper = shallow(<Dialog
+      title="Login"
+      type="login"
+      closeDialog={mockCloseDialog}
+      primaryAction={mockPrimaryAction}
+    />, { disableLifecycleMethods: true });
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should match component Dialog snapshot when the dialog is for signing a user in', () => {
+    wrapper = shallow(<Dialog
+      title="Sign In"
+      type="signin"
       closeDialog={mockCloseDialog}
       primaryAction={mockPrimaryAction}
     />, { disableLifecycleMethods: true });
@@ -68,73 +92,75 @@ describe('Dialog', () => {
 
   it('should have the expected default state', () => {
     expect(wrapper.state()).toEqual({
-      paletteName: '',
-      projectName: '',
-      projectID: 1,
-      newProject: ''
+      palette_name: '',
+      project_name: '',
+      project_id: '',
+      user_name: '',
+      password: '',
+      email: ''
     })
   })
 
-  it('should update the newProject state when handleChange is invoked and the new project input has a value', () => {
-    const mockEvent = { target: { name: 'newProject', value: 'test' } }
-    expect(wrapper.state('newProject')).toEqual('');
+  it('should update the project_name state when handleChange is invoked and the new project input has a value', () => {
+    const mockEvent = { target: { name: 'project_name', value: 'test' } }
+    expect(wrapper.state('project_name')).toEqual('');
 
     instance.handleChange(mockEvent);
 
-    expect(wrapper.state('newProject')).toEqual('test');
+    expect(wrapper.state('project_name')).toEqual('test');
   });
 
-  it('should update the paletteName state when handleChange is invoked and the palette name input has a value', () => {
-    const mockEvent = { target: { name: 'paletteName', value: 'test' } }
+  it('should update the palette_name state when handleChange is invoked and the palette name input has a value', () => {
+    const mockEvent = { target: { name: 'palette_name', value: 'test' } }
 
-    expect(wrapper.state('paletteName')).toEqual('');
+    expect(wrapper.state('palette_name')).toEqual('');
 
     instance.handleChange(mockEvent);
 
-    expect(wrapper.state('paletteName')).toEqual('test');
+    expect(wrapper.state('palette_name')).toEqual('test');
   });
 
-  it('should update the projectID state when handleChange is invoked when the project dropdown changes', () => {
-    const mockEvent = { target: { name: 'projectID', value: 3 } }
+  it('should update the project_id state when handleChange is invoked when the project dropdown changes', () => {
+    const mockEvent = { target: { name: 'project_id', value: 3 } }
 
-    expect(wrapper.state('projectID')).toEqual(1);
+    expect(wrapper.state('project_id')).toEqual('');
 
     instance.handleChange(mockEvent);
 
-    expect(wrapper.state('projectID')).toEqual(3);
+    expect(wrapper.state('project_id')).toEqual(3);
   });
 
   it('should call handleChange method when the new item name input field\'s value changes', () => {
     jest.spyOn(instance, 'handleChange');
-    const mockEvent = { target: { name: 'paletteName', value: 'called' } }
+    const mockEvent = { target: { name: 'palette_name', value: 'called' } }
 
-    expect(wrapper.state('paletteName')).toEqual('');
+    expect(wrapper.state('palette_name')).toEqual('');
 
     wrapper.find('.name-input').simulate('change', mockEvent);
 
-    expect(wrapper.state('paletteName')).toEqual('called');
+    expect(wrapper.state('palette_name')).toEqual('called');
   })
 
   it('should call handleChange method when the select field for project changes', () => {
-    const mockEvent = { target: { name: 'projectID', value: 5 } }
+    const mockEvent = { target: { name: 'project_id', value: 5 } }
     jest.spyOn(instance, 'handleChange');
 
-    expect(wrapper.state('projectID')).toEqual(1);
+    expect(wrapper.state('project_id')).toEqual('');
 
     wrapper.find('.existing-project').simulate('change', mockEvent);
 
-    expect(wrapper.state('projectID')).toEqual(5);
+    expect(wrapper.state('project_id')).toEqual(5);
   })
 
   it('should call handleChange method when the input for a new project name changes', () => {
-    const mockEvent = { target: { name: 'newProject', value: 'howdy' } }
+    const mockEvent = { target: { name: 'project_name', value: 'howdy' } }
     jest.spyOn(instance, 'handleChange');
 
-    expect(wrapper.state('newProject')).toEqual('');
+    expect(wrapper.state('project_name')).toEqual('');
 
     wrapper.find('.new-project-name').simulate('change', mockEvent);
 
-    expect(wrapper.state('newProject')).toEqual('howdy');
+    expect(wrapper.state('project_name')).toEqual('howdy');
   })
 
   it('should call the closeDialog method when the cancel button is clicked', () => {
@@ -149,30 +175,30 @@ describe('Dialog', () => {
     expect(mockCloseDialog).toHaveBeenCalled();
   })
 
-  it.skip('should reset the default state when handleClick is called', async () => {
-    const mockEvent = { target: { name: 'newProject', value: 'howdy' } }
+  it('should reset the default state when handleClick is called', async () => {
+    const mockEvent = { target: { name: 'project_name', value: 'howdy' } }
     jest.spyOn(instance, 'handleClick');
     jest.spyOn(instance, 'handleChange');
 
-    expect(wrapper.state('newProject')).toEqual('');
+    expect(wrapper.state('project_name')).toEqual('');
 
     wrapper.find('.new-project-name').simulate('change', mockEvent);
-    expect(wrapper.state('newProject')).toEqual('howdy');
+    expect(wrapper.state('project_name')).toEqual('howdy');
 
-    // await wrapper.find('.save-btn').simulate('click');
+    await wrapper.find('.save-btn').simulate('click');
 
-    await expect(wrapper.state('newProject')).toEqual('');
+    await expect(wrapper.state('project_name')).toEqual('');
   })
 
   it('should call handleClick method when the user hits the save button', () => {
     jest.spyOn(instance, 'handleClick');
     jest.spyOn(instance, 'handleChange');
 
-    expect(wrapper.state('newProject')).toEqual('');
+    expect(wrapper.state('project_name')).toEqual('');
 
     wrapper.find('.save-btn').simulate('click');
 
-    expect(wrapper.state('newProject')).toEqual('');
+    expect(wrapper.state('project_name')).toEqual('');
   })
 
   it('should call the primaryAction method when handleClick is invoked', () => {
@@ -183,14 +209,14 @@ describe('Dialog', () => {
     expect(mockPrimaryAction).toHaveBeenCalled();
   })
 
-  it('should call the updateProjectData method when handleClick is invoked if the dialog is for saving a new palette and there is a value in state for newProject', async () => {
-    const mockEvent = { target: { name: 'newProject', value: 'howdy' } }
+  it('should call the updateProjectData method when handleClick is invoked if the dialog is for saving a new palette and there is a value in state for project_name', async () => {
+    const mockEvent = { target: { name: 'project_name', value: 'howdy' } }
     jest.spyOn(instance, 'handleClick');
     jest.spyOn(instance, 'handleChange');
 
     wrapper.find('.new-project-name').simulate('change', mockEvent);
 
-    expect(wrapper.state('newProject')).toEqual('howdy');
+    expect(wrapper.state('project_name')).toEqual('howdy');
 
     await wrapper.find('.save-btn').simulate('click');
 

@@ -86,7 +86,7 @@
 
   select,
   input {
-    margin: 8px 0 15px 0;
+    margin: 8px 0 12px 0;
     padding-left: 5px;
     height: 28px;
     width: 100%;
@@ -96,8 +96,8 @@
 
   label {
     font-size: 14px;
-    margin-top: 12px;
-    align-self: center;
+    margin-top: 10px;
+    align-self: flex-start;
   }
   
   .dialog-btns {

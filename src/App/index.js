@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import requests from '../utils/apiRequests';
 import Header from '../Header';
 import PickerScreen from '../PickerScreen';
 import ProjectsScreen from '../ProjectsScreen';
 import ErrorScreen from '../ErrorScreen';
-import Dialog from '../Dialog'
-import { Switch, Route } from 'react-router-dom';
-import requests from '../utils/apiRequests';
 
 class App extends Component {
 	constructor(props) {
@@ -25,25 +24,22 @@ class App extends Component {
   }
   
   logUserIn = async user => {
-    try {
-      const res = await requests.loginUser(user);
-      localStorage.setItem('user_token', JSON.stringify(await res.token))
-    } catch(err) {
-      this.setState({ err });
-    }
+    const res = await requests.loginUser(user)
+      .catch(err => this.setState({ err }));
+    
+    localStorage.setItem('user_token', JSON.stringify(await res.token))
   }
 
   signUserUp = async user => {
-    try {
-      const res = await requests.postNewUser(user);
-      if (res) console.log('Successs');
-    } catch(err) {
-      this.setState({ err })
-    }
+    const res = await requests.postNewUser(user)
+      .catch(err => this.setState({ err }));
+    
+    if (res) console.log(res);
   }
 
 	getProjectData = async () => {
-    const res = await requests.getDetailedProjects();
+    const res = await requests.getDetailedProjects()
+      .catch(err => this.setState({ err }));
 
     const projectData = res.reduce((acc, palette) => {
 			const { project_id, project_name, palette_id, palette_name } = palette;
@@ -129,7 +125,7 @@ class App extends Component {
 		this.setState({ projectData });
   };
 
-	render() {
+  render() {
 		const content = this.state.loading ? (
 			<div className="loading-screen">
 				<img
@@ -139,8 +135,8 @@ class App extends Component {
         <h2>Loading...</h2>
 			</div>
 		) : (
-			<div className="App">
-				<Header />
+      <div className="App">
+        <Header logUserIn={this.logUserIn} signUserUp={this.signUserUp} />
 				<main className="main">
 					<Switch>
 						<Route
@@ -148,27 +144,25 @@ class App extends Component {
 							path="/"
 							component={() => (
                 <PickerScreen
-                  data={this.state.projectData}
-                  updateProjectData={this.updateProjectData}
-                  updatePaletteData={this.updatePaletteData}
+                data={this.state.projectData}
+                updateProjectData={this.updateProjectData}
+                updatePaletteData={this.updatePaletteData}
                 />
-							)}
-						/>
+                )}
+                />
 						<Route
 							exact
 							path="/projects"
 							component={() => (
-								<ProjectsScreen
-									data={this.state.projectData}
-									updateProjectData={this.updateProjectData}
-                  updatePaletteData={this.updatePaletteData}
+                <ProjectsScreen
+                data={this.state.projectData}
+                updateProjectData={this.updateProjectData}
+                updatePaletteData={this.updatePaletteData}
 								/>
-							)}
-						/>
-						{/* <Route render={ErrorScreen} /> */}
+                )}
+              />
+              <Route render={ErrorScreen} />
             </Switch>
-            <Route path="/login" render={() => <Dialog title="Log In" type="login" primaryAction={this.logUserIn} />} />
-            <Route path="/signup" render={() => <Dialog title="Sign Up" primaryAction={this.signUserUp} type="signup" />} />
 				</main>
 			</div>
 		);

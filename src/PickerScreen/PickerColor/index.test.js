@@ -1,6 +1,8 @@
 import React from 'react';
 import PickerColor from './index';
 import { shallow } from 'enzyme';
+import colorContraster from '../../utils/colorContraster';
+jest.mock('../../utils/colorContraster')
 
 describe('PickerColor', () => {
   let wrapper;

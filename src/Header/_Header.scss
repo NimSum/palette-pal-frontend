@@ -14,6 +14,10 @@
   text-decoration: none;
 }
 
+.header-nav {
+  display: flex;
+}
+
 .logo-img {
   height: 32px;
   margin: 5px;
@@ -30,12 +34,35 @@
   color: white;
   text-decoration: none;
   font-size: 14px;
-  margin: 0 20px 0 35px;
+  margin-right: 55px;
   font-weight: 300;
   padding: 6px 0;
 
   &:hover {
     color: $btn-hover;
     border-color: $btn-hover;
+  }
+}
+
+.auth-links {
+  margin-right: 20px;
+  display: flex;
+  // color: lightblue;
+  align-items: center;
+}
+
+.spacer {
+  margin: 0 5px;
+  opacity: .4;
+  color: lightblue;
+}
+
+.auth-link {
+  margin: 0;
+  // color: lightblue;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
