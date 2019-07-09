@@ -1,6 +1,7 @@
 import requests from './index'; 
 import { checkStatus, urls, fetchAnything, deleteAnything, sendAnything } from './index';
 import mockData from '../../utils/mockData';
+import { send } from 'q';
 
 var localStorageMock = (function() {
   return {
@@ -13,6 +14,7 @@ var localStorageMock = (function() {
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 describe('Requests', () => {
+  let mockStatus = 202;
   const response = { 
     message: 'Success!'
   };
@@ -29,7 +31,7 @@ describe('Requests', () => {
     return Promise.resolve({
       ok: true,
       json: () => Promise.resolve(response),
-      status: 202
+      status: mockStatus
     })
   })
 
@@ -60,7 +62,7 @@ describe('Requests', () => {
       expect(window.fetch).toHaveBeenCalledWith(deleteUrl, deleteHeader)
     })
     
-    it("should delete with token if token is required", async () => {
+    it("should delete with token if token is required", () => {
       const deleteUrl = `${urls.palettes}/1`;
       const withToken = {...tokenHeader, method: "DELETE"}
       deleteAnything(deleteUrl, true);
@@ -92,10 +94,22 @@ describe('Requests', () => {
       expect(window.fetch).toHaveBeenCalledWith(projectsUrl, expected)
     })
     
-    it("should delete with token if token is required", async () => {
+    it("should post with token in headers if token is required", () => {
+      sendAnything(projectsUrl, mockPayload, method, true);
+      const expected = {
+        method,
+        headers: tokenHeader.headers,
+        body: JSON.stringify(mockPayload)
+      };
+      expect(window.fetch).toHaveBeenCalledWith(projectsUrl, expected)
     })
 
     it("should respond with success status object on valid request", async () => {
+      mockStatus = 200;
+      const result = await sendAnything(projectsUrl, mockPayload, method, true);
+      
+      expect(result).toEqual(response);
+      mockStatus = 202;
     })
   })
   
