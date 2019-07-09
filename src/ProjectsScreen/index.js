@@ -35,7 +35,7 @@ class ProjectsScreen extends Component {
     const data = !this.state.project ? this.props.data
       : this.props.data.filter(i => i.id === +this.state.project);
     
-    const projects = data.map(project => <Project
+    let projects = data.map(project => <Project
       data={project}
       key={project.id}
       format={this.state.format}
@@ -43,6 +43,9 @@ class ProjectsScreen extends Component {
       updatePaletteData={this.props.updatePaletteData}
     />).reverse();
 
+    if (!this.props.data.length) {
+      projects = <p className="no-projects-msg">Please Log In or Sign Up for an account to save projects and palettes.</p>
+    }
     
     return (
       <>
