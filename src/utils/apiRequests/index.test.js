@@ -72,8 +72,32 @@ describe('Requests', () => {
       const result = await deleteAnything(deleteUrl);
       expect(result).toEqual(202);
     })
-
-    
   })
+
+  describe('sendAnything', () => {
+
+    const projectsUrl = urls.projects;
+    const mockPayload = {
+      project_name: "NIM'S NEW PROJECT"
+    };
+    const method = "POST";
+
+    it('should send request using correct params', () => {
+      sendAnything(projectsUrl, mockPayload, method);
+      const expected = {
+        method,
+        headers: jsonHeader.headers,
+        body: JSON.stringify(mockPayload)
+      };
+      expect(window.fetch).toHaveBeenCalledWith(projectsUrl, expected)
+    })
+    
+    it("should delete with token if token is required", async () => {
+    })
+
+    it("should respond with success status object on valid request", async () => {
+    })
+  })
+  
   
 })
