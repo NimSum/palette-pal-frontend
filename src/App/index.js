@@ -24,25 +24,22 @@ class App extends Component {
   }
   
   logUserIn = async user => {
-    try {
-      const res = await requests.loginUser(user);
-      localStorage.setItem('user_token', JSON.stringify(await res.token))
-    } catch(err) {
-      this.setState({ err });
-    }
+    const res = await requests.loginUser(user)
+      .catch(err => this.setState({ err }));
+    
+    localStorage.setItem('user_token', JSON.stringify(await res.token))
   }
 
   signUserUp = async user => {
-    try {
-      const res = await requests.postNewUser(user);
-      if (res) console.log('Successs');
-    } catch(err) {
-      this.setState({ err })
-    }
+    const res = await requests.postNewUser(user)
+      .catch(err => this.setState({ err }));
+    
+    if (res) console.log(res);
   }
 
 	getProjectData = async () => {
-    const res = await requests.getDetailedProjects();
+    const res = await requests.getDetailedProjects()
+      .catch(err => this.setState({ err }));
 
     const projectData = res.reduce((acc, palette) => {
 			const { project_id, project_name, palette_id, palette_name } = palette;
