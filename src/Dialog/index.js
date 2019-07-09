@@ -8,7 +8,7 @@ class Dialog extends Component {
       palette_name: '',
       project_name: '',
       project_id: '',
-      username: '',
+      user_name: '',
       password: '',
       email: ''
     }
@@ -37,7 +37,7 @@ class Dialog extends Component {
   }
   
   handleClick = async () => {
-    const { palette_name, project_id, project_name, email, username, password } = this.state;
+    const { palette_name, project_id, project_name, email, user_name, password } = this.state;
     const { type, primaryAction } = this.props;
 
     if (type === "newProject") {
@@ -50,14 +50,14 @@ class Dialog extends Component {
     } else if (type === "login") {
       primaryAction({ email, password })
     } else if (type === "signup") {
-      primaryAction({ email, username, password });
+      primaryAction({ email, user_name, password });
     }
 
     this.setState({
       palette_name: '',
       project_name: '',
       project_id: '',
-      username: '',
+      user_name: '',
       password: '',
       email: ''
     })
@@ -68,8 +68,8 @@ class Dialog extends Component {
     let usernameField;
     if (this.props.type === "signup") {
       usernameField = <>
-        <label htmlFor="username">Username:</label>
-        <input name="username" onChange={this.handleChange}></input>
+        <label htmlFor="user_name">Username:</label>
+        <input name="user_name" onChange={this.handleChange}></input>
       </>
     } 
 
