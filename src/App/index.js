@@ -157,10 +157,19 @@ class App extends Component {
 								/>
 							)}
 						/>
-						{/* <Route render={ErrorScreen} /> */}
+              {/* <Route render={ErrorScreen} /> */}
+              <Route path="/login" render={() => <Dialog
+                title="Log In"
+                type="login"
+                primaryAction={this.logUserIn}
+              />} />
+              <Route path="/signup" render={() => <Dialog
+                title="Sign Up"
+                primaryAction={this.signUserUp}
+                type="signup"
+              />} />
             </Switch>
-            <Route path="/login" render={() => <Dialog title="Log In" type="login" primaryAction={this.logUserIn} />} />
-            <Route path="/signup" render={() => <Dialog title="Sign Up" primaryAction={this.signUserUp} type="signup" />} />
+            
 				</main>
 			</div>
 		);
