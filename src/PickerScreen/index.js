@@ -133,6 +133,7 @@ class PickerScreen extends Component {
   render() {
     const saveDialog = this.state.showSaveDialog ? <Dialog
       title="Save New Palette"
+      type="newPalette"
       closeDialog={this.closeDialog}
       refreshUnheldColors={this.refreshUnheldColors}
       updateProjectData={this.props.updateProjectData}

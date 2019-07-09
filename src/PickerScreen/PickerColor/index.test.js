@@ -4,11 +4,12 @@ import { shallow } from 'enzyme';
 
 describe('PickerColor', () => {
   let wrapper;
+
   beforeEach(() => {
     wrapper = shallow(< PickerColor />);
   })
   
-  it('shoud match component PickerColor snapshot', () => {
+  it('should match component PickerColor snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 })

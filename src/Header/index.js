@@ -12,7 +12,7 @@ function Header() {
         <nav className="header-nav">
           <NavLink exact to="/" className="nav-link">Pick New Palette</NavLink>
           <NavLink exact to="/projects" className="nav-link">My Projects</NavLink>
-          <NavLink exact to="/login" className="nav-link">Log In / Sign Up</NavLink>
+          <NavLink exact to="/login" className="nav-link">Log In</NavLink> / <NavLink exact to="/signup" className="nav-link">Sign Up</NavLink>
         </nav>
       </div>
     </header>

@@ -64,8 +64,8 @@ export async function sendAnything(url, payload, method, token) {
     method,
     body: JSON.stringify(payload),
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
+      "Content-Type": "application/json"
+      // "Authorization": `Bearer ${token}`
     }
   })
   checkStatus(response);
