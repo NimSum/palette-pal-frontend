@@ -34,29 +34,18 @@ export function checkStatus(res) {
   }
 }
 
-export async function fetchAnything(url, token) {
-  const options = {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
-  };
-
-  const response = token ? await fetch(url, options) : await fetch(url);
+export async function fetchAnything(url, tokenRequired = false) {
+  const headers = isTokenRequired(tokenRequired);
+  const response = await fetch(url, {
+    method: 'POST',
+    headers
+  });
   checkStatus(response);
   return await response.json();
 }
 
-export async function deleteAnything(url, tokenRequired) {
-  const userToken = localStorage.getItem('user_token');
-  const headers = tokenRequired 
-  ? {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${userToken}`
-    }
-  : {
-      "Content-Type": "application/json"
-    }
+export async function deleteAnything(url, tokenRequired = false) {
+  const headers = isTokenRequired(tokenRequired)
   const response = await fetch(url, {
     method: 'DELETE',
     headers
@@ -65,16 +54,8 @@ export async function deleteAnything(url, tokenRequired) {
   return await response.status;
 }
 
-export async function sendAnything(url, payload, method, tokenRequired) {
-  const userToken = localStorage.getItem('user_token');
-  const headers = tokenRequired 
-  ? {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${userToken}`
-    }
-  : {
-      "Content-Type": "application/json"
-    }
+export async function sendAnything(url, payload, method, tokenRequired = false) {
+  const headers = isTokenRequired(tokenRequired);
   const response = await fetch(url, {
     method,
     body: JSON.stringify(payload),
@@ -86,4 +67,15 @@ export async function sendAnything(url, payload, method, tokenRequired) {
     : response.json();
 }
 
+export function isTokenRequired(isRequired) {
+  const userToken = localStorage.getItem('user_token');
+  return isRequired 
+  ? {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${userToken}`
+    }
+  : {
+      "Content-Type": "application/json"
+    }
+}
 export default requests;
