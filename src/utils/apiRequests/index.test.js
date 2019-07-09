@@ -51,6 +51,21 @@ describe('Requests', () => {
     })
   })
 
- 
+  describe('deleteAnything', () => {
+    const deleteHeader = {...jsonHeader, method: "DELETE" }
+
+    it('should delete using correct params', () => {
+      const deleteUrl = `${urls.palettes}/1`;
+      deleteAnything(deleteUrl);
+      expect(window.fetch).toHaveBeenCalledWith(deleteUrl, deleteHeader)
+    })
+
+    it("should respond with success status object on valid request", async () => {
+      const deleteUrl = `${urls.palettes}/1`;
+      const result = await deleteAnything(deleteUrl);
+      expect(result).toEqual(202);
+    })
+    
+  })
   
 })
