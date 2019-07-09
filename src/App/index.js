@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import requests from '../utils/apiRequests';
 import Header from '../Header';
 import PickerScreen from '../PickerScreen';
 import ProjectsScreen from '../ProjectsScreen';
 import ErrorScreen from '../ErrorScreen';
-import Dialog from '../Dialog'
-import { Switch, Route } from 'react-router-dom';
-import requests from '../utils/apiRequests';
 
 class App extends Component {
 	constructor(props) {
@@ -121,7 +120,7 @@ class App extends Component {
 		this.setState({ projectData });
   };
 
-	render() {
+  render() {
 		const content = this.state.loading ? (
 			<div className="loading-screen">
 				<img
@@ -131,8 +130,8 @@ class App extends Component {
         <h2>Loading...</h2>
 			</div>
 		) : (
-			<div className="App">
-				<Header />
+      <div className="App">
+        <Header logUserIn={this.logUserIn} signUserUp={this.signUserUp} />
 				<main className="main">
 					<Switch>
 						<Route
@@ -140,36 +139,25 @@ class App extends Component {
 							path="/"
 							component={() => (
                 <PickerScreen
-                  data={this.state.projectData}
-                  updateProjectData={this.updateProjectData}
-                  updatePaletteData={this.updatePaletteData}
+                data={this.state.projectData}
+                updateProjectData={this.updateProjectData}
+                updatePaletteData={this.updatePaletteData}
                 />
-							)}
-						/>
+                )}
+                />
 						<Route
 							exact
 							path="/projects"
 							component={() => (
-								<ProjectsScreen
-									data={this.state.projectData}
-									updateProjectData={this.updateProjectData}
-                  updatePaletteData={this.updatePaletteData}
+                <ProjectsScreen
+                data={this.state.projectData}
+                updateProjectData={this.updateProjectData}
+                updatePaletteData={this.updatePaletteData}
 								/>
-							)}
-						/>
-              {/* <Route render={ErrorScreen} /> */}
-              <Route path="/login" render={() => <Dialog
-                title="Log In"
-                type="login"
-                primaryAction={this.logUserIn}
-              />} />
-              <Route path="/signup" render={() => <Dialog
-                title="Sign Up"
-                primaryAction={this.signUserUp}
-                type="signup"
-              />} />
+                )}
+              />
+              <Route render={ErrorScreen} />
             </Switch>
-            
 				</main>
 			</div>
 		);

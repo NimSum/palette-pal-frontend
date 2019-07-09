@@ -69,7 +69,7 @@ class Dialog extends Component {
     if (this.props.type === "signup") {
       usernameField = <>
         <label htmlFor="username">Username:</label>
-        <input name="username" placeholder="Enter Username..." maxLimit="40" onChange={this.handleChange}></input>
+        <input name="username" onChange={this.handleChange}></input>
       </>
     } 
 
@@ -77,7 +77,7 @@ class Dialog extends Component {
       <>
         {usernameField}
         <label htmlFor="password">Password:</label>
-        <input name="password" placeholder="Enter Password..." maxLimit="40" onChange={this.handleChange}></input>
+        <input name="password" onChange={this.handleChange}></input>
       </>
     )
   }
@@ -101,7 +101,7 @@ class Dialog extends Component {
       </select>
       <div className="dialog-divider"><hr /><p>OR</p><hr /></div>
       <label htmlFor="project_name">Create New Project:</label>
-        <input className="project-input new-project-name" name="project_name" placeholder="Enter Project Name..." maxLength="15" onChange={this.handleChange} value={this.state.project_name}></input>
+        <input className="project-input new-project-name" name="project_name" maxLength="15" onChange={this.handleChange} value={this.state.project_name}></input>
       </>
     )
   }
@@ -126,7 +126,6 @@ class Dialog extends Component {
           maxLength={this.props.type === "login" || this.props.type === "signup" ? "40" : "15"}
           className="dropdown-input name-input"
           name={`${fieldName}`}
-          placeholder={`Enter ${primaryField}...`}
           onChange={this.handleChange}
           />
       </>
