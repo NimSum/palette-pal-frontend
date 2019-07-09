@@ -59,12 +59,20 @@ describe('Requests', () => {
       deleteAnything(deleteUrl);
       expect(window.fetch).toHaveBeenCalledWith(deleteUrl, deleteHeader)
     })
+    
+    it("should delete with token if token is required", async () => {
+      const deleteUrl = `${urls.palettes}/1`;
+      const withToken = {...tokenHeader, method: "DELETE"}
+      deleteAnything(deleteUrl, true);
+      expect(window.fetch).toHaveBeenCalledWith(deleteUrl, withToken)
+    })
 
     it("should respond with success status object on valid request", async () => {
       const deleteUrl = `${urls.palettes}/1`;
       const result = await deleteAnything(deleteUrl);
       expect(result).toEqual(202);
     })
+
     
   })
   
