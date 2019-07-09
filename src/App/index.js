@@ -25,13 +25,21 @@ class App extends Component {
   }
   
   logUserIn = async user => {
-    const res = requests.loginUser(user);
-    console.log(res)
+    try {
+      const res = await requests.loginUser(user);
+      localStorage.setItem('user_token', JSON.stringify(await res.token))
+    } catch(err) {
+      this.setState({ err });
+    }
   }
 
   signUserUp = async user => {
-    const res = await requests.postNewUser(user);
-    console.log(res)
+    try {
+      const res = await requests.postNewUser(user);
+      if (res) console.log('Successs');
+    } catch(err) {
+      this.setState({ err })
+    }
   }
 
 	getProjectData = async () => {

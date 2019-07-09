@@ -60,6 +60,7 @@ export async function deleteAnything(url, token) {
 }
 
 export async function sendAnything(url, payload, method, token) {
+  console.log(payload)
   const response = await fetch(url, {
     method,
     body: JSON.stringify(payload),

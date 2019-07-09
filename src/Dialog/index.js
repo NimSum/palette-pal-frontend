@@ -9,7 +9,7 @@ class Dialog extends Component {
       project_name: '',
       project_id: '',
       new_proj_name: '',
-      username: '',
+      user_name: '',
       password: '',
       email: ''
     }
@@ -38,7 +38,7 @@ class Dialog extends Component {
   }
   
   handleClick = async () => {
-    const { palette_name, project_id, project_name, email, username, password } = this.state;
+    const { palette_name, project_id, project_name, email, user_name, password } = this.state;
     const { type, primaryAction } = this.props;
 
     if (type === "newProject") {
@@ -51,14 +51,14 @@ class Dialog extends Component {
     } else if (type === "login") {
       primaryAction({ email, password })
     } else if (type === "signup") {
-      primaryAction({ email, username, password });
+      primaryAction({ email, user_name, password });
     }
 
     this.setState({
       palette_name: '',
       project_name: '',
       project_id: '',
-      username: '',
+      user_name: '',
       password: '',
       email: ''
     })
@@ -69,7 +69,7 @@ class Dialog extends Component {
     let usernameField;
     if (this.props.type === "signup") {
       usernameField = <>
-        <input name="username" placeholder="Enter username..." maxLimit="40" onChange={this.handleChange}></input>
+        <input name="user_name" placeholder="Enter username..." maxLimit="40" onChange={this.handleChange}></input>
       </>
     } 
 
