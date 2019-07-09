@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PickerColor should match component PickerColor snapshot 1`] = `ShallowWrapper {}`;
+exports[`PickerColor should match component PickerColor snapshot when the color is  held 1`] = `ShallowWrapper {}`;
+
+exports[`PickerColor should match component PickerColor snapshot when the color is not held 1`] = `ShallowWrapper {}`;
