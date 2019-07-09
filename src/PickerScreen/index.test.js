@@ -23,10 +23,6 @@ describe('PickerScreen', () => {
     
     instance = wrapper.instance();
 
-    // jest.spyOn(instance, 'getRandomColor');
-    // jest.spyOn(instance, 'getComplementaryPalette');
-    // jest.spyOn(instance, 'getGradientPalette');
-    // jest.spyOn(instance, 'getRandomPalette');
     jest.spyOn(instance, 'generateNewPalette');
     jest.spyOn(instance, 'toggleHold');
     jest.spyOn(instance, 'refreshUnheldColors');

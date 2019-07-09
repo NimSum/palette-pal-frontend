@@ -172,7 +172,11 @@ class PickerScreen extends Component {
               <i className="fas fa-sync-alt" aria-hidden="true" />
               Press <strong>space</strong> to refresh unselected colors
             </p>
-            <button className="save-btn" onClick={() => this.setState({showSaveDialog: true})}>
+            <button className="save-btn" onClick={() => {
+              this.props.data.length
+                ? this.setState({ showSaveDialog: true })
+                : this.props.showAcctDialog()
+            }}>
               <i className="far fa-save" aria-hidden="true"/>Save Palette
             </button>
           </div>

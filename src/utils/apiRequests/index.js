@@ -4,7 +4,7 @@
 //   palettes: 'https://palette-pal-be.herokuapp.com/api/v1/palettes'
 // }
 
-const urls = {
+export const urls = {
   projWithPaletes: 'http://localhost:3005/api/v1/projects?palettes=included',
   projects: 'http://localhost:3005/api/v1/projects',
   palettes: 'http://localhost:3005/api/v1/palettes',
@@ -60,19 +60,19 @@ export async function sendAnything(url, payload, method, tokenRequired = false) 
     headers
   })
   checkStatus(response);
-  return await response.status === 202 
+  return await response.status === 202
     ? response.status
     : response.json();
 }
 
 export function isTokenRequired(isRequired) {
   const userToken = JSON.parse(localStorage.getItem('user_token'));
-  return isRequired 
-  ? {
+  return isRequired
+    ? {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${userToken}`
     }
-  : {
+    : {
       "Content-Type": "application/json"
     }
 }
