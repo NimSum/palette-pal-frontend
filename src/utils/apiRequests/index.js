@@ -15,17 +15,17 @@ const urls = {
 const requests = {
   postNewUser: (user) => sendAnything(urls.signUp, user, 'POST'),
   loginUser: (user) => sendAnything(urls.login, user, 'POST'),
-  getDetailedProjects: (token) => fetchAnything(urls.projWithPaletes),
-  getProjects: (token) => fetchAnything(urls.projects),
-  getSingleProject: (id, token) => fetchAnything(urls.projects + `/${id}`),
+  getDetailedProjects: () => fetchAnything(urls.projWithPaletes, true),
+  getProjects: () => fetchAnything(urls.projects, true),
+  getSingleProject: (id) => fetchAnything(urls.projects + `/${id}`, true),
   getPalettes: () => fetchAnything(urls.palettes),
   getSinglePalette: (id) => fetchAnything(urls.palettes + `/${id}`),
-  postProject: (project, token) => sendAnything(urls.projects, project, 'POST'),
-  postPalette: (palette, token) => sendAnything(urls.palettes, palette, 'POST'),
-  putProject: (project, token) => sendAnything(urls.projects + `/${project.id}`, project, 'PUT'),
-  putPalette: (palette, token) => sendAnything(urls.palettes + `/${palette.id}`, palette, 'PUT'),
-  deleteProject: (id, token) => deleteAnything(urls.projects + `/${id}`),
-  deletePalette: (id, token) => deleteAnything(urls.palettes + `/${id}`),
+  postProject: (project) => sendAnything(urls.projects, project, 'POST', true),
+  postPalette: (palette) => sendAnything(urls.palettes, palette, 'POST', true),
+  putProject: (project) => sendAnything(urls.projects + `/${project.id}`, project, 'PUT', true),
+  putPalette: (palette) => sendAnything(urls.palettes + `/${palette.id}`, palette, 'PUT', true),
+  deleteProject: (id) => deleteAnything(urls.projects + `/${id}`, true),
+  deletePalette: (id) => deleteAnything(urls.palettes + `/${id}`, true),
 }
 
 export function checkStatus(res) {
@@ -34,45 +34,46 @@ export function checkStatus(res) {
   }
 }
 
-export async function fetchAnything(url, token) {
-  const options = {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
-  };
+export async function fetchAnything(url, tokenRequired = false) {
+  const headers = isTokenRequired(tokenRequired);
 
-  const response = token ? await fetch(url, options) : await fetch(url);
+  const response = await fetch(url, { headers });
   checkStatus(response);
   return await response.json();
 }
 
-export async function deleteAnything(url, token) {
+export async function deleteAnything(url, tokenRequired = false) {
+  const headers = isTokenRequired(tokenRequired)
   const response = await fetch(url, {
     method: 'DELETE',
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    }
+    headers
   });
   checkStatus(response);
   return await response.status;
 }
 
-export async function sendAnything(url, payload, method, token) {
+export async function sendAnything(url, payload, method, tokenRequired = false) {
+  const headers = isTokenRequired(tokenRequired);
   const response = await fetch(url, {
     method,
     body: JSON.stringify(payload),
-    headers: {
-      "Content-Type": "application/json"
-      // "Authorization": `Bearer ${token}`
-    }
+    headers
   })
   checkStatus(response);
-
   return await response.status === 202 
     ? response.status
     : response.json();
 }
 
+export function isTokenRequired(isRequired) {
+  const userToken = JSON.parse(localStorage.getItem('user_token'));
+  return isRequired 
+  ? {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${userToken}`
+    }
+  : {
+      "Content-Type": "application/json"
+    }
+}
 export default requests;
