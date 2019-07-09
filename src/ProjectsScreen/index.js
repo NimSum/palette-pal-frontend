@@ -27,6 +27,7 @@ class ProjectsScreen extends Component {
   render() {
     const dialog = this.state.showDialog ? <Dialog
       title="Create New Project"
+      type="newProject"
       closeDialog={this.closeDialog}
       primaryAction={this.props.updateProjectData}
     /> : null;

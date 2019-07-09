@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './_App.scss';
 import Header from '../Header';
 import PickerScreen from '../PickerScreen';
 import ProjectsScreen from '../ProjectsScreen';
 import ErrorScreen from '../ErrorScreen';
+import Dialog from '../Dialog'
 import { Switch, Route } from 'react-router-dom';
 import requests from '../utils/apiRequests';
 
@@ -11,16 +11,28 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			projectData: [],
-			loading: true,
+    this.state = {
+      authorized: false,
+      projectData: [],
+      userData: [],
+			loading: false,
 			err: ''
 		};
 	}
 
 	componentDidMount() {
-		this.getProjectData();
-	}
+		// this.getProjectData();
+  }
+  
+  logUserIn = async user => {
+    const res = requests.loginUser(user);
+    console.log(res)
+  }
+
+  signUserUp = async user => {
+    const res = await requests.postNewUser(user);
+    console.log(res)
+  }
 
 	getProjectData = async () => {
     const res = await requests.getDetailedProjects();
@@ -80,7 +92,7 @@ class App extends Component {
       res = await requests.postPalette(palette).catch(err => this.setState({ err }));
       projectData[projIndex].palettes.push({
         name: palette_name,
-        id: res[0],
+        id: res,
         color_1: palette.color_1,
         color_2: palette.color_2,
         color_3: palette.color_3,
@@ -145,8 +157,10 @@ class App extends Component {
 								/>
 							)}
 						/>
-						<Route render={ErrorScreen} />
-					</Switch>
+						{/* <Route render={ErrorScreen} /> */}
+            </Switch>
+            <Route path="/login" render={() => <Dialog title="Log In" type="login" primaryAction={this.logUserIn} />} />
+            <Route path="/signup" render={() => <Dialog title="Sign Up" primaryAction={this.signUserUp} type="signup" />} />
 				</main>
 			</div>
 		);
