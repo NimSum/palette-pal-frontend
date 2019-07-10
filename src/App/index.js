@@ -70,8 +70,8 @@ class App extends Component {
     } else if (action === 'delete') {
       res = await requests.deleteProject(id).catch(err => this.setState({err}));
       userData = userData.filter(i => i.id !== id);
-		} else if (action === 'update') {
-      res = await requests.putProject(proj).catch(err => this.setState({err}));
+    } else if (action === 'update') {
+      res = await requests.putProject(proj).catch(err => this.setState({ err }));
 			userData[userData.findIndex(i => i.id === id)].name = project_name;
 		}
 		this.setState({ userData });
