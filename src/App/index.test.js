@@ -9,18 +9,14 @@ jest.mock('../utils/apiRequests');
 jest.mock('../utils/cleaners');
 
 requests.getDetailedProjects.mockImplementation((() => 
-  Promise.resolve(mockData.mockDetailedProjects)
-  ));
+  Promise.resolve(mockData.mockDetailedProjects)));
+requests.loginUser.mockImplementation(() => 
+  Promise.resolve({ token: 'VALID TOKEN', projects: mockData.mockDetailedProjects }))
 cleanCombinedData.mockImplementation(() => mockData.mockCleanedProject);
 
 describe('App', () => {
   let wrapper;
   let instance;
-  
-  let localStorageMock = { 
-    getItem: () => JSON.stringify('true')
-  };
-  Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
   beforeEach(() => {
     wrapper = shallow(<App />);
@@ -39,7 +35,9 @@ describe('App', () => {
     expect(instance.checkForLogin).toHaveBeenCalled()
   })
 
-  it.skip('should have the expected default state', () => {
+  it('should have the expected default state', () => {
+    const defaultUserData = [];
+    wrapper.setState({ userData: defaultUserData });
     expect(wrapper.state()).toEqual({
       authorized: false,
       projectData: [],
@@ -50,10 +48,33 @@ describe('App', () => {
     })
   })
 
-  it('should checkForLogin', async () => {
-    await instance.checkForLogin();
-    expect(instance.state.userData).toEqual(mockData.mockCleanedProject)
+  describe('User Validation', () => {
+    let localStorageMock = { 
+      getItem: () => JSON.stringify('true'),
+      setItem: jest.fn()
+    };
+    Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+    
+    it('should checkForLogin', async () => {
+      await instance.checkForLogin();
+      expect(instance.state.userData).toEqual(mockData.mockCleanedProject)
+    })
+  
+    it('should logUserIn', async () => {
+      const mockUser = {
+        "email": "nimsum@nim.com",
+        "password": "nimsum"
+      };
+      const expectedKey = 'user_token';
+      const expectedToken = { token: "VALID TOKEN" };
+
+      const result = await instance.logUserIn(mockUser);
+      expect(result.token).toEqual(expectedToken.token);
+      expect(localStorageMock.setItem).toHaveBeenCalledWith(expectedKey, JSON.stringify("VALID TOKEN"));
+    })
+
   })
+  
 
  
 
