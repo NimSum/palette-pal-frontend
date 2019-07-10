@@ -143,10 +143,32 @@ describe('Requests', () => {
   describe('Request Methods', () => {
     // jest.spyOn(all, 'fetchAnything');
 
-    it('should call fetchAnything with the correct params for getProjects method', async () => {
+    it('getDetailedProjects: should call fetchAnything with the correct params', async () => {
       const expected = await requests.getDetailedProjects();
       expect(expected).toEqual(response);
     })
+
+    it('getProjects: should call fetchAnything with the correct params', async () => {
+      const expected = await requests.getProjects();
+      expect(expected).toEqual(response);
+    })
+
+    it('getSingleProject: should call fetchAnything with the correct params', async () => {
+      const expected = await requests.getProjects(1);
+      expect(expected).toEqual(response);
+    })
+
+    it('getPalettes: should call fetchAnything with the correct params', async () => {
+      const expected = await requests.getPalettes();
+      expect(expected).toEqual(response);
+    })
+
+    it('getSinglePalettes: should call fetchAnything with the correct params', async () => {
+      const expected = await requests.getPalettes(1);
+      expect(expected).toEqual(response);
+    })
+
+    
     // deleteAnything.mockImplementation(() => {});
     // sendAnything.mockImplementation(() => {});
     
