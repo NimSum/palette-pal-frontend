@@ -3,14 +3,9 @@ import requests from './index';
 import { checkStatus, isTokenRequired, urls, fetchAnything, deleteAnything, sendAnything } from './index';
 import mockData from '../../utils/mockData';
 
-var localStorageMock = (function() {
-  return {
-    getItem: function(key) {
-      return JSON.stringify(mockData.nimsumsToken);
-    }
-  };
-})();
-
+let localStorageMock = { 
+  getItem: () => JSON.stringify(mockData.nimsumsToken) 
+};
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 describe('Requests', () => {

@@ -37,7 +37,6 @@ export function checkStatus(res) {
 }
 
 export async function fetchAnything(url, tokenRequired = false) {
-  console.log(baseUrl);
   const headers = isTokenRequired(tokenRequired);
 
   const response = await fetch(url, { headers });
