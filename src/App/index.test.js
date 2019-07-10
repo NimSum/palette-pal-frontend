@@ -8,8 +8,10 @@ import cleanCombinedData from '../utils/cleaners';
 jest.mock('../utils/apiRequests');
 jest.mock('../utils/cleaners');
 
-requests.getDetailedProjects.mockImplementation((() => 
-  Promise.resolve(mockData.mockDetailedProjects)));
+requests.postNewUser.mockImplementation(() => 
+  Promise.resolve(1));
+requests.getDetailedProjects.mockImplementation(() => 
+  Promise.resolve(mockData.mockDetailedProjects));
 requests.loginUser.mockImplementation(() => 
   Promise.resolve({ token: 'VALID TOKEN', projects: mockData.mockDetailedProjects }))
 cleanCombinedData.mockImplementation(() => mockData.mockCleanedProject);
@@ -73,6 +75,22 @@ describe('App', () => {
       expect(localStorageMock.setItem).toHaveBeenCalledWith(expectedKey, JSON.stringify("VALID TOKEN"));
     })
 
+    it('should signUserUp', async () => {
+      const mockNewUser = {
+        "email": "nimsum@nim.com",
+        "password": "nimsum",
+        "user_name": "nim"
+      };
+
+      await instance.signUserUp(mockNewUser);
+      expect(requests.postNewUser).toHaveBeenCalledWith(mockNewUser);
+    })
+
+    it('should log user out', async () => {
+      await instance.logUserOut();
+      expect(localStorageMock.setItem).toHaveBeenCalledWith('user_token', "\"\"")
+      expect(wrapper.state().userData).toEqual([]);
+    })
   })
   
 
