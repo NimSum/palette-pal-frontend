@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SubHeader shoud match component SubHeader snapshot 1`] = `ShallowWrapper {}`;
+exports[`SubHeader should match component SubHeader snapshot when the title is My Projects 1`] = `ShallowWrapper {}`;
+
+exports[`SubHeader should match component SubHeader snapshot when the title is Pick New Palette 1`] = `ShallowWrapper {}`;

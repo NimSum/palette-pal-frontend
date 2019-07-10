@@ -29,7 +29,9 @@ class Dialog extends Component {
   }
 
   setDefaultProjectOption = () => {
-    if (this.props.data[0].id) this.setState({ project_id: this.props.data[0].id })
+    if (this.props.data) {
+      this.setState({ project_id: this.props.data[0].id })
+    }
   }
 
   handleChange = ({ target }) => {
@@ -64,10 +66,10 @@ class Dialog extends Component {
 
   conveyResult = result => {
     console.log(result)
-    if (result <= 0 || !result) {
+    if (!result) {
       this.setState({ showError: true });
     } else {
-      console.log(result)
+      console.log(this.setState)
       this.setState({
         palette_name: '',
         project_name: '',
@@ -76,12 +78,11 @@ class Dialog extends Component {
         password: '',
         email: '',
         showConf: true
-      }, () => console.log(this.state))
-
-      setTimeout(() => {
+      }, () => setTimeout(() => {
         this.props.closeDialog();
         this.setState({ showConf: false })
-      }, 2000);
+      }, 2000))
+      console.log(this.state)
     }
   }
 

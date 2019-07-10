@@ -19,6 +19,10 @@ class ProjectsScreen extends Component {
     this.setState({showDialog: false})
   }
 
+  showDialog = () => {
+    this.setState({ showDialog: true })
+  }
+
   setProjectOption = option => {
     this.setState(option);
   }
@@ -52,7 +56,8 @@ class ProjectsScreen extends Component {
         {dialog}
         <SubHeader
           title="My Projects"
-          handleClick={() => this.setState({ showDialog: true })} btnTitle="Create New Project"
+          handleClick={this.showDialog}
+          btnTitle="Create New Project"
           data={this.props.data}
           setOption={this.setProjectOption}
         />

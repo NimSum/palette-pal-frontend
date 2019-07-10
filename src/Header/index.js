@@ -15,12 +15,12 @@ class Header extends Component {
     
     if (!loggedIn) {
       links = <>
-        <p role="link" className="nav-link auth-link" onClick={() => this.setState({ showLogin: true, showSignup: false })}>Log in</p>
+        <p role="link" className="nav-link auth-link login-link" onClick={() => this.setState({ showLogin: true, showSignup: false })}>Log in</p>
         <p className="spacer">/</p>
-        <p role="link" className="nav-link auth-link" onClick={() => this.setState({ showSignup: true, showLogin: false })}> Sign up</p>
+        <p role="link" className="nav-link auth-link signup-link" onClick={() => this.setState({ showSignup: true, showLogin: false })}> Sign up</p>
         </>
     } else {
-      links = <p role="link" className="nav-link auth-link" onClick={this.props.logUserOut}>Log out</p>
+      links = <p role="link" className="nav-link auth-link logout-link" onClick={this.props.logUserOut}>Log out</p>
     }
 
 		if (this.state.showLogin) {
