@@ -24,7 +24,6 @@ class App extends Component {
 
   componentDidMount() {
     this.checkForLogin();
-		// this.getProjectData();
   }
 
   checkForLogin = async () => {
@@ -59,14 +58,6 @@ class App extends Component {
     
     this.setState({ userData: [] })
   }
-
-	// getProjectData = async () => {
-  //   const res = await requests.getDetailedProjects()
-  //     .catch(err => this.setState({ err }));
-
-    
-	// 	this.setState({ projectData, loading: false });
-	// };
 
 	updateProjectData = async (proj, action) => {
     let userData = this.state.userData;
