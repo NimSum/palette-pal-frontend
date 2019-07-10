@@ -24,7 +24,7 @@ class SubHeader extends Component {
     const options = this.props.title === "Pick New Palette" ?  <>
       <p className="dropdown-label">Mode:</p>
       <select
-        className="dropdown-input"
+        className="dropdown-input mode-dropdown"
         type="text"
         name="mode"
         value={this.state.mode}
@@ -38,7 +38,7 @@ class SubHeader extends Component {
       : <>
         <p className="dropdown-label">Project:</p>
         <select
-          className="dropdown-input"
+          className="dropdown-input project-dropdown"
           type="text"
           name="project"
           value={this.state.filter}
@@ -58,7 +58,7 @@ class SubHeader extends Component {
         <div className="subheader-right">
           <p className="dropdown-label">Format:</p>
           <select
-            className="dropdown-input"
+            className="dropdown-input format-dropdown"
             type="text"
             name="format"
             value={this.state.format}
