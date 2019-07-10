@@ -1,6 +1,6 @@
 import React from 'react';
 import App from './index';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import requests from '../utils/apiRequests';
 import mockData from '../utils/mockData';
 import cleanCombinedData from '../utils/cleaners';
@@ -86,14 +86,51 @@ describe('App', () => {
       expect(requests.postNewUser).toHaveBeenCalledWith(mockNewUser);
     })
 
-    it('should log user out', async () => {
+    it('should logUserOut', async () => {
       await instance.logUserOut();
       expect(localStorageMock.setItem).toHaveBeenCalledWith('user_token', "\"\"")
       expect(wrapper.state().userData).toEqual([]);
     })
   })
   
+  describe.skip('updateProjectData', () => {
+    const mockProject = mockData.mockProjects[1];
 
+    it("should trigger post request for 'add' action", async () => {
+
+    })
+
+    it("should trigger delete request for 'delete' action", async () => {
+
+    })
+
+    it("should trigger put request for 'update' action", async () => {
+
+    })
+
+    it("should setState new userData after after api requests completion", async () => {
+
+    })
+    
+  })
  
+  describe.skip('updatePaletteData', () => {
+    const mockPalette = mockData.mockPalettes[1];
 
+    it("should trigger post request for 'add' action", async () => {
+
+    })
+
+    it("should trigger delete request for 'delete' action", async () => {
+
+    })
+
+    it("should trigger put request for 'update' action", async () => {
+
+    })
+
+    it("should setState new userData after after api requests completion", async () => {
+
+    })
+  })
 })
