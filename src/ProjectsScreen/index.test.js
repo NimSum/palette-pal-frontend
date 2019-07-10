@@ -57,7 +57,7 @@ describe('ProjectScreen', () => {
   it('should set the project property in state to false when setProjectOption is called', () => {
     expect(wrapper.state('project')).toEqual('');
 
-    instance.setProjectOption('test project');
+    instance.setProjectOption({project: 'test project'});
 
     expect(wrapper.state('project')).toEqual('test project');
   })

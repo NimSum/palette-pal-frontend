@@ -65,6 +65,12 @@ describe('SubHeader', () => {
   })
 
   it('should invoke handleChange when the project dropdown changes', () => {
+    wrapper = shallow(< SubHeader
+      data={[mockData.mockCleanedProject]}
+      setOption={mockSetOption}
+      title="My Projects"
+    />);
+    
     const mockEvent = { target: { name: 'project', value: 'test proj value' } }
 
     expect(wrapper.state('project')).toEqual('');
