@@ -191,6 +191,16 @@ describe('Requests', () => {
       expect(expected).toEqual(mockStatus);
     })
 
+    it('putProject: should respond with mock response status on invokation', async () => {
+      const expected = await requests.putProject(mockProject);
+      expect(expected).toEqual(mockStatus);
+    })
+
+    it('putPalette: should respond with mock response status on invokation', async () => {
+      const expected = await requests.putPalette(mockProject);
+      expect(expected).toEqual(mockStatus);
+    })
+
 
 
 
