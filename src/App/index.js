@@ -96,7 +96,7 @@ class App extends Component {
     
     if (action === 'add') {
       res = await requests.postPalette(palette).catch(err => this.setState({ err }));
-      userData[projIndex].palettes.push({
+      await userData[projIndex].palettes.push({
         name: palette_name,
         id: res,
         color_1: palette.color_1,

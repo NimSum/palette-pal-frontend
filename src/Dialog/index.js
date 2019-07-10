@@ -7,7 +7,7 @@ class Dialog extends Component {
     this.state = {
       palette_name: '',
       project_name: '',
-      project_id: this.props.data[0].id,
+      project_id: '',
       user_name: '',
       password: '',
       email: '',
@@ -19,12 +19,17 @@ class Dialog extends Component {
     if (this.props.type === 'newPalette') {
       window.removeEventListener('keydown', this.props.refreshUnheldColors);
     }
+    this.setDefaultProjectOption();
   }
 
   componentWillUnmount() {
     if (this.props.type === 'newPalette') {
       window.addEventListener('keydown', this.props.refreshUnheldColors);
     }
+  }
+
+  setDefaultProjectOption = () => {
+    if (this.props.data[0].id) this.setState({ project_id: this.props.data[0].id })
   }
 
   handleChange = ({ target }) => {
@@ -86,7 +91,7 @@ class Dialog extends Component {
     if (this.props.type === "signup") {
       usernameField = <>  
         <label htmlFor="user_name">Username:</label>
-        <input name="user_name" onChange={this.handleChange}></input>
+        <input className="username" name="user_name" onChange={this.handleChange}></input>
       </>
     } 
 
