@@ -1,7 +1,8 @@
-import requests from './index'; 
-import { checkStatus, urls, fetchAnything, deleteAnything, sendAnything } from './index';
+// import * as requests from './index'; 
+import requests from './index';
+import { checkStatus, isTokenRequired, urls, fetchAnything, deleteAnything, sendAnything } from './index';
 import mockData from '../../utils/mockData';
-import { send } from 'q';
+import * as all from './index';
 
 var localStorageMock = (function() {
   return {
@@ -104,6 +105,11 @@ describe('Requests', () => {
       expect(window.fetch).toHaveBeenCalledWith(projectsUrl, expected)
     })
 
+    it("should respond with success status if response status is 202", async () => {
+      const result = await sendAnything(projectsUrl, mockPayload, method, true);
+      expect(result).toEqual(202);
+    })
+
     it("should respond with success status object on valid request", async () => {
       mockStatus = 200;
       const result = await sendAnything(projectsUrl, mockPayload, method, true);
@@ -113,5 +119,37 @@ describe('Requests', () => {
     })
   })
   
+  describe('isTokenRequired', () => {
+    it('should only return content type header if param false', () => {
+      const result = isTokenRequired(false);
+      expect(result).toEqual(jsonHeader.headers);
+    })
+
+    it('should return content type and auth token if param true', () => {
+      const result = isTokenRequired(true);
+      expect(result).toEqual(tokenHeader.headers);
+    })
+  })
+
+  describe('checkStatus', () => {
+    it('should respond with an error if response is not okay', async () => {
+      const mockResponse = {
+        ok: false
+      }
+      expect(() => checkStatus(mockResponse)).toThrow(Error('Request failed'));
+    })
+  })
+
+  describe('Request Methods', () => {
+    // jest.spyOn(all, 'fetchAnything');
+
+    it('should call fetchAnything with the correct params for getProjects method', async () => {
+      const expected = await requests.getDetailedProjects();
+      expect(expected).toEqual(response);
+    })
+    // deleteAnything.mockImplementation(() => {});
+    // sendAnything.mockImplementation(() => {});
+    
+  })
   
 })
