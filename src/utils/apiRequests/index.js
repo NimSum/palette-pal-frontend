@@ -62,19 +62,19 @@ export async function sendAnything(url, payload, method, tokenRequired = false) 
     headers
   })
   checkStatus(response);
-  return await response.status === 202 
+  return await response.status === 202
     ? response.status
     : response.json();
 }
 
 export function isTokenRequired(isRequired) {
   const userToken = JSON.parse(localStorage.getItem('user_token'));
-  return isRequired 
-  ? {
+  return isRequired
+    ? {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${userToken}`
     }
-  : {
+    : {
       "Content-Type": "application/json"
     }
 }

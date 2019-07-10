@@ -5,6 +5,8 @@ import { shallow } from 'enzyme';
 describe('Dialog', () => {
   let wrapper;
   let instance;
+  window.addEventListener = jest.fn();
+  window.removeEventListener = jest.fn();
   const mockCloseDialog = jest.fn();
   const mockRefreshUnheldColors = jest.fn();
   const mockUpdateProjectData = jest.fn();
@@ -51,6 +53,8 @@ describe('Dialog', () => {
     jest.spyOn(instance, 'getPaletteFields');
     jest.spyOn(instance, 'handleChange');
     jest.spyOn(instance, 'handleClick');
+    jest.spyOn(instance, 'conveyResult');
+    jest.spyOn(instance, 'setDefaultProjectOption');
   })
 
   it('should match component Dialog snapshot when the dialog is for saving a new palette', () => {
@@ -97,8 +101,33 @@ describe('Dialog', () => {
       project_id: '',
       user_name: '',
       password: '',
-      email: ''
+      email: '',
+      showConf: false
     })
+  })
+
+  it('should remove a window event listnener and call setDefaultProjectOption on mount', () => {
+    instance.componentDidMount();
+
+    expect(instance.setDefaultProjectOption).toHaveBeenCalled();
+
+    expect(window.removeEventListener).toHaveBeenCalled();
+  })
+
+  it('should set a window event listnener when it unmounts', () => {
+    instance.componentWillUnmount();
+
+    expect(window.addEventListener).toHaveBeenCalled();
+  })
+
+  it('should update project_id in state when setDefaultProjectOoption is called', () => {
+    expect(wrapper.state('project_id')).toEqual('');
+
+    wrapper.data = [{id: 1}]
+
+    instance.setDefaultProjectOption();
+
+    expect(wrapper.state('project_id')).toEqual(1);
   })
 
   it('should update the project_name state when handleChange is invoked and the new project input has a value', () => {
@@ -183,11 +212,12 @@ describe('Dialog', () => {
     expect(wrapper.state('project_name')).toEqual('');
 
     wrapper.find('.new-project-name').simulate('change', mockEvent);
+    
     expect(wrapper.state('project_name')).toEqual('howdy');
 
     await wrapper.find('.save-btn').simulate('click');
 
-    await expect(wrapper.state('project_name')).toEqual('');
+    setTimeout(() => expect(wrapper.state('project_name')).toEqual(''), 1000);
   })
 
   it('should call handleClick method when the user hits the save button', () => {

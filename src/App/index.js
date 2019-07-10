@@ -5,6 +5,8 @@ import Header from '../Header';
 import PickerScreen from '../PickerScreen';
 import ProjectsScreen from '../ProjectsScreen';
 import ErrorScreen from '../ErrorScreen';
+import Dialog from '../Dialog'
+import cleanCombinedData from '../utils/cleaners';
 
 class App extends Component {
 	constructor(props) {
@@ -15,19 +17,34 @@ class App extends Component {
       projectData: [],
       userData: [],
 			loading: false,
-			err: ''
+      err: '',
+      showAcctDialog: false
 		};
 	}
 
-	componentDidMount() {
+  componentDidMount() {
+    this.checkForLogin();
 		// this.getProjectData();
+  }
+
+  checkForLogin = async () => {
+    if (JSON.parse(localStorage.getItem('user_token'))) {
+      const res = await requests.getDetailedProjects()
+        .catch(err => this.setState({ err }));;
+
+      this.setState({ userData: cleanCombinedData(res) });
+    }
   }
   
   logUserIn = async user => {
     const res = await requests.loginUser(user)
       .catch(err => this.setState({ err }));
-    
-    localStorage.setItem('user_token', JSON.stringify(await res.token))
+
+    if (res) {
+      this.setState({ userData: cleanCombinedData(res.projects) });
+      localStorage.setItem('user_token', JSON.stringify(await res.token))
+    }
+    return res;
   }
 
   signUserUp = async user => {
@@ -37,64 +54,49 @@ class App extends Component {
     if (res) console.log(res);
   }
 
-	getProjectData = async () => {
-    const res = await requests.getDetailedProjects()
-      .catch(err => this.setState({ err }));
+  logUserOut = () => {
+    localStorage.setItem('user_token', JSON.stringify(''))
+    
+    this.setState({ userData: [] })
+  }
 
-    const projectData = res.reduce((acc, palette) => {
-			const { project_id, project_name, palette_id, palette_name } = palette;
-      const project = acc.find(proj => proj.id === project_id) || null;
-      const paletteData = palette_id ? [{
-        id: palette_id,
-        name: palette_name,
-        color_1: palette.color_1,
-        color_2: palette.color_2,
-        color_3: palette.color_3,
-        color_4: palette.color_4,
-        color_5: palette.color_5
-      }] : [];
+	// getProjectData = async () => {
+  //   const res = await requests.getDetailedProjects()
+  //     .catch(err => this.setState({ err }));
 
-      if (!project) {
-        acc.push({ id: project_id, name: project_name, palettes: paletteData });
-      } else if (project) {
-        project.palettes.push(paletteData[0]);
-        project.palettes.sort((a, b) => a.id - b.id);
-      }
-      
-			return acc;
-		}, []);
-		this.setState({ projectData, loading: false });
-	};
+    
+	// 	this.setState({ projectData, loading: false });
+	// };
 
 	updateProjectData = async (proj, action) => {
-    let projectData = this.state.projectData;
+    let userData = this.state.userData;
     const { id, project_name } = proj;
 		let res;
 
     if (action === 'add') {
-      res = await requests.postProject(proj).catch(err => this.setState({err}));
-			projectData.push({ name: project_name, id: res[0], palettes: [] });
+      res = await requests.postProject(proj).catch(err => this.setState({ err }));
+			userData.push({ name: project_name, id: res, palettes: [] });
     } else if (action === 'delete') {
       res = await requests.deleteProject(id).catch(err => this.setState({err}));
-      projectData = projectData.filter(i => i.id !== id);
+      userData = userData.filter(i => i.id !== id);
 		} else if (action === 'update') {
       res = await requests.putProject(proj).catch(err => this.setState({err}));
-			projectData[projectData.findIndex(i => i.id === id)].name = project_name;
+			userData[userData.findIndex(i => i.id === id)].name = project_name;
 		}
-		this.setState({ projectData });
+		this.setState({ userData });
 		return res;
 	};
 
   updatePaletteData = async (palette, action) => {
-    const projectData = this.state.projectData;
+    const userData = this.state.userData;
     const { id, palette_name, project_id } = palette;
-    const project = projectData.find(proj => +proj.id === +project_id);
-    const projIndex = projectData.findIndex(proj => +proj.id === +project.id);
+    const project = userData.find(proj => +proj.id === +project_id);
+    const projIndex = userData.findIndex(proj => +proj.id === +project.id);
     let res;
     
     if (action === 'add') {
       res = await requests.postPalette(palette).catch(err => this.setState({ err }));
-      projectData[projIndex].palettes.push({
+      await userData[projIndex].palettes.push({
         name: palette_name,
         id: res,
         color_1: palette.color_1,
@@ -107,25 +109,28 @@ class App extends Component {
       res = await requests.deletePalette(id)
         .catch(err => this.setState({ err }));
       
-      projectData[projIndex].palettes = projectData[projIndex].palettes
+      userData[projIndex].palettes = userData[projIndex].palettes
         .filter(i => i.id !== id);
     } else if (action === 'update') {
       res = await requests.putPalette(palette)
         .catch(err => this.setState({ err }));
       
-      const palIndex = projectData[projIndex].palettes
+      const palIndex = userData[projIndex].palettes
         .findIndex(pal => +pal.id === +id);
       
-      projectData[projIndex].palettes[palIndex] = {
-        ...projectData[projIndex].palettes[palIndex],
+      userData[projIndex].palettes[palIndex] = {
+        ...userData[projIndex].palettes[palIndex],
         ...palette,
         name: palette_name
       };
-		}
-		this.setState({ projectData });
+    }
+    this.setState({ userData });
+    return res;
   };
 
   render() {
+    const acctDialog = this.state.showAcctDialog ? <Dialog type='account' title="Account Needed" closeDialog={() => this.setState({ showAcctDialog: false })} /> : null;
+
 		const content = this.state.loading ? (
 			<div className="loading-screen">
 				<img
@@ -135,18 +140,20 @@ class App extends Component {
         <h2>Loading...</h2>
 			</div>
 		) : (
-      <div className="App">
-        <Header logUserIn={this.logUserIn} signUserUp={this.signUserUp} />
+        <div className="App">
+          {acctDialog}
+          <Header logUserIn={this.logUserIn} signUserUp={this.signUserUp} logUserOut={this.logUserOut} />
 				<main className="main">
 					<Switch>
-						<Route
-							exact
-							path="/"
-							component={() => (
-                <PickerScreen
-                data={this.state.projectData}
-                updateProjectData={this.updateProjectData}
-                updatePaletteData={this.updatePaletteData}
+              <Route
+                exact
+                path="/"
+                component={() => (
+                  <PickerScreen
+                    data={this.state.userData}
+                    updateProjectData={this.updateProjectData}
+                    updatePaletteData={this.updatePaletteData}
+                    showAcctDialog={() => this.setState({showAcctDialog: true})}
                 />
                 )}
                 />
@@ -155,7 +162,7 @@ class App extends Component {
 							path="/projects"
 							component={() => (
                 <ProjectsScreen
-                data={this.state.projectData}
+                data={this.state.userData}
                 updateProjectData={this.updateProjectData}
                 updatePaletteData={this.updatePaletteData}
 								/>

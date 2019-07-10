@@ -19,6 +19,10 @@ class ProjectsScreen extends Component {
     this.setState({showDialog: false})
   }
 
+  showDialog = () => {
+    this.setState({ showDialog: true })
+  }
+
   setProjectOption = option => {
     this.setState(option);
   }
@@ -35,7 +39,7 @@ class ProjectsScreen extends Component {
     const data = !this.state.project ? this.props.data
       : this.props.data.filter(i => i.id === +this.state.project);
     
-    const projects = data.map(project => <Project
+    let projects = data.map(project => <Project
       data={project}
       key={project.id}
       format={this.state.format}
@@ -43,13 +47,17 @@ class ProjectsScreen extends Component {
       updatePaletteData={this.props.updatePaletteData}
     />).reverse();
 
+    if (!this.props.data.length) {
+      projects = <p className="no-projects-msg">Please Log In or Sign Up for an account to save projects and palettes.</p>
+    }
     
     return (
       <>
         {dialog}
         <SubHeader
           title="My Projects"
-          handleClick={() => this.setState({ showDialog: true })} btnTitle="Create New Project"
+          handleClick={this.showDialog}
+          btnTitle="Create New Project"
           data={this.props.data}
           setOption={this.setProjectOption}
         />

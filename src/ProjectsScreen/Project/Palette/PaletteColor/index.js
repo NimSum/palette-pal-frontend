@@ -18,7 +18,8 @@ class PaletteColor extends Component {
   }
 
   updateColor = () => {
-    this.props.updatePaletteData({id: this.props.palette_id, [this.props.id]: this.state.update, project_id: this.props.project_id}, 'update');
+    const { palette_id, palette_name, project_id } = this.props;
+    this.props.updatePaletteData({id: palette_id, [this.props.id]: this.state.update, project_id, palette_name}, 'update');
     this.setState({ update: '', showPicker: false })
   }
 

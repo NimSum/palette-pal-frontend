@@ -1,52 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SubHeader shoud match component SubHeader snapshot 1`] = `
-<section
-  className="SubHeader"
->
-  <div
-    className="subheader-left"
-  >
-    <h2
-      className="page-title"
-    />
-    <button
-      className="subheader-btn"
-    >
-      <i
-        aria-hidden="true"
-        className="fas fa-play"
-      />
-      Create New Project
-    </button>
-  </div>
-  <div
-    className="subheader-right"
-  >
-    <p
-      className="dropdown-label"
-    >
-      Filter:
-    </p>
-    <select
-      className="dropdown-input"
-      name="filter"
-      onChange={[Function]}
-      type="text"
-      value=""
-    >
-      <option
-        value=""
-      >
-        All Projects
-      </option>
-      <option
-        key="2"
-        value={2}
-      >
-        project0
-      </option>
-    </select>
-  </div>
-</section>
-`;
+exports[`SubHeader should match component SubHeader snapshot when the title is My Projects 1`] = `ShallowWrapper {}`;
+
+exports[`SubHeader should match component SubHeader snapshot when the title is Pick New Palette 1`] = `ShallowWrapper {}`;
