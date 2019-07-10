@@ -10,7 +10,8 @@ class Dialog extends Component {
       project_id: '',
       user_name: '',
       password: '',
-      email: ''
+      email: '',
+      showConf: false
     }
   }
 
@@ -18,12 +19,17 @@ class Dialog extends Component {
     if (this.props.type === 'newPalette') {
       window.removeEventListener('keydown', this.props.refreshUnheldColors);
     }
+    this.setDefaultProjectOption();
   }
 
   componentWillUnmount() {
     if (this.props.type === 'newPalette') {
       window.addEventListener('keydown', this.props.refreshUnheldColors);
     }
+  }
+
+  setDefaultProjectOption = () => {
+    if (this.props.data[0].id) this.setState({ project_id: this.props.data[0].id })
   }
 
   handleChange = ({ target }) => {
@@ -39,37 +45,53 @@ class Dialog extends Component {
   handleClick = async () => {
     const { palette_name, project_id, project_name, email, user_name, password } = this.state;
     const { type, primaryAction } = this.props;
+    let result;
 
     if (type === "newProject") {
-      primaryAction({ project_name }, 'add');
+      result = await primaryAction({ project_name }, 'add');
     } else if (type === "newPalette" && project_name) {
       const res = await this.props.updateProjectData({ project_name }, 'add');
-      primaryAction({ ...this.props.colors, palette_name, project_id: res }, 'add');
+      result = await primaryAction({ ...this.props.colors, palette_name, project_id: res }, 'add');
     } else if (type === "newPalette") {
-      primaryAction({ ...this.props.colors, palette_name, project_id }, 'add');
+      result = await primaryAction({ ...this.props.colors, palette_name, project_id }, 'add');
     } else if (type === "login") {
-      primaryAction({ email, password })
+      result = await primaryAction({ email, password });
     } else if (type === "signup") {
-      primaryAction({ email, user_name, password });
+      result = await primaryAction({ email, user_name, password });
     }
+    this.conveyResult(result);
+  }
 
-    this.setState({
-      palette_name: '',
-      project_name: '',
-      project_id: '',
-      user_name: '',
-      password: '',
-      email: ''
-    })
+  conveyResult = result => {
+    console.log(result)
+    if (result <= 0 || !result) {
+      this.setState({ showError: true });
+    } else {
+      console.log(result)
+      this.setState({
+        palette_name: '',
+        project_name: '',
+        project_id: '',
+        user_name: '',
+        password: '',
+        email: '',
+        showConf: true
+      }, () => console.log(this.state))
+
+      setTimeout(() => {
+        this.props.closeDialog();
+        this.setState({ showConf: false })
+      }, 2000);
+    }
   }
 
 
   getAuthFields = () => {
     let usernameField;
     if (this.props.type === "signup") {
-      usernameField = <>
+      usernameField = <>  
         <label htmlFor="user_name">Username:</label>
-        <input name="user_name" onChange={this.handleChange}></input>
+        <input className="username" name="user_name" onChange={this.handleChange}></input>
       </>
     } 
 
@@ -109,13 +131,15 @@ class Dialog extends Component {
     let primaryField = "Palette Name";
     let fieldName = "palette_name";
 
-    if (type === "newProject") {
+    if (type === 'account') {
+      return <p className="dialog-msg">Please Log In or Sign Up for an account to access this feature.</p>
+    } else if (type === "newProject") {
       primaryField = "Project Name";
       fieldName = "project_name";
     } else if (type === "login" || type === "signup") {
       primaryField = "Email";
       fieldName = "email";
-    }
+    } 
 
     return (
       <>
@@ -130,31 +154,56 @@ class Dialog extends Component {
     )
   }
 
+  getConfMessage = () => {
+    const { type } = this.props;
+    let message;
+
+    if (type === 'signup' || type === 'login') {
+      message = "Successfully logged in!";
+    } else {
+      const record = type.split('w')[1];
+      message = `${record} successfully created!`;
+    }
+
+    return message;
+  }
+
   render() {
+    let content; 
     const { type, title, closeDialog } = this.props;
-    const primaryBtn = type === "signup" || type === "login" ? "Go" : "Save";
-    const palFields = type === "newPalette" ? this.getPaletteFields() : null;
-    const authFields = type === "signup" || type === "login" ? this.getAuthFields() : null;
-    
-    return (
-      <div className="dialog-overlay">
-        <div className="popup">
-          <i className="fas fa-times" onClick={closeDialog}></i>
+
+    if (!this.state.showConf) {
+      const primaryBtn = type === "signup" || type === "login" ? "Go" : "Save";
+      const palFields = type === "newPalette" ? this.getPaletteFields() : null;
+      const authFields = type === "signup" || type === "login" ? this.getAuthFields() : null;
+
+      const buttons = type !== 'account' ? <>
+        <button className="dialog-btn cancel-btn" type="button" onClick={closeDialog} >Cancel</button >
+        <button className="dialog-btn save-btn" type="button" onClick={this.handleClick}>{primaryBtn}</button>
+      </> : null;
+      
+      content = (
+        <>
           <h3>{title}</h3>
           {this.getPrimaryField()}
           {palFields}
           {authFields}
           <div className="dialog-btns">
-            <button className="dialog-btn cancel-btn" type="button" onClick={closeDialog} >
-              Cancel
-            </button>
-            <button className="dialog-btn save-btn" type="button" onClick={this.handleClick}>
-              {primaryBtn}
-            </button>
+            {buttons}
           </div>
+        </>
+      );
+    } else {
+      content = this.getConfMessage();
+    }
+    return (
+      <div className="dialog-overlay">
+        <div className="popup">
+          <i className="fas fa-times" onClick={closeDialog}></i>
+          {content}
         </div>
       </div>
-    );
+    )
   }
 }
 

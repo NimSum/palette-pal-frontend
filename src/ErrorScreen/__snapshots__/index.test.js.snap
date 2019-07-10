@@ -1,15 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorScreen shoud match component ErrorScreen snapshot 1`] = `
-<div
-  id="ErrorScreen"
->
-  <img
-    alt="Sad Buster Keaton"
-    src="https://66.media.tumblr.com/tumblr_lp6u9fkkPY1qd48zdo1_500.gif"
-  />
-  <h2>
-    404 Page Not Found :(
-  </h2>
-</div>
-`;
+exports[`ErrorScreen shoud match component ErrorScreen snapshot 1`] = `ShallowWrapper {}`;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Palette from './index';
 import { shallow } from 'enzyme';
-import mockData from '../utils/mockData';
+import mockData from '../../../utils/mockData';
 
 describe('Palette', () => {
   let wrapper;

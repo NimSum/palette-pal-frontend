@@ -6,10 +6,22 @@ class Header extends Component {
 	state = {
 		showLogin: false,
 		showSignup: false
-	};
+	}
 
-	render() {
-		let dialog = null;
+  render() {
+    const loggedIn = JSON.parse(localStorage.getItem('user_token'));
+    let dialog = null;
+    let links;
+    
+    if (!loggedIn) {
+      links = <>
+        <p role="link" className="nav-link auth-link" onClick={() => this.setState({ showLogin: true, showSignup: false })}>Log in</p>
+        <p className="spacer">/</p>
+        <p role="link" className="nav-link auth-link" onClick={() => this.setState({ showSignup: true, showLogin: false })}> Sign up</p>
+        </>
+    } else {
+      links = <p role="link" className="nav-link auth-link" onClick={this.props.logUserOut}>Log out</p>
+    }
 
 		if (this.state.showLogin) {
       dialog = <Dialog title="Log In" type="login" primaryAction={this.props.logUserIn} closeDialog={() => this.setState({showLogin: false})}/>;
@@ -33,7 +45,7 @@ class Header extends Component {
 							My Projects
 						</NavLink>
             <div className="auth-links">
-              <p role="link" className="nav-link auth-link" onClick={() => this.setState({showLogin: true})}>Log in</p><p className="spacer">/</p><p role="link" className="nav-link auth-link" onClick={() => this.setState({ showSignup: true })}> Sign up</p>
+              {links}
             </div>
 					</nav>
 				</div>

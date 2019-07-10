@@ -1,34 +1,59 @@
- .PaletteColor {
-    width: 100%;
-    min-width: 150px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.PaletteColor {
+	width: 100%;
+	min-width: 150px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-    .PhotoshopPicker {
-      position: absolute;
-      top: 15px;
-      z-index: 500;
-    }
+	.PhotoshopPicker {
+		width: 128% !important;
+		z-index: 500;
+		margin-bottom: 30px;
+		position: absolute;
+		top: 15px;
+		z-index: 500;
 
-    .color-hex {
-      font-size: 14px;
-      opacity: .6;
-      width: 100%;
+		span,
+		input,
+		div {
+			font-size: 11px !important;
+		}
 
-      .fa-pencil-alt {
-        opacity: 0;
-        position: absolute;
-        right: 18%;
-        margin-top: 3px;
-        cursor: pointer;
-      }
+		div.flexbox-fix {
+			height: 262px;
 
-      &:hover {
-        .fa-pencil-alt {
-          opacity: 1;
-        }
-      }
-    }
-  }
+			div:first-child,
+			div:nth-child(2) {
+				max-height: 230px;
+			}
+			div {
+				max-height: 250px;
+
+				div {
+					max-height: 200px;
+				}
+			}
+		}
+	}
+
+	.color-hex {
+		font-size: 14px;
+		opacity: .6;
+		width: 100%;
+
+		.fa-pencil-alt {
+			opacity: 0;
+			position: absolute;
+			right: 18%;
+			margin-top: 3px;
+			cursor: pointer;
+		}
+
+		&:hover {
+			.fa-pencil-alt {
+				opacity: 1;
+			}
+		}
+	}
+}
