@@ -201,7 +201,15 @@ describe('Requests', () => {
       expect(expected).toEqual(mockStatus);
     })
 
+    it('deleteProject: should respond with mock response status on invokation', async () => {
+      const expected = await requests.deleteProject(1);
+      expect(expected).toEqual(mockStatus);
+    })
 
+    it('deletePalette: should respond with mock response status on invokation', async () => {
+      const expected = await requests.deletePalette(1);
+      expect(expected).toEqual(mockStatus);
+    })
 
 
 
