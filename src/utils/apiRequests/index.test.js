@@ -2,7 +2,6 @@
 import requests from './index';
 import { checkStatus, isTokenRequired, urls, fetchAnything, deleteAnything, sendAnything } from './index';
 import mockData from '../../utils/mockData';
-import * as all from './index';
 
 var localStorageMock = (function() {
   return {
@@ -141,7 +140,6 @@ describe('Requests', () => {
   })
 
   describe('Request Methods', () => {
-    // jest.spyOn(all, 'fetchAnything');
     const mockPalette = {
       color_1: "#433047",
       color_2: "#967578",
@@ -211,12 +209,6 @@ describe('Requests', () => {
       expect(expected).toEqual(mockStatus);
     })
 
-
-
-    
-    // deleteAnything.mockImplementation(() => {});
-    // sendAnything.mockImplementation(() => {});
-    
   })
   
 })
