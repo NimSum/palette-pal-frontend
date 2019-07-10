@@ -142,6 +142,19 @@ describe('Requests', () => {
 
   describe('Request Methods', () => {
     // jest.spyOn(all, 'fetchAnything');
+    const mockPalette = {
+      color_1: "#433047",
+      color_2: "#967578",
+      color_3: "#333547",
+      color_4: "#798776",
+      color_5: "#839967",
+      project_id: 2,
+      name: "palette0"
+    }
+    const mockProject = {
+      project_name: "NIM'S NEW PROJECT"
+    }
+
 
     it('getDetailedProjects: should respond with mock response on invokation', async () => {
       const expected = await requests.getDetailedProjects();
@@ -169,18 +182,18 @@ describe('Requests', () => {
     })
 
     it('postPalette: should respond with mock response status on invokation', async () => {
-      const mockPalette = {
-        color_1: "#433047",
-        color_2: "#967578",
-        color_3: "#333547",
-        color_4: "#798776",
-        color_5: "#839967",
-        project_id: 2,
-        name: "palette0"
-      }
       const expected = await requests.postPalette(mockPalette);
       expect(expected).toEqual(mockStatus);
     })
+
+    it('postProject: should respond with mock response status on invokation', async () => {
+      const expected = await requests.postProject(mockProject);
+      expect(expected).toEqual(mockStatus);
+    })
+
+
+
+
 
     
     // deleteAnything.mockImplementation(() => {});
