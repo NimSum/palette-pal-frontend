@@ -29,12 +29,19 @@ class ProjectsScreen extends Component {
 
 
   render() {
-    const dialog = this.state.showDialog ? <Dialog
-      title="Create New Project"
-      type="newProject"
-      closeDialog={this.closeDialog}
-      primaryAction={this.props.updateProjectData}
-    /> : null;
+    let dialog = null;
+    
+    
+    if (this.state.showDialog && this.props.data.length) {
+      dialog = <Dialog
+        title="Create New Project"
+        type="newProject"
+        closeDialog={this.closeDialog}
+        primaryAction={this.props.updateProjectData}
+      />
+    } else if (this.state.showDialog && !this.props.data.length) {
+      dialog = <Dialog type='account' title="Account Needed" closeDialog={() => this.setState({ showDialog: false })} />
+    }
 
     const data = !this.state.project ? this.props.data
       : this.props.data.filter(i => i.id === +this.state.project);

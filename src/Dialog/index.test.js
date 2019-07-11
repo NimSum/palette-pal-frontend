@@ -50,6 +50,7 @@ describe('Dialog', () => {
 
     instance = wrapper.instance();
 
+    jest.spyOn(instance, 'sendFormData');
     jest.spyOn(instance, 'getPaletteFields');
     jest.spyOn(instance, 'handleChange');
     jest.spyOn(instance, 'handleClick');
@@ -102,7 +103,8 @@ describe('Dialog', () => {
       user_name: '',
       password: '',
       email: '',
-      showConf: false
+      showConf: false,
+      error: ''
     })
   })
 
@@ -224,33 +226,32 @@ describe('Dialog', () => {
     jest.spyOn(instance, 'handleClick');
     jest.spyOn(instance, 'handleChange');
 
-    expect(wrapper.state('project_name')).toEqual('');
+    expect(wrapper.state('error')).toEqual('');
 
     wrapper.find('.save-btn').simulate('click');
 
-    expect(wrapper.state('project_name')).toEqual('');
+    expect(wrapper.state('error')).not.toBe('');
   })
 
-  it('should call the primaryAction method when handleClick is invoked', () => {
-    jest.spyOn(instance, 'handleClick');
-
-    instance.handleClick();
+  it('should call the primaryAction method when sendFormData is invoked', () => {
+    instance.sendFormData();
 
     expect(mockPrimaryAction).toHaveBeenCalled();
   })
 
-  it('should call the updateProjectData method when handleClick is invoked if the dialog is for saving a new palette and there is a value in state for project_name', async () => {
-    const mockEvent = { target: { name: 'project_name', value: 'howdy' } }
-    jest.spyOn(instance, 'handleClick');
-    jest.spyOn(instance, 'handleChange');
+  it('should call the sendFormData method when handleClick is invoked and all required fields are filled', async () => {
+    const mockEvent1 = { target: { name: 'palette_name', value: 'test pal' } }
+    const mockEvent2 = { target: { name: 'project_name', value: 'test proj' } }
 
-    wrapper.find('.new-project-name').simulate('change', mockEvent);
+    wrapper.find('.name-input').simulate('change', mockEvent1);
+    wrapper.find('.new-project-name').simulate('change', mockEvent2);
 
-    expect(wrapper.state('project_name')).toEqual('howdy');
+    expect(wrapper.state('palette_name')).toEqual('test pal');
+    expect(wrapper.state('project_name')).toEqual('test proj');
 
     await wrapper.find('.save-btn').simulate('click');
 
-    await expect(mockUpdateProjectData).toHaveBeenCalled();
+    await expect(instance.sendFormData).toHaveBeenCalled();
   })
 
 })

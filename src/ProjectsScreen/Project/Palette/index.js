@@ -26,7 +26,7 @@ function Palette(props) {
 				onClick={() => {
 					props.updatePaletteData({ ...props.data, project_id: props.projectID }, 'delete');
 				}}
-			/>
+      />
 			{paletteColors}
 			<p
 				className="palette-title"

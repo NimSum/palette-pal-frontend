@@ -6,6 +6,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   baseUrl = 'https://palette-pal-be.herokuapp.com/';
 }
 
+
 export const urls = {
   projWithPaletes: `${baseUrl}api/v1/projects?palettes=included`,
   projects: `${baseUrl}api/v1/projects`,

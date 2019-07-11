@@ -11,7 +11,8 @@ class Dialog extends Component {
       user_name: '',
       password: '',
       email: '',
-      showConf: false
+      showConf: false,
+      error: ''
     }
   }
 
@@ -44,7 +45,27 @@ class Dialog extends Component {
     }
   }
   
-  handleClick = async () => {
+  handleClick = () => {
+    const { type } = this.props;
+    const { project_name, user_name, password, email, palette_name, project_id } = this.state;
+    let error;
+
+    if (type === 'newPalette' && (!palette_name || (!project_name && !project_id))) {
+      error = 'Please enter a palette name and project';
+    } else if (type === 'newProject' && !project_name) {
+      error = 'Please enter a project name';
+    } else if (type === 'login' && (!email || !password)) {
+      error = 'Please enter both an email and password';
+    } else if (type === 'signup' && (!email || !password || !user_name)) {
+      error = 'Please enter your email, a username, and a password';
+    } else if (type !== 'account') {
+      error = '';
+      this.sendFormData();
+    }
+    this.setState({ error }) 
+  }
+
+  sendFormData = async () => {
     const { palette_name, project_id, project_name, email, user_name, password } = this.state;
     const { type, primaryAction } = this.props;
     let result;
@@ -59,7 +80,7 @@ class Dialog extends Component {
     } else if (type === "login") {
       result = await primaryAction({ email, password });
     } else if (type === "signup") {
-      result = await primaryAction({ email, user_name, password });
+      result = await primaryAction({ email, user_name, password }).catch(error => this.setState({error}));
     }
     this.conveyResult(result);
   }
@@ -177,6 +198,7 @@ class Dialog extends Component {
       const primaryBtn = type === "signup" || type === "login" ? "Go" : "Save";
       const palFields = type === "newPalette" ? this.getPaletteFields() : null;
       const authFields = type === "signup" || type === "login" ? this.getAuthFields() : null;
+      const error = this.state.error ? <div className="form-error">! {this.state.error}</div> : null;
 
       const buttons = type !== 'account' ? <>
         <button className="dialog-btn cancel-btn" type="button" onClick={closeDialog} >Cancel</button >
@@ -189,6 +211,7 @@ class Dialog extends Component {
           {this.getPrimaryField()}
           {palFields}
           {authFields}
+          {error}
           <div className="dialog-btns">
             {buttons}
           </div>
@@ -197,6 +220,8 @@ class Dialog extends Component {
     } else {
       content = this.getConfMessage();
     }
+
+  
     return (
       <div className="dialog-overlay">
         <div className="popup">
