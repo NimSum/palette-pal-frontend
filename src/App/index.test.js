@@ -93,44 +93,61 @@ describe('App', () => {
     })
   })
   
-  describe.skip('updateProjectData', () => {
-    const mockProject = mockData.mockProjects[1];
+  describe('updateProjectData', () => {
+    const mockProject = mockData.mockCleanedProject;
+
+    requests.postProject.mockImplementation(() => Promise.resolve(1))
+    requests.deleteProject.mockImplementation(() => Promise.resolve('UPDATED'))
+    requests.putProject.mockImplementation(() => Promise.resolve('UPDATED'))
 
     it("should trigger post request for 'add' action", async () => {
-
+      instance.updateProjectData(mockProject, 'add');
+      expect(requests.postProject).toHaveBeenCalledWith(mockProject);
     })
 
     it("should trigger delete request for 'delete' action", async () => {
-
+      instance.updateProjectData(mockProject, 'delete');
+      expect(requests.deleteProject).toHaveBeenCalledWith(mockProject.id);
     })
 
     it("should trigger put request for 'update' action", async () => {
-
+      instance.updateProjectData(mockProject, 'update');
+      expect(requests.putProject).toHaveBeenCalledWith(mockProject);
     })
 
-    it("should setState new userData after after api requests completion", async () => {
-
+    it("should setState error for failed requests", async () => {
+      await instance.updateProjectData(mockProject, 'add');
+      expect(wrapper.state().err).toEqual("Failed to Update");
     })
     
   })
  
-  describe.skip('updatePaletteData', () => {
+  describe('updatePaletteData', () => {
     const mockPalette = mockData.mockPalettes[1];
-
+    requests.postPalette.mockImplementation(() => Promise.resolve(1));
+    requests.deletePalette.mockImplementation(() => Promise.resolve("DONE"));
+    
+    beforeEach(() => {
+      wrapper.setState({ userData: [mockData.mockProjects[1]] })
+    })
     it("should trigger post request for 'add' action", async () => {
-
+      await instance.updatePaletteData(mockPalette, 'add');
+      expect(requests.postPalette).toHaveBeenCalledWith(mockPalette)
     })
 
     it("should trigger delete request for 'delete' action", async () => {
-
+      await instance.updatePaletteData(mockPalette, 'delete');
+      expect(requests.deletePalette).toHaveBeenCalledWith(mockPalette.id)
     })
 
     it("should trigger put request for 'update' action", async () => {
-
+      await instance.updatePaletteData(mockPalette, 'update');
+      expect(requests.putPalette).toHaveBeenCalledWith(mockPalette)
     })
 
-    it("should setState new userData after after api requests completion", async () => {
-
+    it("should setState error if any requests fail", async () => {
+      await instance.updatePaletteData(mockPalette, 'update');
+      expect(wrapper.state().err).toEqual('Failed to Update')
     })
   })
 })
