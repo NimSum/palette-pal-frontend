@@ -4,6 +4,7 @@
 //   palettes: 'https://palette-pal-be.herokuapp.com/api/v1/palettes'
 // }
 
+
 export const urls = {
   projWithPaletes: 'http://localhost:3005/api/v1/projects?palettes=included',
   projects: 'http://localhost:3005/api/v1/projects',

@@ -24,7 +24,6 @@ class App extends Component {
 
   componentDidMount() {
     this.checkForLogin();
-		// this.getProjectData();
   }
 
   checkForLogin = async () => {
@@ -51,22 +50,13 @@ class App extends Component {
     const res = await requests.postNewUser(user)
       .catch(err => this.setState({ err }));
     
-    if (res) console.log(res);
+    return res;
   }
 
   logUserOut = () => {
     localStorage.setItem('user_token', JSON.stringify(''))
-    
     this.setState({ userData: [] })
   }
-
-	// getProjectData = async () => {
-  //   const res = await requests.getDetailedProjects()
-  //     .catch(err => this.setState({ err }));
-
-    
-	// 	this.setState({ projectData, loading: false });
-	// };
 
 	updateProjectData = async (proj, action) => {
     let userData = this.state.userData;
@@ -79,8 +69,8 @@ class App extends Component {
     } else if (action === 'delete') {
       res = await requests.deleteProject(id).catch(err => this.setState({err}));
       userData = userData.filter(i => i.id !== id);
-		} else if (action === 'update') {
-      res = await requests.putProject(proj).catch(err => this.setState({err}));
+    } else if (action === 'update') {
+      res = await requests.putProject(proj).catch(err => this.setState({ err }));
 			userData[userData.findIndex(i => i.id === id)].name = project_name;
 		}
 		this.setState({ userData });
