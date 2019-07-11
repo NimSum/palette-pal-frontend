@@ -36,11 +36,16 @@ class ProjectsScreen extends Component {
       dialog = <Dialog
         title="Create New Project"
         type="newProject"
+        projects={this.props.data.map(i => i.name)}
         closeDialog={this.closeDialog}
         primaryAction={this.props.updateProjectData}
       />
     } else if (this.state.showDialog && !this.props.data.length) {
-      dialog = <Dialog type='account' title="Account Needed" closeDialog={() => this.setState({ showDialog: false })} />
+      dialog = <Dialog
+        type="account"
+        title="Account Needed"
+        closeDialog={() => this.setState({ showDialog: false })}
+      />
     }
 
     const data = !this.state.project ? this.props.data

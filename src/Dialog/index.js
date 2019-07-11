@@ -46,7 +46,7 @@ class Dialog extends Component {
   }
   
   handleClick = () => {
-    const { type } = this.props;
+    const { type, projects } = this.props;
     const { project_name, user_name, password, email, palette_name, project_id } = this.state;
     let error;
 
@@ -54,7 +54,9 @@ class Dialog extends Component {
       error = 'Please enter a palette name and project';
     } else if (type === 'newProject' && !project_name) {
       error = 'Please enter a project name';
-    } else if (type === 'login' && (!email || !password)) {
+    } else if (type === 'newProject' && projects.includes(project_name)) {
+      error = 'Project name already in use';
+    }else if (type === 'login' && (!email || !password)) {
       error = 'Please enter both an email and password';
     } else if (type === 'signup' && (!email || !password || !user_name)) {
       error = 'Please enter your email, a username, and a password';
@@ -86,11 +88,9 @@ class Dialog extends Component {
   }
 
   conveyResult = result => {
-    console.log(result)
     if (!result) {
       this.setState({ showError: true });
     } else {
-      console.log(this.setState)
       this.setState({
         palette_name: '',
         project_name: '',
@@ -103,7 +103,6 @@ class Dialog extends Component {
         this.props.closeDialog();
         this.setState({ showConf: false })
       }, 2000))
-      console.log(this.state)
     }
   }
 
