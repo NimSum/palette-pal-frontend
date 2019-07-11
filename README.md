@@ -31,7 +31,7 @@ This was an app inspired by palette picker websites like Coolers or HTMLColorCod
 
 ## Getting Started
 
-You can view this application live on Heroku at: https://palette-pal-be.herokuapp.com/ !
+You can view this application live on Heroku at: https://palette-pal-fe.herokuapp.com/ !
 
 OR
 
