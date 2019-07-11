@@ -88,11 +88,9 @@ class Dialog extends Component {
   }
 
   conveyResult = result => {
-    console.log(result)
     if (!result) {
       this.setState({ showError: true });
     } else {
-      console.log(this.setState)
       this.setState({
         palette_name: '',
         project_name: '',
@@ -105,7 +103,6 @@ class Dialog extends Component {
         this.props.closeDialog();
         this.setState({ showConf: false })
       }, 2000))
-      console.log(this.state)
     }
   }
 
