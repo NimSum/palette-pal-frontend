@@ -80,7 +80,7 @@ class Dialog extends Component {
     } else if (type === "login") {
       result = await primaryAction({ email, password });
     } else if (type === "signup") {
-      result = await primaryAction({ email, user_name, password });
+      result = await primaryAction({ email, user_name, password }).catch(error => this.setState({error}));
     }
     this.conveyResult(result);
   }

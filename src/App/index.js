@@ -50,12 +50,11 @@ class App extends Component {
     const res = await requests.postNewUser(user)
       .catch(err => this.setState({ err }));
     
-    if (res) console.log(res);
+    return res;
   }
 
   logUserOut = () => {
     localStorage.setItem('user_token', JSON.stringify(''))
-    
     this.setState({ userData: [] })
   }
 
