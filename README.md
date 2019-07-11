@@ -15,7 +15,7 @@
 
 This app was created by Nim Garcia and Lynne Rang.
 
-This project is a Turing front-end development project focused on working with React, Redux, and and Enzyme/Jest on the front-end and Express, Knex, SQL, Postgres, and middleware on the back-end.
+This project is a Turing front-end development project focused on working with React and and Enzyme/Jest on the front-end and Express, Knex, SQL, Postgres, and middleware on the back-end.
 
 This was an app inspired by palette picker websites like Coolers or HTMLColorCodes for generating and editing different color palettes.  In this app, you can also save and manage palettes within different projects/categories and edit them after they are saved.
 
