@@ -24,8 +24,8 @@ This was an app inspired by palette picker websites like Coolers or HTMLColorCod
 
 ![Home page](/screenshots/1.png)
 ![Home page held colors](/screenshots/2.png)
-![Projects page](/screenshots/3.png)
 ![Projects page edit color](/screenshots/4.png)
+![Projects page](/screenshots/3.png)
 ![Login](/screenshots/5.png)
 
 
@@ -97,7 +97,7 @@ Then, go to `http://localhost:3000/` in your browser to see the code running in 
 
 Given the limited time frame, we created a high-fidelity prototype of the design on Figma to have a more detailed idea of where we wanted everything to go on the different pages.
 
-![Figma designs](/screenshots6/.png)
+![Figma designs](/screenshots/7.png)
 
 
 ## Future Plans
