@@ -50,6 +50,7 @@ class App extends Component {
     const res = await requests.postNewUser(user)
       .catch(err => this.setState({ err }));
     
+    if (res) this.logUserIn({ email: user.email, password: user.password });
     return res;
   }
 
