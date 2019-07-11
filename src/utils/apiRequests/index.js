@@ -1,16 +1,18 @@
-// const urls = {
-//   projWithPaletes: 'https://palette-pal-be.herokuapp.com/api/v1/projects?palettes=included',
-//   projects: 'https://palette-pal-be.herokuapp.com/api/v1/projects',
-//   palettes: 'https://palette-pal-be.herokuapp.com/api/v1/palettes'
-// }
+
+let baseUrl;
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  baseUrl = 'http://localhost:3005/';
+} else {
+  baseUrl = 'https://palette-pal-be.herokuapp.com/';
+}
 
 
 export const urls = {
-  projWithPaletes: 'http://localhost:3005/api/v1/projects?palettes=included',
-  projects: 'http://localhost:3005/api/v1/projects',
-  palettes: 'http://localhost:3005/api/v1/palettes',
-  signUp: 'http://localhost:3005/auth/signup',
-  login: 'http://localhost:3005/auth/login'
+  projWithPaletes: `${baseUrl}api/v1/projects?palettes=included`,
+  projects: `${baseUrl}api/v1/projects`,
+  palettes: `${baseUrl}api/v1/palettes`,
+  signUp: `${baseUrl}auth/signup`,
+  login: `${baseUrl}auth/login`
 }
 
 const requests = {

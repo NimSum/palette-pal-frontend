@@ -63,18 +63,22 @@ class App extends Component {
     const { id, project_name } = proj;
 		let res;
 
-    if (action === 'add') {
-      res = await requests.postProject(proj).catch(err => this.setState({ err }));
-			userData.push({ name: project_name, id: res, palettes: [] });
-    } else if (action === 'delete') {
-      res = await requests.deleteProject(id).catch(err => this.setState({err}));
-      userData = userData.filter(i => i.id !== id);
-    } else if (action === 'update') {
-      res = await requests.putProject(proj).catch(err => this.setState({ err }));
-			userData[userData.findIndex(i => i.id === id)].name = project_name;
-		}
-		this.setState({ userData });
-		return res;
+    try {
+      if (action === 'add') {
+        res = await requests.postProject(proj);
+        userData.push({ name: project_name, id: res, palettes: [] });
+      } else if (action === 'delete') {
+        res = await requests.deleteProject(id)
+        userData = userData.filter(i => i.id !== id);
+      } else if (action === 'update') {
+        res = await requests.putProject(proj)
+        userData[userData.findIndex(i => i.id === id)].name = project_name;
+      }
+      this.setState({ userData });
+      return res;
+    } catch(err) {
+      this.setState({ err: "Failed to Update" })
+    }
 	};
 
   updatePaletteData = async (palette, action) => {
@@ -83,39 +87,37 @@ class App extends Component {
     const project = userData.find(proj => +proj.id === +project_id);
     const projIndex = userData.findIndex(proj => +proj.id === +project.id);
     let res;
-    
-    if (action === 'add') {
-      res = await requests.postPalette(palette).catch(err => this.setState({ err }));
-      await userData[projIndex].palettes.push({
-        name: palette_name,
-        id: res,
-        color_1: palette.color_1,
-        color_2: palette.color_2,
-        color_3: palette.color_3,
-        color_4: palette.color_4,
-        color_5: palette.color_5
-      });
-    } else if (action === 'delete') {
-      res = await requests.deletePalette(id)
-        .catch(err => this.setState({ err }));
-      
-      userData[projIndex].palettes = userData[projIndex].palettes
-        .filter(i => i.id !== id);
-    } else if (action === 'update') {
-      res = await requests.putPalette(palette)
-        .catch(err => this.setState({ err }));
-      
-      const palIndex = userData[projIndex].palettes
-        .findIndex(pal => +pal.id === +id);
-      
-      userData[projIndex].palettes[palIndex] = {
-        ...userData[projIndex].palettes[palIndex],
-        ...palette,
-        name: palette_name
-      };
+    try {
+      if (action === 'add') {
+        res = await requests.postPalette(palette)
+        await userData[projIndex].palettes.push({
+          name: palette_name,
+          id: res,
+          color_1: palette.color_1,
+          color_2: palette.color_2,
+          color_3: palette.color_3,
+          color_4: palette.color_4,
+          color_5: palette.color_5
+        });
+      } else if (action === 'delete') {
+        res = await requests.deletePalette(id)
+        userData[projIndex].palettes = userData[projIndex].palettes
+          .filter(i => i.id !== id);
+      } else if (action === 'update') {
+        res = await requests.putPalette(palette)
+        const palIndex = userData[projIndex].palettes
+          .findIndex(pal => +pal.id === +id);
+        userData[projIndex].palettes[palIndex] = {
+          ...userData[projIndex].palettes[palIndex],
+          ...palette,
+          name: palette_name
+        };
+      }
+      this.setState({ userData });
+      return res;
+    } catch(err) {
+      this.setState({ err: "Failed to Update"})
     }
-    this.setState({ userData });
-    return res;
   };
 
   render() {
