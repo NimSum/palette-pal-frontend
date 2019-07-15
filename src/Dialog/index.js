@@ -127,7 +127,12 @@ class Dialog extends Component {
   
   getPaletteFields = () => {
     const { colors, data } = this.props;
-    const colorDivs = Object.values(colors).map(color => <div className="preview-color" key={color} style={{ backgroundColor: color }}></div>);
+    const colorDivs = Object.values(colors).map(color =>
+      <div
+        className="preview-color"
+        key={color}
+        style={{ backgroundColor: color }}>
+      </div>);
     const projOptions = data.map(i => <option key={i.id} id={i.id} value={i.id}>{i.name}</option>);
 
     return (
@@ -185,7 +190,6 @@ class Dialog extends Component {
       const record = type.split('w')[1];
       message = `${record} successfully created!`;
     }
-
     return message;
   }
 
@@ -200,8 +204,16 @@ class Dialog extends Component {
       const error = this.state.error ? <div className="form-error">! {this.state.error}</div> : null;
 
       const buttons = type !== 'account' ? <>
-        <button className="dialog-btn cancel-btn" type="button" onClick={closeDialog} >Cancel</button >
-        <button className="dialog-btn save-btn" type="button" onClick={this.handleClick}>{primaryBtn}</button>
+        <button
+          className="dialog-btn cancel-btn"
+          type="button"
+          onClick={closeDialog}
+        >Cancel</button >
+        <button
+          className="dialog-btn save-btn"
+          type="button"
+          onClick={this.handleClick}
+        >{primaryBtn}</button>
       </> : null;
       
       content = (
