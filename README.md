@@ -19,6 +19,7 @@ This project is a Turing front-end development project focused on working with R
 
 This was an app inspired by palette picker websites like Coolers or HTMLColorCodes for generating and editing different color palettes.  In this app, you can also save and manage palettes within different projects/categories and edit them after they are saved.
 
+### [Palette Pal API](https://github.com/NimSum/palette-pal-backend)
 
 ## Screenshots
 
