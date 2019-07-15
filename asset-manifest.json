@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/palette-pal-frontend/static/css/main.61691ef3.chunk.css",
-    "main.js": "/palette-pal-frontend/static/js/main.bacffefd.chunk.js",
-    "main.js.map": "/palette-pal-frontend/static/js/main.bacffefd.chunk.js.map",
+    "main.js": "/palette-pal-frontend/static/js/main.2c999e35.chunk.js",
+    "main.js.map": "/palette-pal-frontend/static/js/main.2c999e35.chunk.js.map",
     "runtime~main.js": "/palette-pal-frontend/static/js/runtime~main.238f5916.js",
     "runtime~main.js.map": "/palette-pal-frontend/static/js/runtime~main.238f5916.js.map",
-    "static/js/2.cdae5da1.chunk.js": "/palette-pal-frontend/static/js/2.cdae5da1.chunk.js",
-    "static/js/2.cdae5da1.chunk.js.map": "/palette-pal-frontend/static/js/2.cdae5da1.chunk.js.map",
+    "static/js/2.85b827e9.chunk.js": "/palette-pal-frontend/static/js/2.85b827e9.chunk.js",
+    "static/js/2.85b827e9.chunk.js.map": "/palette-pal-frontend/static/js/2.85b827e9.chunk.js.map",
     "index.html": "/palette-pal-frontend/index.html",
-    "precache-manifest.93344b99db68996ce6d1436c3d9af1dd.js": "/palette-pal-frontend/precache-manifest.93344b99db68996ce6d1436c3d9af1dd.js",
+    "precache-manifest.ec8a1ee008c236d94777a871c167c7d6.js": "/palette-pal-frontend/precache-manifest.ec8a1ee008c236d94777a871c167c7d6.js",
     "service-worker.js": "/palette-pal-frontend/service-worker.js",
     "static/css/main.61691ef3.chunk.css.map": "/palette-pal-frontend/static/css/main.61691ef3.chunk.css.map"
   }
