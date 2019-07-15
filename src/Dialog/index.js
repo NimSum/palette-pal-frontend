@@ -120,7 +120,7 @@ class Dialog extends Component {
       <>
         {usernameField}
         <label htmlFor="password">Password:</label>
-        <input name="password" onChange={this.handleChange}></input>
+        <input name="password" type="password" onChange={this.handleChange}></input>
       </>
     )
   }
