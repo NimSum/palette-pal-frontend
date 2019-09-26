@@ -14,12 +14,14 @@ function PublicPalette(props) {
         key={props.data.id}
         style={{ backgroundColor: color }}
       >
-        <p
-          className="color-hex"
-          style={{ color: colorContraster(color) }}
-        >
-          {colorFormatter(color, props.format)}
-        </p>
+        { isColorCodeVisible &&
+          <p
+            className="color-hex"
+            style={{ color: colorContraster(color), opacity: .8 }}
+          >
+            {colorFormatter(color, props.format)}
+          </p>
+        }
       </div>);
 	}
 
