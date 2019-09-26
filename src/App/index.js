@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import requests from '../utils/apiRequests';
 import Header from '../Header';
 import PickerScreen from '../PickerScreen';
+import AllPalettesContainer from '../AllPalettesContainer';
 import ProjectsScreen from '../ProjectsScreen';
 import ErrorScreen from '../ErrorScreen';
 import Dialog from '../Dialog'
@@ -138,18 +139,25 @@ class App extends Component {
           <Header logUserIn={this.logUserIn} signUserUp={this.signUserUp} logUserOut={this.logUserOut} />
 				<main className="main">
 					<Switch>
-              <Route
-                exact
-                path="/"
-                component={() => (
-                  <PickerScreen
-                    data={this.state.userData}
-                    updateProjectData={this.updateProjectData}
-                    updatePaletteData={this.updatePaletteData}
-                    showAcctDialog={() => this.setState({showAcctDialog: true})}
-                />
-                )}
-                />
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <PickerScreen
+                  data={this.state.userData}
+                  updateProjectData={this.updateProjectData}
+                  updatePaletteData={this.updatePaletteData}
+                  showAcctDialog={() => this.setState({showAcctDialog: true})}
+              />
+              )}
+              />
+            <Route
+              exact
+              path="/palettes"
+              component={() => (
+                <AllPalettesContainer />
+              )}
+            />
 						<Route
 							exact
 							path="/projects"

@@ -1,0 +1,20 @@
+
+.PublicPalette {
+  display: flex;
+  flex-direction: column; 
+  padding: 40px;
+  height: 100%;
+  width: 33%;
+  text-decoration: none;
+  position: relative;
+  border-bottom: 1px solid rgb(232, 232, 232);
+
+  .public-palette-color {
+    font-size: 1.2rem;
+    min-width: 150px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
