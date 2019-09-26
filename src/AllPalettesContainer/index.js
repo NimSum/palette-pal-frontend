@@ -15,7 +15,6 @@ export default function AllPalettesContainer() {
       data={palette}
       key={palette.id}
       // format={props.format}
-      // projectID={props.data.id}
       // updatePaletteData={props.updatePaletteData}
     />);
 
