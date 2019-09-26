@@ -42,7 +42,7 @@ class Header extends Component {
 							Pick New Palette
 						</NavLink>
             <NavLink exact to="/palettes" className="nav-link">
-							Browse Palettes
+							Explore Palettes
 						</NavLink>
 						<NavLink exact to="/projects" className="nav-link">
 							My Projects
