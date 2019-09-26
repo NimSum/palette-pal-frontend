@@ -10,6 +10,15 @@ export default function AllPalettesContainer() {
     setPalettes(fetchedPaletttes);
   }
 
+  const paletteElements = palettes.map(palette => 
+    <PublicPalette
+      data={palette}
+      key={palette.id}
+      // format={props.format}
+      // projectID={props.data.id}
+      // updatePaletteData={props.updatePaletteData}
+    />);
+
   useEffect(() => {
     fetchPalettes();
   }, []);
@@ -17,6 +26,7 @@ export default function AllPalettesContainer() {
   return (
     <div>
       HIII
+      {paletteElements}
     </div>
   )
 }

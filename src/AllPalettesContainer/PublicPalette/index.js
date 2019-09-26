@@ -1,5 +1,5 @@
 import React from 'react';
-import PaletteColor from './PaletteColor';
+import PublicPaletteColor from './PublicPaletteColor';
 
 function Palette(props) {
 	const paletteColors = [];
@@ -7,7 +7,7 @@ function Palette(props) {
   for (let i = 1; i <= 5; i++) {
     const color = props.data[`color_${i}`];
     
-    paletteColors.push(<PaletteColor
+    paletteColors.push(<PublicPaletteColor
       color={color}
       palette_id={props.data.id}
       palette_name={props.data.name}
