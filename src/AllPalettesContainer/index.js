@@ -1,5 +1,6 @@
 import React, { useState ,useEffect } from 'react'
 import requests from '../utils/apiRequests';
+import PublicPalette from './PublicPalette/';
 
 export default function AllPalettesContainer() {
   const [palettes, setPalettes] = useState([]);
