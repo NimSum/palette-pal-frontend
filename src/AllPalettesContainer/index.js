@@ -24,9 +24,8 @@ export default function AllPalettesContainer() {
   }, []);
 
   return (
-    <div>
-      HIII
+    <section className="AllPalettesContainer">
       {paletteElements}
-    </div>
+    </section>
   )
 }
