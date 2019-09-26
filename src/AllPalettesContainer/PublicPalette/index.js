@@ -31,4 +31,4 @@ function Palette(props) {
 	);
 }
 
-export default Palette;
+export default PublicPalette;
