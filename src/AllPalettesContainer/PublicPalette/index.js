@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import colorFormatter from '../../utils/colorFormatter';
 import colorContraster from '../../utils/colorContraster';
 
 function PublicPalette(props) {
-	const paletteColors = [];
+  const paletteColors = [];
+  const [isColorCodeVisible, showColorCode] = useState(false);
 
   for (let i = 1; i <= 5; i++) {
     const color = props.data[`color_${i}`];
@@ -23,13 +24,12 @@ function PublicPalette(props) {
 	}
 
 	return (
-		<div className="PublicPalette">
+    <div 
+      className="PublicPalette"
+      onMouseEnter={() => showColorCode(true)}
+      onMouseLeave={() => showColorCode(false)}
+    >
 			{paletteColors}
-			<p
-				className="public-palette-title"
-        >
-				{props.data.name}
-			</p>
 		</div>
 	);
 }
