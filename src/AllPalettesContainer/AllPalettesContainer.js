@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { useState ,useEffect } from 'react'
+import requests from '../utils/apiRequests';
 
-export default class AllPalettesContainer extends Component {
-  render() {
-    return (
-      <div>
-        All Palettes
-      </div>
-    )
-  }
+export default function AllPalettesContainer() {
+
+  return (
+    <div>
+      HIII
+    </div>
+  )
 }

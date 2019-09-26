@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import requests from '../utils/apiRequests';
 import Header from '../Header';
 import PickerScreen from '../PickerScreen';
+import AllPalettesContainer from '../AllPalettesContainer/AllPalettesContainer';
 import ProjectsScreen from '../ProjectsScreen';
 import ErrorScreen from '../ErrorScreen';
 import Dialog from '../Dialog'
@@ -150,6 +151,13 @@ class App extends Component {
               />
               )}
               />
+            <Route
+              exact
+              path="/palettes"
+              component={() => (
+                <AllPalettesContainer />
+              )}
+            />
 						<Route
 							exact
 							path="/projects"
