@@ -138,18 +138,18 @@ class App extends Component {
           <Header logUserIn={this.logUserIn} signUserUp={this.signUserUp} logUserOut={this.logUserOut} />
 				<main className="main">
 					<Switch>
-              <Route
-                exact
-                path="/"
-                component={() => (
-                  <PickerScreen
-                    data={this.state.userData}
-                    updateProjectData={this.updateProjectData}
-                    updatePaletteData={this.updatePaletteData}
-                    showAcctDialog={() => this.setState({showAcctDialog: true})}
-                />
-                )}
-                />
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <PickerScreen
+                  data={this.state.userData}
+                  updateProjectData={this.updateProjectData}
+                  updatePaletteData={this.updatePaletteData}
+                  showAcctDialog={() => this.setState({showAcctDialog: true})}
+              />
+              )}
+              />
 						<Route
 							exact
 							path="/projects"
