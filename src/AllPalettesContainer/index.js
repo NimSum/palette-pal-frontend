@@ -5,12 +5,15 @@ import PublicPalette from './PublicPalette/';
 export default function AllPalettesContainer() {
   const [palettes, setPalettes] = useState([]);
   const [hasErrored, setError] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const fetchPalettes = async () => {
+    setLoading(true);
     try {
       const fetchedPaletttes = await requests.getPalettes();
       setPalettes(fetchedPaletttes);
-      setError(false)
+      setError(false);
+      setLoading(false);
     } catch(error) {
       setError(true)
     }
@@ -32,6 +35,7 @@ export default function AllPalettesContainer() {
     <section className="AllPalettesContainer">
       {paletteElements}
       {hasErrored && <h2>Something went wrong :(</h2>}
+      {isLoading && <h3>Loading palettes...</h3>}
     </section>
   )
 }
