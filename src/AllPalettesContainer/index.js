@@ -3,9 +3,11 @@ import requests from '../utils/apiRequests';
 import PublicPalette from './PublicPalette/';
 import SubHeader from '../SubHeader';
 import Dialog from '../Dialog';
+import { Redirect } from 'react-router-dom';
 
 export default function AllPalettesContainer() {
   const [palettes, setPalettes] = useState([]);
+  const [isRedirect, setRedirect] = useState(false);
   const [hasErrored, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isDialogVisible, showDialog] = useState(false);
@@ -13,6 +15,10 @@ export default function AllPalettesContainer() {
   const toggleDialog = (onOff) => {
     showDialog(onOff);
   };
+
+  const newPaletteRedirect = () => {
+    setRedirect(true);
+  }
 
   const fetchPalettes = async () => {
     setLoading(true);
@@ -40,9 +46,11 @@ export default function AllPalettesContainer() {
 
   return (
     <section className="AllPalettesContainer">
+      {isRedirect && <Redirect to="/" />}
       <SubHeader 
         title="Pick New Palette"
         btnTitle="Generate New Palette"
+        handleClick={newPaletteRedirect}
         data={palettes}
       />
       <div className="palette-container-styling">
