@@ -19,7 +19,7 @@ export default function AllPalettesContainer() {
     }
   }
 
-  const paletteElements = palettes.map(palette => 
+  const paletteElements = palettes.reverse().map(palette => 
     <PublicPalette
       data={palette}
       key={palette.id}
