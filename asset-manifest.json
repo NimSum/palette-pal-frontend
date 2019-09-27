@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/palette-pal-frontend/static/css/main.3eb7f7d4.chunk.css",
-    "main.js": "/palette-pal-frontend/static/js/main.e19546a5.chunk.js",
-    "main.js.map": "/palette-pal-frontend/static/js/main.e19546a5.chunk.js.map",
+    "main.css": "/palette-pal-frontend/static/css/main.9db3e90f.chunk.css",
+    "main.js": "/palette-pal-frontend/static/js/main.3640ede3.chunk.js",
+    "main.js.map": "/palette-pal-frontend/static/js/main.3640ede3.chunk.js.map",
     "runtime~main.js": "/palette-pal-frontend/static/js/runtime~main.238f5916.js",
     "runtime~main.js.map": "/palette-pal-frontend/static/js/runtime~main.238f5916.js.map",
-    "static/js/2.8d0ef6a9.chunk.js": "/palette-pal-frontend/static/js/2.8d0ef6a9.chunk.js",
-    "static/js/2.8d0ef6a9.chunk.js.map": "/palette-pal-frontend/static/js/2.8d0ef6a9.chunk.js.map",
+    "static/js/2.bd5cfebf.chunk.js": "/palette-pal-frontend/static/js/2.bd5cfebf.chunk.js",
+    "static/js/2.bd5cfebf.chunk.js.map": "/palette-pal-frontend/static/js/2.bd5cfebf.chunk.js.map",
     "index.html": "/palette-pal-frontend/index.html",
-    "precache-manifest.62370ed2e519742023695d229ac36020.js": "/palette-pal-frontend/precache-manifest.62370ed2e519742023695d229ac36020.js",
+    "precache-manifest.ab0a30ecb6d44a2be33baaa51377ebe6.js": "/palette-pal-frontend/precache-manifest.ab0a30ecb6d44a2be33baaa51377ebe6.js",
     "service-worker.js": "/palette-pal-frontend/service-worker.js",
-    "static/css/main.3eb7f7d4.chunk.css.map": "/palette-pal-frontend/static/css/main.3eb7f7d4.chunk.css.map"
+    "static/css/main.9db3e90f.chunk.css.map": "/palette-pal-frontend/static/css/main.9db3e90f.chunk.css.map"
   }
 }
