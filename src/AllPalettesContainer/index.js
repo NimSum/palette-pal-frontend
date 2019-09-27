@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom';
 export default function AllPalettesContainer() {
   const [palettes, setPalettes] = useState([]);
   const [isRedirect, setRedirect] = useState(false);
+  const [colorFormat, setColorFormat] = useState('hex');
   const [hasErrored, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isDialogVisible, showDialog] = useState(false);
@@ -20,11 +21,15 @@ export default function AllPalettesContainer() {
     setRedirect(true);
   }
 
+  const handleColorFormat = ({ format }) => {
+    setColorFormat(format);
+  };
+
   const fetchPalettes = async () => {
     setLoading(true);
     try {
       const fetchedPaletttes = await requests.getPalettes();
-      setPalettes(fetchedPaletttes);
+      setPalettes(fetchedPaletttes.reverse());
       setError(false);
       setLoading(false);
     } catch(error) {
@@ -32,11 +37,11 @@ export default function AllPalettesContainer() {
     }
   }
 
-  const paletteElements = palettes.reverse().map(palette => 
+  const paletteElements = palettes.map(palette => 
     <PublicPalette
       data={palette}
       key={palette.id}
-      // format={props.format}
+      format={colorFormat}
       // updatePaletteData={props.updatePaletteData}
     />);
 
@@ -51,6 +56,7 @@ export default function AllPalettesContainer() {
         title="Pick New Palette"
         btnTitle="Generate New Palette"
         handleClick={newPaletteRedirect}
+        setOption={handleColorFormat}
         data={palettes}
       />
       <div className="palette-container-styling">
