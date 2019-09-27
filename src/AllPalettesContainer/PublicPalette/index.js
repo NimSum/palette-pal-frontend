@@ -17,7 +17,7 @@ function PublicPalette(props) {
         { isColorCodeVisible &&
           <p
             className="color-hex"
-            style={{ color: colorContraster(color), opacity: .8 }}
+            style={{ color: colorContraster(color) }}
           >
             {colorFormatter(color, props.format)}
           </p>

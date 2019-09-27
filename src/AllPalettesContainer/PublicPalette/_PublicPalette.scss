@@ -16,5 +16,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .color-hex {
+      animation: 250ms opacity-change ease-in-out;
+    }
+
+    @keyframes opacity-change {
+      from {
+        opacity: .1;
+      } to {
+        opacity: .7;
+      }
+    }
   }
 }
