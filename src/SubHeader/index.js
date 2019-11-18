@@ -1,78 +1,110 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class SubHeader extends Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      format: 'hex',
-      mode: 'random',
-      project: ''
-    }
-  }
+		this.state = {
+			format: "hex",
+			mode: "random",
+			project: "",
+			filter: "recent"
+		};
+	}
 
-  handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value });
-    this.props.setOption({ [target.name]: target.value });
-  }
-    
-  render() {
-    const btnName = this.props.title === "Pick New Palette" ? "Generate New Palette" : "Create New Project";
+	handleChange = ({ target }) => {
+		this.setState({ [target.name]: target.value });
+		this.props.setOption({ [target.name]: target.value });
+	};
 
-    const projectOptions = this.props.data.map(project => <option value={project.id} key={project.id} >{project.name}</option>)
+	render() {
+		const btnName =
+			this.props.title === "Pick New Palette"
+				? "Generate New Palette"
+				: "Create New Project";
 
-    const options = this.props.title === "Pick New Palette" ?  <>
-      <p className="dropdown-label">Mode:</p>
-      <select
-        className="dropdown-input mode-dropdown"
-        type="text"
-        name="mode"
-        value={this.state.mode}
-        onChange={this.handleChange}
-      >
-        <option value='random'>random</option>
-        <option value='complementary'>complementary</option>
-        <option value='gradient'>gradient</option>
-      </select>
-    </>
-      : <>
-        <p className="dropdown-label">Project:</p>
-        <select
-          className="dropdown-input project-dropdown"
-          type="text"
-          name="project"
-          value={this.state.filter}
-          onChange={this.handleChange}
-        >
-          <option value=''>All Projects</option>
-          {projectOptions}
-        </select>
-    </>
+		const projectOptions = this.props.data.map(project => (
+			<option value={project.id} key={project.id}>
+				{project.name}
+			</option>
+		));
 
-    return (
-      <section className="SubHeader">
-        <div className="subheader-left">
-          <h2 className="page-title">{this.props.title}</h2>
-          <button className="subheader-btn" onClick={this.props.handleClick}><i className="fas fa-play" aria-hidden="true"></i>{btnName}</button>
-        </div>
-        <div className="subheader-right">
-          <p className="dropdown-label">Format:</p>
-          <select
-            className="dropdown-input format-dropdown"
-            type="text"
-            name="format"
-            value={this.state.format}
-            onChange={this.handleChange}
-          >
-            <option value='hex'>hex</option>
-            <option value='hsl'>hsl</option>
-            <option value='rgb'>rgb</option>
-          </select>
-          {options}
-        </div>
-      </section>
-    );
-  }
+		const filterDropdown = (
+			<>
+				<p className="dropdown-label">Sort By:</p>
+				<select
+					className="dropdown-input mode-dropdown"
+					type="text"
+					name="mode"
+					value={this.state.mode}
+					onChange={this.handleChange}
+				>
+					<option value="random">random</option>
+					<option value="complementary">complementary</option>
+					<option value="gradient">gradient</option>
+				</select>
+			</>
+		);
+
+		const options =
+			this.props.title === "Pick New Palette" ? (
+				<>
+					<p className="dropdown-label">Mode:</p>
+					<select
+						className="dropdown-input mode-dropdown"
+						type="text"
+						name="mode"
+						value={this.state.mode}
+						onChange={this.handleChange}
+					>
+						<option value="random">random</option>
+						<option value="complementary">complementary</option>
+						<option value="gradient">gradient</option>
+					</select>
+				</>
+			) : (
+				<>
+					<p className="dropdown-label">Project:</p>
+					<select
+						className="dropdown-input project-dropdown"
+						type="text"
+						name="project"
+						value={this.state.filter}
+						onChange={this.handleChange}
+					>
+						<option value="">All Projects</option>
+						{projectOptions}
+					</select>
+				</>
+			);
+
+		return (
+			<section className="SubHeader">
+				<div className="subheader-left">
+					<h2 className="page-title">{this.props.title}</h2>
+					<button className="subheader-btn" onClick={this.props.handleClick}>
+						<i className="fas fa-play" aria-hidden="true"></i>
+						{btnName}
+					</button>
+				</div>
+				<div className="subheader-right">
+					<p className="dropdown-label">Format:</p>
+					<select
+						className="dropdown-input format-dropdown"
+						type="text"
+						name="format"
+						value={this.state.format}
+						onChange={this.handleChange}
+					>
+						<option value="hex">hex</option>
+						<option value="hsl">hsl</option>
+						<option value="rgb">rgb</option>
+					</select>
+					{options}
+				</div>
+			</section>
+		);
+	}
 }
 
 export default SubHeader;
